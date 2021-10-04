@@ -9,5 +9,6 @@ namespace Phumla_Kamnandi_Hotel.Business
     class Customer
     {
         private string name;
+        private string email;
     }
 }
