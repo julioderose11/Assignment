@@ -10,5 +10,8 @@ namespace Phumla_Kamnandi_Hotel.Business
     {
         private string name;
         private string email;
+        private string sName;
+
+
     }
 }
