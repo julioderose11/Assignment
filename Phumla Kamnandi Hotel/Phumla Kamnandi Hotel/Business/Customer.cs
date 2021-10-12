@@ -8,8 +8,9 @@ namespace Phumla_Kamnandi_Hotel.Business
 {
     class Customer
     {
-        private string name;
-        private string email;
-        private string heyy; 
+        private string customerID;
+        private int mobilePhone;
+        private int noOfGuests; 
     }
+
 }
