@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class Customer
+    class Customer : Person
     {
         #region Fields
         private string customerID;
@@ -33,6 +33,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             mobilePhone = cPhone;
             noOfGuests = cGuests;
         }
+
 
     }
 }
