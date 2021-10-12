@@ -16,7 +16,10 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region: methods
+        public Booking makeBooking(string refNum)
+        {
 
+        }
         #endregion
     }
 }
