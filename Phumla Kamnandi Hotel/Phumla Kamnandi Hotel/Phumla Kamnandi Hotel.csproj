@@ -46,9 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\Account.cs" />
+    <Compile Include="Business\Booking.cs" />
     <Compile Include="Business\Customer.cs" />
-    <Compile Include="Business\Staff.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
