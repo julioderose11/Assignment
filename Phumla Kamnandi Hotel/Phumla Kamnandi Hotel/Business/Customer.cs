@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class Customer:Person
+    class Customer : Person
     {
         #region Fields
         private string customerID;
-        private  int  mobilePhone;
+        private int mobilePhone;
         private int noOfGuests;
         #endregion
 
@@ -20,10 +20,10 @@ namespace Phumla_Kamnandi_Hotel.Business
             set { customerID = value; }
         }
 
-        public Customer ()           
+        public Customer()
         {
             customerID = "";
-            mobilePhone =0;
+            mobilePhone = 0;
             noOfGuests = 0;
         }
 
