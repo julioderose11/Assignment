@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\Customer.cs" />
-    <Compile Include="Business\Receptionist.cs" />
+    <Compile Include="Business\Staff.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
