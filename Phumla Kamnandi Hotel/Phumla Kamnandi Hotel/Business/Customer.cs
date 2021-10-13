@@ -23,8 +23,8 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Customer()
         {
             customerID = "";
-            mobilePhone = 0;
-            noOfGuests = 0;
+            mobilePhone = default(int);
+            noOfGuests = default(int);
         }
 
         public Customer(string cID, int cPhone, int cGuests)
