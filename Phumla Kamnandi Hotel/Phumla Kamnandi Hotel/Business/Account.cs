@@ -12,7 +12,6 @@ namespace Phumla_Kamnandi_Hotel.Business
         private string accountNum;
         private decimal amountDue;
         private decimal depositAmount;
-        private decimal random;
         //payment array needs to be added
         #endregion
 
