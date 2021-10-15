@@ -48,7 +48,7 @@ namespace Phumla_Kamnandi_Hotel
         #region ToStringMethod
         public override string ToString()
         {
-            return name + '\n' + email;
+            return "PersonID: " + personID + "\nName: " + name + "\nEmail: " + email;
         }
         #endregion
 

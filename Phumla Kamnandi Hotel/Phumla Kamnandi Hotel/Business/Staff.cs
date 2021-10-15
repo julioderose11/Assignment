@@ -21,7 +21,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region Constructor Methods
-        public Staff()
+        public Staff(): base()
         {
             employeeID = "";
         }
@@ -29,6 +29,13 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Staff(string sID)
         {
             employeeID = sID;
+        }
+        #endregion
+
+        #region: Methods
+        public override string ToString()
+        {
+            return base.ToString() + "\nEmployeeID: " + employeeID;
         }
         #endregion
     }
