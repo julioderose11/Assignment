@@ -14,12 +14,15 @@ namespace Phumla_Kamnandi_Hotel.Business
         private int noOfGuests;
         #endregion
 
+        #region Properties
         public string CustomerID
         {
             get { return customerID; }
             set { customerID = value; }
         }
+        #endregion
 
+        #region Construtor
         public Customer()
         {
             customerID = "";
@@ -33,7 +36,14 @@ namespace Phumla_Kamnandi_Hotel.Business
             mobilePhone = cPhone;
             noOfGuests = cGuests;
         }
+        #endregion
 
+        #region ToStringMethod
+        public override string ToString()
+        {
+            return customerID + '\n' + mobilePhone;
+        }
+        #endregion
 
     }
 }
