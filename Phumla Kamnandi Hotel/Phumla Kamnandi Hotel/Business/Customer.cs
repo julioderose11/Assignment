@@ -6,34 +6,45 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class Customer:Person
+    class Customer : Person
     {
         #region Fields
         private string customerID;
-        private  int  mobilePhone;
-        private int noOfGuests;
+        private int mobilePhone;
+ 
         #endregion
 
+        #region Properties
         public string CustomerID
         {
             get { return customerID; }
             set { customerID = value; }
         }
+        #endregion
 
-        public Customer ()           
+        #region Construtor
+        public Customer()
         {
             customerID = "";
-            mobilePhone =0;
-            noOfGuests = 0;
+            mobilePhone = default(int);
+ 
         }
 
-        public Customer(string cID, int cPhone, int cGuests)
+        public Customer(string cID, int cPhone)
         {
             customerID = cID;
             mobilePhone = cPhone;
-            noOfGuests = cGuests;
+
+        }
+        #endregion
+
+        #region ToStringMethod
+        public override string ToString()
+        {
+            return base.ToString() + "customerID: " + customerID + "\nPhone: " + mobilePhone;
         }
 
+        #endregion
 
     }
 }
