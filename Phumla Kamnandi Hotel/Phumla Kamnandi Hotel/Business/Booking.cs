@@ -65,11 +65,11 @@ namespace Phumla_Kamnandi_Hotel.Business
         
         }
 
-        public Booking(string RefNum, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate)
+        public Booking(string RefNum, string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate)
         {
             refNum = RefNum;
             bookingID = IdGenerator();
-            customerRequests = "";
+            customerRequests = custRequests;
             bookingDate = BookingDate;
             arrivalDate = ArrivalDate;
             departureDate = DepartureDate;
@@ -77,7 +77,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region Methods
-        public string IdGenerator()    //method to create unique id.
+        public string IdGenerator()    //method to create unique booking id.
         {
             int length = 7;
 
@@ -96,9 +96,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return str_build.ToString();
         }
-        
+        #endregion
 
-    #endregion
-
-}
+    }
 }
