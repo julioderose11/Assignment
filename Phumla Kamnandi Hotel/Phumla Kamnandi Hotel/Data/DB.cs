@@ -18,7 +18,52 @@ namespace Phumla_Kamnandi_Hotel.Data
         protected SqlConnection cnMain;
         protected DataSet dsMain;
         protected SqlDataAdapter daMain;
-        #endregion 
+        #endregion
 
+        #region Constructor
+        public DB()
+        {
+            try
+            {
+                //Open a connection & create a new dataset object
+                cnMain = new SqlConnection(strConn);
+                dsMain = new DataSet();
+            }
+            catch (SystemException e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message, "Error");
+                return;
+            }
+        }
+
+        public enum DBOperation
+        {
+            Add = 0,
+            Edit = 1,
+            Delete = 2,
+            Query = 3
+        }
+
+        #endregion
+
+        #region Update the DateSet
+        public void FillDataSet(string aSQLstring, string aTable)
+        {
+            //fills dataset fresh from the db for a specific table and with a specific Query
+            try
+            {
+                daMain = new SqlDataAdapter(aSQLstring, cnMain);
+                cnMain.Open();
+                //dsMain.Clear();
+                daMain.Fill(dsMain, aTable);
+                cnMain.Close();
+            }
+            catch (Exception errObj)
+            {
+                MessageBox.Show(errObj.Message + "  " + errObj.StackTrace);
+            }
+        }
+
+        #endregion
     }
 }
