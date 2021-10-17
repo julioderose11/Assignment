@@ -25,6 +25,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         {
             DateTime current = DateTime.UtcNow;
             string refNum = refNumGenerator();
+            
             //instantiate booking object
             Booking booking = new Booking(refNum, custRequests, current, ArrivalDate, DepartureDate);            
         }
