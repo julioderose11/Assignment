@@ -43,15 +43,36 @@ namespace Phumla_Kamnandi_Hotel.Business
             depositAmount = 0;
         }
 
-        public Account(string aNum, int aDue, int dAmnt)
+        public Account(int aDue, int dAmnt)
         {
-            accountNum = aNum;
+            accountNum = AccountNumGenerator();
             amountDue = aDue;
             depositAmount = dAmnt;
         }
         #endregion
 
         #region Methods
+        //method to create unique Account Num
+        public string AccountNumGenerator()   
+        {
+            int length = 5;
+
+            // creating a StringBuilder object()
+            StringBuilder str_build = new StringBuilder();
+            Random random = new Random();
+
+            char letter;
+
+            for (int i = 0; i < length; i++)
+            {
+                double flt = random.NextDouble();
+                int shift = Convert.ToInt32(Math.Floor(25 * flt));
+                letter = Convert.ToChar(shift + 65);
+                str_build.Append(letter);
+            }
+            return str_build.ToString();
+        }
+
         //addBooking method needs to be included
 
         //calculateDeposit method needs to be included

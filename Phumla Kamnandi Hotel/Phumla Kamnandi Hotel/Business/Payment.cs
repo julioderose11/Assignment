@@ -8,49 +8,45 @@ namespace Phumla_Kamnandi_Hotel.Business
 {
     class Payment
     {
-        #region Fields
+        #region Field
         private string paymentID, paymentType;
         private DateTime paymentDate;
         private decimal amount;
-        //payment array needs to be added
         #endregion
 
-        #region Property Methods
-        public string getPaymentID
+        #region properties
+        public string PaymentID
         {
             get { return paymentID; }
             set { paymentID = value; }
         }
-
-        public string getPaymentType
+        public string PaymentType
         {
             get { return paymentType; }
             set { paymentType = value; }
         }
 
-        public DateTime getPaymentDate
+        public DateTime PaymentDate
         {
             get { return paymentDate; }
             set { paymentDate = value; }
         }
+        public decimal Amount
+        {
+            get { return amount; }
+            set { amount = value; }
+        }
         #endregion
 
-        #region Constructors
+        #region Constructor
         public Payment()
         {
             paymentID = "";
             paymentType = "";
             paymentDate = default(DateTime);
-            amount = 0;
-        }
-
-        public Payment(string pID, string pType, DateTime pDate, decimal amnt)
-        {
-            paymentID = pID;
-            paymentType = pType;
-            paymentDate = pDate;
-            amount = amnt;
+            amount = default(decimal);
         }
         #endregion
+
     }
 }

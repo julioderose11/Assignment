@@ -10,7 +10,7 @@ namespace Phumla_Kamnandi_Hotel.Business
     {
         #region Fields
         private string bookingID;
-        private string bookingDescription;
+        private string customerRequests;
         private DateTime bookingDate;
         private DateTime arrivalDate;
         private DateTime departureDate;
@@ -24,10 +24,10 @@ namespace Phumla_Kamnandi_Hotel.Business
             set { bookingID = value; }
         }
 
-        public string getBookingDesciption
+        public string getCustomerRequests
         {
-            get { return bookingDescription; }
-            set { bookingDescription = value; }
+            get { return customerRequests; }
+            set { customerRequests = value; }
         }
         public DateTime getBookingDate
         {
@@ -57,18 +57,45 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Booking()
         {
             bookingID = "" ;
-            bookingDescription = "";
+            customerRequests = "";
             bookingDate = default(DateTime);
             arrivalDate = default(DateTime);
             departureDate = default(DateTime);
             refNum = "";
         
         }
+
+        public Booking(string RefNum, string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate)
+        {
+            refNum = RefNum;
+            bookingID = IdGenerator();
+            customerRequests = custRequests;
+            bookingDate = BookingDate;
+            arrivalDate = ArrivalDate;
+            departureDate = DepartureDate;
+        }
         #endregion
 
         #region Methods
-        
+        public string IdGenerator()    //method to create unique booking id.
+        {
+            int length = 7;
 
+            // creating a StringBuilder object()
+            StringBuilder str_build = new StringBuilder();
+            Random random = new Random();
+
+            char letter;
+
+            for (int i = 0; i < length; i++)
+            {
+                double flt = random.NextDouble();
+                int shift = Convert.ToInt32(Math.Floor(25 * flt));
+                letter = Convert.ToChar(shift + 65);
+                str_build.Append(letter);
+            }
+            return str_build.ToString();
+        }
         #endregion
 
     }
