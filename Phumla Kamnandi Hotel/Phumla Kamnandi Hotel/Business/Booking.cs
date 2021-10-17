@@ -77,7 +77,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region Methods
-        public string IdGenerator()    //method to create unique booking id.
+        public static string IdGenerator()    //method to create unique booking id.
         {
             int length = 7;
 

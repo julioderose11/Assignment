@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Phumla_Kamnandi_Hotel.Business;
 namespace Phumla_Kamnandi_Hotel.Business
 {
     class Customer : Person
     {
         #region Fields
         private string customerID;
-        private int mobilePhone;
  
         #endregion
 
@@ -23,19 +22,15 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region Construtor
-        public Customer()
+        public Customer() : base()
         {
-            customerID = "";
-            mobilePhone = default(int);
- 
-        }
 
-        public Customer(string cID, int cPhone)
-        {
-            customerID = cID;
-            mobilePhone = cPhone;
+             customerID = Booking.IdGenerator();
+
 
         }
+
+        
         #endregion
 
         #region ToStringMethod
