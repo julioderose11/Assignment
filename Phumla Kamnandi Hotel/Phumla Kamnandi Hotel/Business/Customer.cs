@@ -11,7 +11,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Fields
         private string customerID;
         private int mobilePhone;
-        private int noOfGuests;
+ 
         #endregion
 
         #region Properties
@@ -27,14 +27,14 @@ namespace Phumla_Kamnandi_Hotel.Business
         {
             customerID = "";
             mobilePhone = default(int);
-            noOfGuests = default(int);
+ 
         }
 
-        public Customer(string cID, int cPhone, int cGuests)
+        public Customer(string cID, int cPhone)
         {
             customerID = cID;
             mobilePhone = cPhone;
-            noOfGuests = cGuests;
+
         }
         #endregion
 
