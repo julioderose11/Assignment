@@ -1,0 +1,11 @@
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\obj\Debug\Phumla Kamnandi Hotel.csprojAssemblyReference.cache
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\obj\Debug\Phumla_Kamnandi_Hotel.Properties.Resources.resources
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\obj\Debug\Phumla Kamnandi Hotel.csproj.GenerateResource.cache
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\obj\Debug\Phumla Kamnandi Hotel.csproj.CoreCompileInputs.cache
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\bin\Debug\HotelDatabase.mdf
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\bin\Debug\HotelDatabase_log.ldf
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\bin\Debug\Phumla Kamnandi Hotel.exe.config
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\bin\Debug\Phumla Kamnandi Hotel.exe
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\bin\Debug\Phumla Kamnandi Hotel.pdb
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\obj\Debug\Phumla Kamnandi Hotel.exe
+C:\Users\CLRJAM006\OneDrive - University of Cape Town\INF2011S\Project\Assignment\Phumla Kamnandi Hotel\Phumla Kamnandi Hotel\obj\Debug\Phumla Kamnandi Hotel.pdb
