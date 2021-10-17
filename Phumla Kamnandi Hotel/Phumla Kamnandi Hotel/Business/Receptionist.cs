@@ -17,7 +17,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region: methods
         public void makeCustomerAccount()
         {
-
+         
         }
 
         //MakeBooking Method: creates a booking object based on the reference number and date values given by the customer.
