@@ -17,7 +17,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region: methods
         public void makeCustomerAccount()
         {
-
+         
         }
 
         //MakeBooking Method: creates a booking object based on the reference number and date values given by the customer.
@@ -25,6 +25,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         {
             DateTime current = DateTime.UtcNow;
             string refNum = refNumGenerator();
+            
             //instantiate booking object
             Booking booking = new Booking(refNum, custRequests, current, ArrivalDate, DepartureDate);            
         }
