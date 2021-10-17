@@ -87,7 +87,10 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region: Methods
-
+        public override string ToString()
+        {
+            return "Room Number: " + roomNo + "\nFloor Number: " + floorNo + "\nRoom Availability: " + roomAvailability + "\nRoomRate: " + rate;
+        }
         #endregion 
     }
 }
