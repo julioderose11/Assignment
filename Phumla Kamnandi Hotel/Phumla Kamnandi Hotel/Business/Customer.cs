@@ -36,7 +36,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region ToStringMethod
         public override string ToString()
         {
-            return base.ToString() + "customerID: " + customerID + "\nPhone: " + mobilePhone;
+            return base.ToString() + "customerID: " + customerID;
         }
 
         #endregion
