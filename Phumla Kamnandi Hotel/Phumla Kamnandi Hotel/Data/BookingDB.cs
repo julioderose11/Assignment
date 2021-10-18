@@ -148,8 +148,149 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
             return returnValue;
         }
-        #region Database Operations CRUD
-        
+        #region Database Operations CRUD        
+        public void DataSetChange(Customer aCus, DB.DBOperation operation)
+        {
+            DataRow aRow = null;
+            string dataTable = table1;
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    aRow = dsMain.Tables[dataTable].NewRow();
+                    FillRow(aRow, aCus, operation);
+                    dsMain.Tables[dataTable].Rows.Add(aRow);
+
+                    break;
+                case DB.DBOperation.Edit:
+
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(aCus, dataTable)];
+
+                    FillRow(aRow, aCus, operation);
+                    break;
+                case DB.DBOperation.Delete:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(aCus, dataTable)];
+                    aRow.Delete();
+                    break;
+            }
+        }
+        #endregion
+
+        #region Build Parameters, Create Commands & Update database
+        private void Build_INSERT_Parameters(Customer aCust)
+        {
+            //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
+            SqlParameter param = default(SqlParameter);
+            param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
+            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "StreetName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 100, "SuburbName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
+            daMain.InsertCommand.Parameters.Add(param);          
+        }
+
+        private void Build_UPDATE_Parameters(Customer aCust)
+        {
+            //---Create Parameters to communicate with SQL UPDATE
+            SqlParameter param = default(SqlParameter);
+
+            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            //Do for all fields other than ID and EMPID as for Insert 
+            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "Streetname");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@Suburbname", SqlDbType.NVarChar, 100, "SuburbName");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            //testing the ID of record that needs to change with the original ID of the record
+            param = new SqlParameter("@Original_ID", SqlDbType.NVarChar, 15, "CustomerID");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.UpdateCommand.Parameters.Add(param);
+        }
+
+        private void Build_DELETE_Parameters()
+        {
+            //--Create Parameters to communicate with SQL DELETE
+            SqlParameter param;
+            param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.DeleteCommand.Parameters.Add(param);
+        }
+
+        private void Create_INSERT_Command(Customer aCust)
+        {
+            //Create the command that must be used to insert values into the customer table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Customer (CustomerID, Name, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @Name, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
+            Build_INSERT_Parameters(aCust);
+        }
+
+        private void Create_UPDATE_Command(Customer aCust)
+        {
+            //Create the command that must be used to insert values into cutosmer table
+            //Assumption is that the CustomerID and PersonID cannot be changed
+            daMain.UpdateCommand = new SqlCommand("UPDATE Customer SET Name =@Name, Email =@Email, StreetName =@StreetName, SuburbName = @SuburbName, CityName = @CityName, PostalCode = @PostalCode " + "WHERE CustomerID = @Original_ID", cnMain);
+            Build_UPDATE_Parameters(aCust);
+        }
+
+        private string Create_DELETE_Command(Customer aCust)
+        {
+            string errorString = null;
+            //Create the command that must be used to delete values from the Customer table
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM Customer WHERE CustomerID = @CustomerID", cnMain);
+
+            try
+            {
+                Build_DELETE_Parameters();
+            }
+            catch (Exception errObj)
+            {
+                errorString = errObj.Message + "  " + errObj.StackTrace;
+            }
+            return errorString;
+        }
+
+        public bool UpdateDataSource(Customer aCust)
+        {
+            bool success = true;
+            Create_INSERT_Command(aCust);
+            Create_UPDATE_Command(aCust);
+            Create_DELETE_Command(aCust);
+            success = UpdateDataSource(sqlLocal1, table1);
+            return success;
+        }
         #endregion
     }
 }
