@@ -35,9 +35,11 @@ namespace Phumla_Kamnandi_Hotel.Data
         private Collection<Customer> customers;
         private Collection<RoomBooking> roomBookings;
         private Collection<Booking> bookings;
+        private Collection<Room> rooms;
 
         #endregion
 
+        #region: Property methods
         public Collection<Customer> AllCustomers
         {
             get
@@ -52,6 +54,23 @@ namespace Phumla_Kamnandi_Hotel.Data
                 return roomBookings;
             }
         }
+
+        public Collection<Booking> AllBookings
+        {
+            get
+            {
+                return bookings;
+            }
+        }
+
+        public Collection<Room> AllRooms
+        {
+            get
+            {
+                return rooms;
+            }
+        }
+        #endregion
 
         #region Constructor
         public BookingDB() : base()
@@ -98,10 +117,9 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
 
         }
+        //FillRow method for Customer Table
         private void FillRow(DataRow aRow, Customer aCus, DB.DBOperation operation)
         {
-            Customer cus;
-            RoomBooking RB;
             if (operation == DB.DBOperation.Add)
             {
                 aRow["CustomerID"] = aCus.CustomerID;  //NOTE square brackets to indicate index of collections of fields in row.
@@ -114,19 +132,22 @@ namespace Phumla_Kamnandi_Hotel.Data
                 aRow["PostalCode"] = aCus.getPostalCode;              
             }           
         }
-        private void FillRow(DataRow aRow, RoomBooking RB, DB.DBOperation operation)
+        //FillRow method for booking table
+        private void FillRow(DataRow aRow, Booking book, DB.DBOperation operation)
         {          
-            RoomBooking RoomBooking;
             if (operation == DB.DBOperation.Add)
             {
-                aRow["RoomNumber"] = RB.getRoomNo;  //NOTE square brackets to indicate index of collections of fields in row.
-                aRow["BookingID"] = RB.getBookingID;
-                
+                aRow["BookingID"] = book.getBookingID;  //NOTE square brackets to indicate index of collections of fields in row.
+                aRow["CustomerRequests"] = book.getCustomerRequests;
+                aRow["BookingDate"] = book.getBookingDate;
+                aRow["ArrivalDate"] = book.getArrival;
+                aRow["DepartureDate"] = book.getDeparture;
+                aRow["ReferenceNum"] = book.getRefNumber;
             }
         }
 
 
-
+        //FindRow method for customer table
         private int FindRow(Customer aCus, string table)
         {
             int rowIndex = 0;
@@ -139,7 +160,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 if (!(myRow.RowState == DataRowState.Deleted))
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if (aCus.CustomerID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["ID"]))
+                    if (aCus.CustomerID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["CustomerID"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -148,7 +169,32 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
             return returnValue;
         }
+
+        //FindRow method for booking table
+        private int FindRow(Booking book, string table)
+        {
+            int rowIndex = 0;
+            DataRow myRow;
+            int returnValue = -1;
+            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+            {
+                myRow = myRow_loopVariable;
+                //Ignore rows marked as deleted in dataset
+                if (!(myRow.RowState == DataRowState.Deleted))
+                {
+                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
+                    if (book.getBookingID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
+                    {
+                        returnValue = rowIndex;
+                    }
+                }
+                rowIndex += 1;
+            }
+            return returnValue;
+        }
+
         #region Database Operations CRUD
+        //DataSetChange method for customer table
         public void DataSetChange(Customer aCus, DB.DBOperation operation)
         {
             DataRow aRow = null;
@@ -173,7 +219,33 @@ namespace Phumla_Kamnandi_Hotel.Data
                     break;
             }
         }
-            
+
+        //DataSetChange method for booking table
+        public void DataSetChange(Booking book, DB.DBOperation operation)
+        {
+            DataRow aRow = null;
+            string dataTable = table3;
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    aRow = dsMain.Tables[dataTable].NewRow();
+                    FillRow(aRow, book, operation);
+                    dsMain.Tables[dataTable].Rows.Add(aRow);
+                    break;
+
+                case DB.DBOperation.Edit:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(book, dataTable)];
+                    FillRow(aRow, book, operation);
+                    break;
+
+                case DB.DBOperation.Delete:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(book, dataTable)];
+                    aRow.Delete();
+                    break;
+            }
+        }
+
+
         #endregion
 
         #region Build Parameters, Create Commands & Update database
