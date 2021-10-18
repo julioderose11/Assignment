@@ -148,7 +148,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
             return returnValue;
         }
-        #region Database Operations CRUD        
+        #region Database Operations CRUD
         public void DataSetChange(Customer aCus, DB.DBOperation operation)
         {
             DataRow aRow = null;
@@ -159,12 +159,12 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aRow = dsMain.Tables[dataTable].NewRow();
                     FillRow(aRow, aCus, operation);
                     dsMain.Tables[dataTable].Rows.Add(aRow);
-
+                    
                     break;
                 case DB.DBOperation.Edit:
-
+                    
                     aRow = dsMain.Tables[dataTable].Rows[FindRow(aCus, dataTable)];
-
+                    
                     FillRow(aRow, aCus, operation);
                     break;
                 case DB.DBOperation.Delete:
@@ -173,6 +173,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                     break;
             }
         }
+            
         #endregion
 
         #region Build Parameters, Create Commands & Update database
