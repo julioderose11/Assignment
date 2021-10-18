@@ -9,8 +9,8 @@ namespace Phumla_Kamnandi_Hotel.Business
     class RoomBooking
     {
         #region: fields
-        private int roomNo;
-        private string bookingID;
+        private Room room;
+        private Booking booking;
         #endregion
 
         #region: constructor
@@ -21,8 +21,8 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         public RoomBooking(Room Room, Booking Booking)
         {
-            roomNo = Room.getRoomNo;
-            bookingID = Booking.getBookingID;
+            room = Room;
+            booking = Booking;
 
         }
         #endregion
