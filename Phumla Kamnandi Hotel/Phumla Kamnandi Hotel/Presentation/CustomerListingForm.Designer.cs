@@ -48,7 +48,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.cityTextBox = new System.Windows.Forms.TextBox();
             this.postalCodelbl = new System.Windows.Forms.Label();
             this.cityNamelbl = new System.Windows.Forms.Label();
-            this.bookingListView = new System.Windows.Forms.ListView();
+            this.customersListView = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // listLabel
@@ -246,14 +246,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.cityNamelbl.TabIndex = 67;
             this.cityNamelbl.Text = "City";
             // 
-            // bookingListView
+            // customersListView
             // 
-            this.bookingListView.HideSelection = false;
-            this.bookingListView.Location = new System.Drawing.Point(24, 43);
-            this.bookingListView.Name = "bookingListView";
-            this.bookingListView.Size = new System.Drawing.Size(840, 254);
-            this.bookingListView.TabIndex = 3;
-            this.bookingListView.UseCompatibleStateImageBehavior = false;
+            this.customersListView.HideSelection = false;
+            this.customersListView.Location = new System.Drawing.Point(24, 43);
+            this.customersListView.Name = "customersListView";
+            this.customersListView.Size = new System.Drawing.Size(840, 254);
+            this.customersListView.TabIndex = 3;
+            this.customersListView.UseCompatibleStateImageBehavior = false;
+            this.customersListView.SelectedIndexChanged += new System.EventHandler(this.bookingListView_SelectedIndexChanged);
             // 
             // CustomerListingForm
             // 
@@ -278,7 +279,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.cusIDLabel);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.idLabel);
-            this.Controls.Add(this.bookingListView);
+            this.Controls.Add(this.customersListView);
             this.Controls.Add(this.listLabel);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CustomerListingForm";
@@ -309,6 +310,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.TextBox cityTextBox;
         private System.Windows.Forms.Label postalCodelbl;
         private System.Windows.Forms.Label cityNamelbl;
-        private System.Windows.Forms.ListView bookingListView;
+        private System.Windows.Forms.ListView customersListView;
     }
 }
