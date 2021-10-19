@@ -148,15 +148,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblGuestID.AutoSize = true;
             this.lblGuestID.Location = new System.Drawing.Point(56, 90);
             this.lblGuestID.Name = "lblGuestID";
-            this.lblGuestID.Size = new System.Drawing.Size(67, 17);
+            this.lblGuestID.Size = new System.Drawing.Size(89, 17);
             this.lblGuestID.TabIndex = 22;
-            this.lblGuestID.Text = "Guest ID:";
+            this.lblGuestID.Text = "Customer ID:";
             // 
             // ExistingCustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 384);
+            this.ClientSize = new System.Drawing.Size(517, 394);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnHome);
