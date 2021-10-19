@@ -111,7 +111,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                     //Do the same for all other attributes
                     aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
-                    aCus.getName = Convert.ToString(myRow["Name"]).TrimEnd(); 
+                    aCus.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd(); 
                     customers.Add(aCus);
                 }
             }
@@ -124,7 +124,8 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 aRow["CustomerID"] = aCus.CustomerID;  //NOTE square brackets to indicate index of collections of fields in row.
                 aRow["PersonID"] = aCus.getPersonID;
-                aRow["Name"] = aCus.getName;
+                aRow["FirstName"] = aCus.getFName;
+                aRow["SecondName"] = aCus.getSName;
                 aRow["Email"] = aCus.getEmail;
                 aRow["StreetName"] = aCus.getStreetName;
                 aRow["SuburbName"] = aCus.getSuburbName;
