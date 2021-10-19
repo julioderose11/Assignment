@@ -278,6 +278,35 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.InsertCommand.Parameters.Add(param);          
         }
 
+        private void Build_INSERT_Parameters(Booking book)
+        {
+            //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
+            SqlParameter param = default(SqlParameter);
+            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
+            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "StreetName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 100, "SuburbName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
+            daMain.InsertCommand.Parameters.Add(param);
+        }
+
         private void Build_UPDATE_Parameters(Customer aCust)
         {
             //---Create Parameters to communicate with SQL UPDATE
