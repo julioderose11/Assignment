@@ -60,7 +60,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
 
             customer = new Customer();
-            customer.CustomerID = 
+            customer.getName
 
 
             //ask how to retrieve specific data from the database. 

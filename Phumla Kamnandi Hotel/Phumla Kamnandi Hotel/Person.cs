@@ -9,7 +9,7 @@ namespace Phumla_Kamnandi_Hotel
     public class Person
     {
         #region data members
-        private string personID, name, email, streetName, suburbName, cityName, postalCode;
+        private string personID, FName, SName, email, streetName, suburbName, cityName, postalCode;
         #endregion
         #region Properties
         public string getPersonID
@@ -18,10 +18,15 @@ namespace Phumla_Kamnandi_Hotel
             set { personID = value; }
         }
 
-        public string getName
+        public string getFName
         {
-            get { return name; }
-            set { name = value; }
+            get { return FName; }
+            set { FName = value; }
+        }
+        public string getSName
+        {
+            get { return SName; }
+            set { SName = value; }
         }
         public string getEmail
         {
@@ -55,7 +60,8 @@ namespace Phumla_Kamnandi_Hotel
         public Person()
         {
             personID = "";
-            name = "";
+            FName = "";
+            SName = "";
             email = "";
             streetName = "";
             suburbName = "";
@@ -63,10 +69,11 @@ namespace Phumla_Kamnandi_Hotel
             postalCode = "";
         }
 
-        public Person(string pID, string pName, string pEmail, string street, string suburb, string city, string pCode)
+        public Person(string pID, string pFName, string pSName, string pEmail, string street, string suburb, string city, string pCode)
         {
             personID = pID;
-            name = pName;
+            FName = pFName;
+            SName = pSName;
             email = pEmail;
             streetName = street;
             suburbName = suburb;
@@ -78,7 +85,7 @@ namespace Phumla_Kamnandi_Hotel
         #region ToStringMethod
         public override string ToString()
         {
-            return "PersonID: " + personID + "\nName: " + name + "\nEmail: " + email;
+            return "PersonID: " + personID + "\nName: " + FName+ "\n" + SName + "\nEmail: " + email;
         }
         #endregion
 
