@@ -257,7 +257,10 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
             daMain.InsertCommand.Parameters.Add(param);
 
             param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
