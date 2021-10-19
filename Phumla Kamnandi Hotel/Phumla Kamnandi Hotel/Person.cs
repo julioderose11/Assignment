@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel
 {
-    class Person
+    public class Person
     {
         #region data members
         private string personID, name, email, streetName, suburbName, cityName, postalCode;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class Receptionist:Staff
+    public class Receptionist:Staff
     {
         #region: constructor
         public Receptionist(): base()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Phumla_Kamnandi_Hotel.Business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,16 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 {
     public partial class HomeForm : Form
     {
-        public HomeForm()
+        BookingController bookingController;
+        public HomeForm(BookingController BC)
         {
             InitializeComponent();
+            bookingController = BC;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
