@@ -11,6 +11,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region: fields
         private Room room;
         private Booking booking;
+
         #endregion
 
         #region: constructor

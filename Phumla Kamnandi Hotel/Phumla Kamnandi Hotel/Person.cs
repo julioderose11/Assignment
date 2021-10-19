@@ -9,7 +9,7 @@ namespace Phumla_Kamnandi_Hotel
     public class Person
     {
         #region data members
-        private string personID, name, email, streetName, suburbName, cityName, postalCode;
+        private string personID, Fname, Lname, email, streetName, suburbName, cityName, postalCode;
         #endregion
         #region Properties
         public string getPersonID
@@ -18,10 +18,15 @@ namespace Phumla_Kamnandi_Hotel
             set { personID = value; }
         }
 
-        public string getName
+        public string getFName
         {
-            get { return name; }
-            set { name = value; }
+            get { return Fname; }
+            set { Fname = value; }
+        }
+        public string getLName
+        {
+            get { return Lname; }
+            set { Lname = value; }
         }
         public string getEmail
         {
