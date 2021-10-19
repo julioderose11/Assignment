@@ -24,13 +24,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #endregion
 
         #region Constructor
-        public NewBookingUI(BookingController aController)
+        public NewBookingUI(BookingController bController)
         {
             InitializeComponent();
 
             lblDate.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
 
-            bookingController = aController;
+            bookingController = bController;
         }
         #endregion
 
