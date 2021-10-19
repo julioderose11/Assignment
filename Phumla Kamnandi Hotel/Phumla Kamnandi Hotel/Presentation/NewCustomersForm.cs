@@ -67,13 +67,23 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void PopulateObject() //method to populate a booking object 
         {
-
             customer = new Customer();
-            customer.CustomerID
+            customer.getFName = txtFName.Text;
+            customer.getSName = txtLName.Text;
+            customer.getEmail = txtEmail.Text;
+            customer.getStreetName = txtStreet.Text;
+            customer.getSuburbName = txtSuburb.Text;
+            customer.getCityName = txtCity.Text;
+            customer.getPostalCode = txtPostal.Text;
 
 
             //ask how to retrieve specific data from the database. 
         }
+        #endregion
 
+        private void NewCustomersForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

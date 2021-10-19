@@ -129,6 +129,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             return bookingDB.UpdateDataSource(booking);
         }
         #endregion
+        #region Methods
         public Customer Find(string ID)
         {
             int index = 0;
@@ -145,5 +146,37 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return customers[index];  // this is the one!  
         }
+        public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
+        {
+            bool flag = false;          
+            foreach (Room room in rooms)   //different rooms are not associated with different bookings atm
+            {
+                foreach (Booking booking in bookings)
+                {
+                    if (arrivalDate.CompareTo(booking.getDeparture) > 0)
+                    {
+                        flag = true;
+                    }
+                    else if (arrivalDate.CompareTo(booking.getDeparture) < 0)
+                    {
+                        if (departureDate.CompareTo(booking.getArrival) < 0)
+                        {
+                            flag = true;
+                        }
+                        else
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                }
+                if (flag == true)
+                {
+                    break;
+                }
+            }
+            return flag;
+        }
+        #endregion
     }
 }
