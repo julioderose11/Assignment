@@ -52,5 +52,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
         #endregion
 
+        #region Events
+
+        #endregion
+
     }
 }
