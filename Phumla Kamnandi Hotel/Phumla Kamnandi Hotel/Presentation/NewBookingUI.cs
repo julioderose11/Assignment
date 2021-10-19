@@ -120,9 +120,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             
             PopulateObject();
-            MessageBox.Show("To be submitted to the Database!");
+            MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-            //bookingController.FinalizeChanges(booking);
+            bookingController.FinalizeChanges(booking);
             ClearAll();
             ShowAll();
         }
