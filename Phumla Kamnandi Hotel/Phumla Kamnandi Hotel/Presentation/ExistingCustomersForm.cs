@@ -59,8 +59,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void PopulateObject() //method to populate a booking object 
         {
 
-            customer = new Customer();
-            customer.getName
+            
+
 
 
             //ask how to retrieve specific data from the database. 

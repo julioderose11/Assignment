@@ -200,6 +200,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.lblFName);
             this.Name = "NewCustomersForm";
             this.Text = "NewCustomersForm";
+            this.Load += new System.EventHandler(this.NewCustomersForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
