@@ -20,7 +20,7 @@ namespace Phumla_Kamnandi_Hotel
         private int childFormNumber = 0;
         ExistingCustomersForm ecusForm;
         NewCustomersForm cusForm;
-        BookingListingForm bookLForm;
+        bookingListingForm bookLForm;
         CustomerListingForm cusLForm;
         NewBookingUI NBUI;
         BookingController bookingController;
@@ -162,7 +162,7 @@ namespace Phumla_Kamnandi_Hotel
          
         private void CreateBookingListingForm()
         {
-            bookLForm = new BookingListingForm(bookingController);
+            bookLForm = new bookingListingForm(bookingController);
             bookLForm.MdiParent = this;
             bookLForm.StartPosition = FormStartPosition.CenterParent;
         }
