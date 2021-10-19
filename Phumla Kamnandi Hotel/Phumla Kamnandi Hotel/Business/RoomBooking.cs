@@ -34,7 +34,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region property methods
-        public int getRoomNo
+       /* public int getRoomNo
         {
             get
             {
@@ -55,7 +55,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             {
                 bookingID = value; 
             }
-        }
+        }*/
         #endregion
 
         #region: Methods
