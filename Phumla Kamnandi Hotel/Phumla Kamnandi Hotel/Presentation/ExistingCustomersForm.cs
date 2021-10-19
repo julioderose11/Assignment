@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -19,6 +20,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         //declaring a reference to the Booking and the Controller class
         private Customer customer;
         private BookingController bookingController;
+        private Collection<Customer> customers;
         public bool existingCustomerFormClosed = false;
 
         #endregion
@@ -60,11 +62,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
 
             customer = new Customer();
-            customer.CustomerID = 
+            customer.CustomerID = controller
 
 
             //ask how to retrieve specific data from the database. 
         }
+        
 
         #endregion
 
@@ -110,5 +113,39 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #endregion
 
+        private void txtGuestID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            customer = bookingController.Find(txtGuestID.Text);
+            if (customer==null)
+            {
+                lblQuestion.Text = "Not Found";
+                txtFName.Visible = false;
+                lblLName.Visible = false;
+                lblFName.Visible = false;
+                lblLName.Visible = false;
+            }
+            else
+            {
+                FillDetails();
+            }
+            
+
+        }
+        private void FillDetails()
+        {
+            txtFName.Text = customer.getFName;
+            txtLName.Text = customer.getLName;
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

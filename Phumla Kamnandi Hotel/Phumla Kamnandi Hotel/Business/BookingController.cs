@@ -122,5 +122,21 @@ namespace Phumla_Kamnandi_Hotel.Business
             return bookingDB.UpdateDataSource(booking);
         }
         #endregion
+        public Customer Find(string ID)
+        {
+            int index = 0;
+            bool found = (customers[index].CustomerID == ID);  //check if it is the first student
+            int count = customers.Count;
+            while (!(found) && (index < customers.Count - 1))  //if not "this" student and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (customers[index].CustomerID == ID);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return customers[index];  // this is the one!  
+        }
     }
 }
