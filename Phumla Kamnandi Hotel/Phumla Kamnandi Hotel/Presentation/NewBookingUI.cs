@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Phumla_Kamnandi_Hotel.Business;
 using Phumla_Kamnandi_Hotel.Data;
+using System.Collections.ObjectModel;
+using Phumla_Kamnandi_Hotel.Business;
 
 
 namespace Phumla_Kamnandi_Hotel.Presentation
@@ -21,6 +23,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private BookingController bookingController;
         public bool newBookingFormClosed = false;
         private DateTime currentDate = DateTime.Now;
+        private Collection<RoomBooking> roomBookings;
         #endregion
 
         #region Constructor
@@ -85,17 +88,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #endregion
 
-
         #region Form Events
-
-
-        private void lblGuestType_Click(object sender, EventArgs e)
-        {
-            //Please ignore by accidental double click
-        }
-
-
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             newBookingFormClosed = true;
@@ -106,6 +99,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             dTPArrivalDate.Format = DateTimePickerFormat.Short;
             dTPDepartureDate.Format = DateTimePickerFormat.Short;
+            //bookingController = new BookingController();
+            ClearAll();
             ShowAll();
         }
 
@@ -119,20 +114,53 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void btnRoomAvailability_Click(object sender, EventArgs e)
         {
-            
-            PopulateObject();
-            MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-            bookingController.FinalizeChanges(booking);
-            ClearAll();
-            ShowAll();
+            //retrieve all roomBooking objects and add it to the roomBookings collection
+            roomBookings = bookingController.AllRoomBookings;
+            //Loop through all roomBooking objects in collection to determine whther dates supplied are valid
+            foreach(RoomBooking roomBooking in roomBookings)
+            {
+                //controller class enacts availability method to determine whether a room is available for specified dates
+                if(bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
+                {                    
+                    DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                    if(returnDialogResult == DialogResult.Yes)
+                    {
+                        //but must first enter customer deatils and only then can we populate booking object
+                        PopulateObject();
+                        bookingController.DataMaintenance(booking, DB.DBOperation.Add);
+                        bookingController.FinalizeChanges(booking);
+
+                        if(radExistingGuest.Checked)
+                        {
+                            ExistingCustomersForm existingCustomerForm = new ExistingCustomersForm(bookingController); //is argument necessary???
+                            existingCustomerForm.ShowDialog();
+
+                        }
+                        else
+                        {
+                            NewCustomersForm newCustomerForm = new NewCustomersForm(bookingController); //is argument necessary???
+                            newCustomerForm.ShowDialog();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No available rooms between " + dTPArrivalDate.Value.Date + " and " + dTPDepartureDate.Value.Date 
+                        + "\nPlease select another set of dates.", "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    dTPArrivalDate.Text = "";
+                    dTPDepartureDate.Text = "";
+                    dTPArrivalDate.Focus();
+
+                }
+    
+            }
+
+
         }
 
         #endregion
 
-        private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
-        {
-
-        }
+ 
     }
 }

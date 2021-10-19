@@ -179,6 +179,7 @@ namespace Phumla_Kamnandi_Hotel.Business
                     if (arrivalDate.CompareTo(booking.getDeparture) > 0)
                     {
                         flag = true;
+                        
                     }
                     else if (arrivalDate.CompareTo(booking.getDeparture) < 0)
                     {
@@ -199,6 +200,11 @@ namespace Phumla_Kamnandi_Hotel.Business
                 }
             }
             return flag;
+        }
+
+        public int FindRoomIndex(DateTime arrivalDate, DateTime departureDate)
+        {
+
         }
         #endregion
     }
