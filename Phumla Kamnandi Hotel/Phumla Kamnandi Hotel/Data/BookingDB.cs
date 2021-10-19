@@ -249,6 +249,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         #endregion
 
         #region Build Parameters, Create Commands & Update database
+        ////Build_INSERT_Parameters for customer
         private void Build_INSERT_Parameters(Customer aCust)
         {
             //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
@@ -278,6 +279,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.InsertCommand.Parameters.Add(param);          
         }
 
+        //Build_INSERT_Parameters for booking
         private void Build_INSERT_Parameters(Booking book)
         {
             //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
@@ -285,28 +287,29 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
+            param = new SqlParameter("@AccountNum", SqlDbType.NVarChar, 15, "AccountNum");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
+            param = new SqlParameter("@CustomerRequests", SqlDbType.NVarChar, 200, "CustomerRequests");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "StreetName");
+            param = new SqlParameter("@BookingDate", SqlDbType.DateTime, 100, "BookingDate"); //what to do with the number parameter?
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 100, "SuburbName");
+            param = new SqlParameter("@ArrivalDate", SqlDbType.DateTime, 100, "ArrivalDate");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
+            param = new SqlParameter("@DepartureDate", SqlDbType.DateTime, 100, "DepartureDate");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
+            param = new SqlParameter("@ReferenceNum", SqlDbType.NVarChar, 15, "ReferenceNum"); //Do i include this?? doublecheck
             daMain.InsertCommand.Parameters.Add(param);
         }
 
+        ////Build_UPDATE_Parameters for customer
         private void Build_UPDATE_Parameters(Customer aCust)
         {
             //---Create Parameters to communicate with SQL UPDATE
@@ -343,11 +346,50 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.UpdateCommand.Parameters.Add(param);
         }
 
-        private void Build_DELETE_Parameters()
+        ////Build_UPDATE_Parameters for booking
+        private void Build_UPDATE_Parameters(Booking book)
+        {
+            //---Create Parameters to communicate with SQL UPDATE
+            SqlParameter param = default(SqlParameter);
+
+            param = new SqlParameter("@CustomerRequests", SqlDbType.NVarChar, 200, "CustomerRequests");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            //Do for all fields other than ID and EMPID as for Insert 
+            param = new SqlParameter("@BookingDate", SqlDbType.DateTime, 50, "BookingDate");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@ArrivalDate", SqlDbType.DateTime, 100, "ArrivalDate");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@DepartureDate", SqlDbType.DateTime, 100, "DepartureDate");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            //testing the ID of record that needs to change with the original ID of the record
+            param = new SqlParameter("@Original_ID", SqlDbType.NVarChar, 15, "BookingID");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.UpdateCommand.Parameters.Add(param);
+        }
+
+        //Build_DELETE_Parameters for customer
+        private void Build_DELETE_Parameters(Customer aCust)
         {
             //--Create Parameters to communicate with SQL DELETE
             SqlParameter param;
             param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.DeleteCommand.Parameters.Add(param);
+        }
+
+        private void Build_DELETE_Parameters(Booking book)
+        {
+            //--Create Parameters to communicate with SQL DELETE
+            SqlParameter param;
+            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
             param.SourceVersion = DataRowVersion.Original;
             daMain.DeleteCommand.Parameters.Add(param);
         }
@@ -359,6 +401,13 @@ namespace Phumla_Kamnandi_Hotel.Data
             Build_INSERT_Parameters(aCust);
         }
 
+        private void Create_INSERT_Command(Booking book)
+        {
+            //Create the command that must be used to insert values into the customer table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Booking (BookingID, CustomerID, AccountNum, CustomerRequests, BookingDate, ArrivalDate, DepartureDate, ReferenceNum) VALUES (@BookingID, @CustomerID, @AccountNum, @CustomerRequests, @BookingDate, @ArrivalDate, @DepartureDate, @ReferenceNum)", cnMain);
+            Build_INSERT_Parameters(book);
+        }
+
         private void Create_UPDATE_Command(Customer aCust)
         {
             //Create the command that must be used to insert values into cutosmer table
@@ -366,6 +415,15 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.UpdateCommand = new SqlCommand("UPDATE Customer SET Name =@Name, Email =@Email, StreetName =@StreetName, SuburbName = @SuburbName, CityName = @CityName, PostalCode = @PostalCode " + "WHERE CustomerID = @Original_ID", cnMain);
             Build_UPDATE_Parameters(aCust);
         }
+
+        private void Create_UPDATE_Command(Booking book)
+        {
+            //Create the command that must be used to insert values into cutosmer table
+            //Assumption is that the CustomerID and PersonID cannot be changed
+            daMain.UpdateCommand = new SqlCommand("UPDATE Booking SET CustomerRequests =@CustomerRequests, BookingDate =@BookingDate, ArrivalDate =@ArrivalDate, DepartureDate = @DepartureDate, ReferenceNum = @ReferenceNum " + "WHERE BookingID = @Original_ID", cnMain);
+            Build_UPDATE_Parameters(book);
+        }
+
 
         private string Create_DELETE_Command(Customer aCust)
         {
@@ -375,7 +433,24 @@ namespace Phumla_Kamnandi_Hotel.Data
 
             try
             {
-                Build_DELETE_Parameters();
+                Build_DELETE_Parameters(aCust);
+            }
+            catch (Exception errObj)
+            {
+                errorString = errObj.Message + "  " + errObj.StackTrace;
+            }
+            return errorString;
+        }
+
+        private string Create_DELETE_Command(Booking book)
+        {
+            string errorString = null;
+            //Create the command that must be used to delete values from the Customer table
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM Booking WHERE BookingID = @BookingID", cnMain);
+
+            try
+            {
+                Build_DELETE_Parameters(book);
             }
             catch (Exception errObj)
             {
@@ -391,6 +466,16 @@ namespace Phumla_Kamnandi_Hotel.Data
             Create_UPDATE_Command(aCust);
             Create_DELETE_Command(aCust);
             success = UpdateDataSource(sqlLocal1, table1);
+            return success;
+        }
+
+        public bool UpdateDataSource(Booking book)
+        {
+            bool success = true;
+            Create_INSERT_Command(book);
+            Create_UPDATE_Command(book);
+            Create_DELETE_Command(book);
+            success = UpdateDataSource(sqlLocal3, table3);
             return success;
         }
         #endregion

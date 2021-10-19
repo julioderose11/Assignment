@@ -116,11 +116,11 @@ namespace Phumla_Kamnandi_Hotel.Business
             return bookingDB.UpdateDataSource(customer);
         }
 
-        /*public bool FinalizeChanges(Booking booking)
+        public bool FinalizeChanges(Booking booking)
         {
             //***call the BookingDB method that will commit the changes to the database
             return bookingDB.UpdateDataSource(booking);
-        }*/
+        }
         #endregion
     }
 }
