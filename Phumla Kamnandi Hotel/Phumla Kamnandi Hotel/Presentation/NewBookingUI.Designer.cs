@@ -44,6 +44,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.gpBoxGuest = new System.Windows.Forms.GroupBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.lblDate = new System.Windows.Forms.Label();
             this.gpBoxGuest.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,11 +181,21 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(623, 328);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(46, 17);
+            this.lblDate.TabIndex = 30;
+            this.lblDate.Text = "label1";
+            // 
             // NewBookingUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 515);
+            this.Controls.Add(this.lblDate);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.gpBoxGuest);
@@ -224,5 +235,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.GroupBox gpBoxGuest;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblDate;
     }
 }
