@@ -42,6 +42,13 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return rooms;
             }
         }
+        public Collection<RoomBooking> AllRoomBookings
+        {
+            get
+            {
+                return roomBookings;
+            }
+        }
         #endregion
 
         #region: Constructor

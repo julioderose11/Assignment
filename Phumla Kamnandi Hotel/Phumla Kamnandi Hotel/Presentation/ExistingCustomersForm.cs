@@ -118,7 +118,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)  //When the search button is clicked, the find function from the controller is called to find the inputed guest id.
         {
             customer = bookingController.Find(txtGuestID.Text);
             if (customer==null)
