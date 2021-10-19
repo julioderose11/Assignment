@@ -111,7 +111,8 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                     //Do the same for all other attributes
                     aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
-                    aCus.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd(); 
+                    aCus.getFName = Convert.ToString(myRow["FistName"]).TrimEnd();
+                    aCus.getLName = Convert.ToString(myRow["SecondName"]).TrimEnd();
                     customers.Add(aCus);
                 }
             }

@@ -4,6 +4,10 @@
 
     partial class HotelDatabaseDataSet
     {
+        partial class CustomerDataTable
+        {
+        }
+
         partial class RoomBookingDataTable
         {
         }
