@@ -14,7 +14,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         private DateTime bookingDate;
         private DateTime arrivalDate;
         private DateTime departureDate;
-        private string refNum;
+        private int numPeople;
         #endregion
 
         #region Properties
@@ -46,11 +46,12 @@ namespace Phumla_Kamnandi_Hotel.Business
             set { departureDate = value; }
         }
 
-        public string getRefNumber
+        public int getNumPeople
         {
-            get { return refNum; }
-            set { refNum = value; }
+            get { return numPeople; }
+            set { numPeople = value; }
         }
+
         #endregion
 
         #region Constructors
@@ -61,18 +62,18 @@ namespace Phumla_Kamnandi_Hotel.Business
             bookingDate = default(DateTime);
             arrivalDate = default(DateTime);
             departureDate = default(DateTime);
-            refNum = "";
+            numPeople = 0;
         
         }
 
-        public Booking(string RefNum, string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate)
+        public Booking(string bookingID, string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate, int nPeople)
         {
-            refNum = RefNum;
             bookingID = IdGenerator();
             customerRequests = custRequests;
             bookingDate = BookingDate;
             arrivalDate = ArrivalDate;
             departureDate = DepartureDate;
+            numPeople = nPeople;
         }
         #endregion
 

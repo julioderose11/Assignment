@@ -24,13 +24,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #endregion
 
         #region Constructor
-        public NewBookingUI(BookingController aController)
+        public NewBookingUI(BookingController bController)
         {
             InitializeComponent();
 
             lblDate.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
 
-            bookingController = aController;
+            bookingController = bController;
         }
         #endregion
 
@@ -43,8 +43,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             lblNoOfPeople.Visible = true;
             lblSpecialInstructions.Visible = true;
             gpBoxGuest.Visible = true;
-            txtArrivaleDate.Visible = true;
-            txtDepartureDate.Visible = true;
+            dTPArrivalDate.Visible = true;
+            dTPDepartureDate.Visible = true;
             txtNoOfPeople.Visible = true;
             richTxtSpecInstructions.Visible = true;
             radExistingGuest.Visible = true;
@@ -52,13 +52,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             btnRoomAvailability.Visible = true;
             btnCancel.Visible = true;
             btnExit.Visible = true;
-            monthCalendar.Visible = true;
         }
 
         private void ClearAll() //method to clear all controls
         {
-            txtArrivaleDate.Text = "";
-            txtDepartureDate.Text = "";
+            dTPArrivalDate.Text = "";
+            dTPDepartureDate.Text = "";
             txtNoOfPeople.Text = "";
             richTxtSpecInstructions.Text = "";
             radExistingGuest.Checked = false;
@@ -67,14 +66,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void PopulateObject() //method to populate a booking object 
         {
+            
             booking = new Booking();
+            //may have to put bookingID generator method here and create id here...
             booking.getBookingDate = currentDate;
-            booking.getArrival = DateTime.Parse(txtArrivaleDate.Text);
-            booking.getDeparture = DateTime.Parse(txtDepartureDate.Text);
+            booking.getArrival = (DateTime) dTPArrivalDate.Value;
+            booking.getDeparture = (DateTime)dTPDepartureDate.Value;
             booking.getCustomerRequests = richTxtSpecInstructions.Text;
 
-
-            //ask the group about the booking object and the current UI
         }
 
         #endregion
@@ -105,6 +104,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
       
         private void NewBookingUI_Load(object sender, EventArgs e)
         {
+            dTPArrivalDate.Format = DateTimePickerFormat.Short;
+            dTPDepartureDate.Format = DateTimePickerFormat.Short;
             ShowAll();
         }
 
