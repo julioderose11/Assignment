@@ -67,7 +67,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             radNewGuest.Checked = false;
         }
 
-        private void PopulateObject() //method to populate a booking object 
+        public void PopulateObject() //method to populate a booking object 
         {
             
             booking = new Booking();
@@ -127,9 +127,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     if(returnDialogResult == DialogResult.Yes)
                     {
                         //but must first enter customer deatils and only then can we populate booking object
+                        //maybe make the method public static and then call it in the other forms?
                         PopulateObject();
                         bookingController.DataMaintenance(booking, DB.DBOperation.Add);
                         bookingController.FinalizeChanges(booking);
+
+                        //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
 
                         if(radExistingGuest.Checked)
                         {

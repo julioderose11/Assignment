@@ -201,11 +201,6 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return flag;
         }
-
-        public int FindRoomIndex(DateTime arrivalDate, DateTime departureDate)
-        {
-
-        }
         #endregion
     }
 }
