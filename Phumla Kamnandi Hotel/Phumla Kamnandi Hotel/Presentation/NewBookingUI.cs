@@ -120,5 +120,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
 
         #endregion
+
+        private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
     }
 }
