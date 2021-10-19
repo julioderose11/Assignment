@@ -29,13 +29,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerListingForm));
-            this.bookingListView = new System.Windows.Forms.ListView();
             this.listLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.editButton = new System.Windows.Forms.Button();
             this.suburbTextBox = new System.Windows.Forms.TextBox();
             this.streetNameTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox = new System.Windows.Forms.TextBox();
@@ -52,16 +48,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.cityTextBox = new System.Windows.Forms.TextBox();
             this.postalCodelbl = new System.Windows.Forms.Label();
             this.cityNamelbl = new System.Windows.Forms.Label();
+            this.bookingListView = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
-            // bookingListView
-            // 
-            this.bookingListView.HideSelection = false;
-            this.bookingListView.Location = new System.Drawing.Point(24, 43);
-            this.bookingListView.Name = "bookingListView";
-            this.bookingListView.Size = new System.Drawing.Size(840, 254);
-            this.bookingListView.TabIndex = 3;
-            this.bookingListView.UseCompatibleStateImageBehavior = false;
             // 
             // listLabel
             // 
@@ -97,28 +85,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.cancelButton.TabIndex = 65;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deleteButton.BackgroundImage")));
-            this.deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.deleteButton.Location = new System.Drawing.Point(641, 298);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(2);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(45, 34);
-            this.deleteButton.TabIndex = 64;
-            this.deleteButton.UseVisualStyleBackColor = true;
-            // 
-            // editButton
-            // 
-            this.editButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("editButton.BackgroundImage")));
-            this.editButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.editButton.Location = new System.Drawing.Point(575, 297);
-            this.editButton.Margin = new System.Windows.Forms.Padding(2);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(45, 34);
-            this.editButton.TabIndex = 63;
-            this.editButton.UseVisualStyleBackColor = true;
             // 
             // suburbTextBox
             // 
@@ -280,6 +246,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.cityNamelbl.TabIndex = 67;
             this.cityNamelbl.Text = "City";
             // 
+            // bookingListView
+            // 
+            this.bookingListView.HideSelection = false;
+            this.bookingListView.Location = new System.Drawing.Point(24, 43);
+            this.bookingListView.Name = "bookingListView";
+            this.bookingListView.Size = new System.Drawing.Size(840, 254);
+            this.bookingListView.TabIndex = 3;
+            this.bookingListView.UseCompatibleStateImageBehavior = false;
+            // 
             // CustomerListingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -291,8 +266,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.cityNamelbl);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.editButton);
             this.Controls.Add(this.suburbTextBox);
             this.Controls.Add(this.streetNameTextBox);
             this.Controls.Add(this.emailTextBox);
@@ -317,13 +290,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView bookingListView;
         private System.Windows.Forms.Label listLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Button deleteButton;
-        private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.TextBox suburbTextBox;
         private System.Windows.Forms.TextBox streetNameTextBox;
         private System.Windows.Forms.TextBox emailTextBox;
@@ -340,5 +309,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.TextBox cityTextBox;
         private System.Windows.Forms.Label postalCodelbl;
         private System.Windows.Forms.Label cityNamelbl;
+        private System.Windows.Forms.ListView bookingListView;
     }
 }

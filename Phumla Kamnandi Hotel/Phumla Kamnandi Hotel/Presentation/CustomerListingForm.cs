@@ -90,8 +90,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 cancelButton.Visible = value;
                 submitButton.Visible = value;
             }
-            deleteButton.Visible = value;
-            editButton.Visible = value; 
+            
         }
         private void ClearAll()
         {
