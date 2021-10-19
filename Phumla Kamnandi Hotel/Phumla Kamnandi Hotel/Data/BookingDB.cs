@@ -111,7 +111,8 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                     //Do the same for all other attributes
                     aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
-                    aCus.getName = Convert.ToString(myRow["Name"]).TrimEnd(); 
+                    aCus.getFName = Convert.ToString(myRow["FistName"]).TrimEnd();
+                    aCus.getLName = Convert.ToString(myRow["SecondName"]).TrimEnd();
                     customers.Add(aCus);
                 }
             }
@@ -124,7 +125,8 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 aRow["CustomerID"] = aCus.CustomerID;  //NOTE square brackets to indicate index of collections of fields in row.
                 aRow["PersonID"] = aCus.getPersonID;
-                aRow["Name"] = aCus.getName;
+                aRow["FistName"] = aCus.getFName;
+                aRow["SecondName"] = aCus.getLName;
                 aRow["Email"] = aCus.getEmail;
                 aRow["StreetName"] = aCus.getStreetName;
                 aRow["SuburbName"] = aCus.getSuburbName;
@@ -257,7 +259,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            param = new SqlParameter("@FisrtName", SqlDbType.NVarChar, 50, "FirstName");
             daMain.InsertCommand.Parameters.Add(param);
 
             param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");

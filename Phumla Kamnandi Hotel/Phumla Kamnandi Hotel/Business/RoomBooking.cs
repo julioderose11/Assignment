@@ -12,9 +12,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region: fields
         private Room room;
         private Booking booking;
-        BookingController bookingController;
-        Collection<Booking> bookings;
-        Collection<Room> rooms;
+       
 
         #endregion
 
@@ -34,27 +32,21 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region property methods
-        public int getRoomNo
+        public Room getRoomNo
         {
             get
             {
-                return roomNo;
+                return room;
             }
-            set
-            {
-                roomNo = value;
-            }
+           
         }
-        public string getBookingID
+        public Booking getBookingID
         {
             get
             {
-                return bookingID;
+                return booking;
             }
-            set
-            {
-                bookingID = value; 
-            }
+            
         }
         #endregion
 
