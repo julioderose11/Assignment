@@ -14,19 +14,24 @@ namespace Phumla_Kamnandi_Hotel
 {
     public partial class BookingMDIParent : Form
     {
+        #region Variable declaration
         private int childFormNumber = 0;
-        CustomerForm cusForm;
+        ExistingCustomersForm ecusForm;
+        NewCustomersForm cusForm;
         HomeForm homeForm;
         NewBookingUI NBUI;
         BookingController bookingController;
+        #endregion
 
-
+        #region Constructor
         public BookingMDIParent()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             bookingController = new BookingController();
         }
+        #endregion 
+
         #region ToolstripMenus
         private void ShowNewForm(object sender, EventArgs e)
         {
@@ -113,6 +118,7 @@ namespace Phumla_Kamnandi_Hotel
             }
         }
         #endregion
+
         #region ToolstripMenus Bookings
         private void BookingMDIParent_Load(object sender, EventArgs e)
         {
@@ -134,9 +140,10 @@ namespace Phumla_Kamnandi_Hotel
 
         }
         #endregion
+
         private void CreateNewCustomerForm()
         {
-            cusForm = new CustomerForm(bookingController);
+            cusForm = new NewCustomersForm(bookingController);
             cusForm.MdiParent = this;
             cusForm.StartPosition = FormStartPosition.CenterParent;
         }

@@ -108,6 +108,12 @@
     <Compile Include="Presentation\HomeForm.Designer.cs">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\ListingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\ListingForm.Designer.cs">
+      <DependentUpon>ListingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\NewBookingUI.cs">
       <SubType>Form</SubType>
     </Compile>

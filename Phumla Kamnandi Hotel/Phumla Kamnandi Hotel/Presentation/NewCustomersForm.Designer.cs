@@ -45,79 +45,81 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblCity = new System.Windows.Forms.Label();
             this.lblPostalCode = new System.Windows.Forms.Label();
             this.lblFName = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnHome
             // 
-            this.btnHome.Location = new System.Drawing.Point(67, 12);
+            this.btnHome.Location = new System.Drawing.Point(456, 396);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(264, 34);
+            this.btnHome.Size = new System.Drawing.Size(148, 34);
             this.btnHome.TabIndex = 31;
-            this.btnHome.Text = "Home";
+            this.btnHome.Text = "Exit";
             this.btnHome.UseVisualStyleBackColor = true;
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(67, 328);
+            this.btnConfirm.Location = new System.Drawing.Point(45, 396);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(264, 34);
+            this.btnConfirm.Size = new System.Drawing.Size(178, 34);
             this.btnConfirm.TabIndex = 30;
             this.btnConfirm.Text = "Confirm Details";
             this.btnConfirm.UseVisualStyleBackColor = true;
             // 
             // txtPostal
             // 
-            this.txtPostal.Location = new System.Drawing.Point(203, 285);
+            this.txtPostal.Location = new System.Drawing.Point(211, 338);
             this.txtPostal.Name = "txtPostal";
-            this.txtPostal.Size = new System.Drawing.Size(128, 22);
+            this.txtPostal.Size = new System.Drawing.Size(310, 22);
             this.txtPostal.TabIndex = 29;
             // 
             // txtCity
             // 
-            this.txtCity.Location = new System.Drawing.Point(203, 250);
+            this.txtCity.Location = new System.Drawing.Point(211, 296);
             this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(128, 22);
+            this.txtCity.Size = new System.Drawing.Size(310, 22);
             this.txtCity.TabIndex = 28;
             // 
             // txtSuburb
             // 
-            this.txtSuburb.Location = new System.Drawing.Point(203, 212);
+            this.txtSuburb.Location = new System.Drawing.Point(211, 258);
             this.txtSuburb.Name = "txtSuburb";
-            this.txtSuburb.Size = new System.Drawing.Size(128, 22);
+            this.txtSuburb.Size = new System.Drawing.Size(310, 22);
             this.txtSuburb.TabIndex = 27;
             // 
             // txtStreet
             // 
-            this.txtStreet.Location = new System.Drawing.Point(203, 175);
+            this.txtStreet.Location = new System.Drawing.Point(211, 221);
             this.txtStreet.Name = "txtStreet";
-            this.txtStreet.Size = new System.Drawing.Size(128, 22);
+            this.txtStreet.Size = new System.Drawing.Size(310, 22);
             this.txtStreet.TabIndex = 26;
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(203, 143);
+            this.txtEmail.Location = new System.Drawing.Point(211, 189);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(128, 22);
+            this.txtEmail.Size = new System.Drawing.Size(310, 22);
             this.txtEmail.TabIndex = 25;
             // 
             // txtLName
             // 
-            this.txtLName.Location = new System.Drawing.Point(203, 103);
+            this.txtLName.Location = new System.Drawing.Point(211, 149);
             this.txtLName.Name = "txtLName";
-            this.txtLName.Size = new System.Drawing.Size(128, 22);
+            this.txtLName.Size = new System.Drawing.Size(310, 22);
             this.txtLName.TabIndex = 24;
             // 
             // txtFName
             // 
-            this.txtFName.Location = new System.Drawing.Point(203, 65);
+            this.txtFName.Location = new System.Drawing.Point(211, 111);
             this.txtFName.Name = "txtFName";
-            this.txtFName.Size = new System.Drawing.Size(128, 22);
+            this.txtFName.Size = new System.Drawing.Size(310, 22);
             this.txtFName.TabIndex = 23;
             // 
             // lblSName
             // 
             this.lblSName.AutoSize = true;
-            this.lblSName.Location = new System.Drawing.Point(64, 108);
+            this.lblSName.Location = new System.Drawing.Point(72, 154);
             this.lblSName.Name = "lblSName";
             this.lblSName.Size = new System.Drawing.Size(80, 17);
             this.lblSName.TabIndex = 22;
@@ -126,7 +128,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(64, 143);
+            this.lblEmail.Location = new System.Drawing.Point(72, 189);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(46, 17);
             this.lblEmail.TabIndex = 21;
@@ -135,7 +137,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblStreet
             // 
             this.lblStreet.AutoSize = true;
-            this.lblStreet.Location = new System.Drawing.Point(64, 180);
+            this.lblStreet.Location = new System.Drawing.Point(72, 226);
             this.lblStreet.Name = "lblStreet";
             this.lblStreet.Size = new System.Drawing.Size(91, 17);
             this.lblStreet.TabIndex = 20;
@@ -144,7 +146,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblSuburb
             // 
             this.lblSuburb.AutoSize = true;
-            this.lblSuburb.Location = new System.Drawing.Point(64, 217);
+            this.lblSuburb.Location = new System.Drawing.Point(72, 263);
             this.lblSuburb.Name = "lblSuburb";
             this.lblSuburb.Size = new System.Drawing.Size(99, 17);
             this.lblSuburb.TabIndex = 19;
@@ -153,7 +155,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblCity
             // 
             this.lblCity.AutoSize = true;
-            this.lblCity.Location = new System.Drawing.Point(64, 255);
+            this.lblCity.Location = new System.Drawing.Point(72, 301);
             this.lblCity.Name = "lblCity";
             this.lblCity.Size = new System.Drawing.Size(76, 17);
             this.lblCity.TabIndex = 18;
@@ -162,7 +164,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblPostalCode
             // 
             this.lblPostalCode.AutoSize = true;
-            this.lblPostalCode.Location = new System.Drawing.Point(64, 290);
+            this.lblPostalCode.Location = new System.Drawing.Point(72, 343);
             this.lblPostalCode.Name = "lblPostalCode";
             this.lblPostalCode.Size = new System.Drawing.Size(88, 17);
             this.lblPostalCode.TabIndex = 17;
@@ -171,17 +173,39 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblFName
             // 
             this.lblFName.AutoSize = true;
-            this.lblFName.Location = new System.Drawing.Point(64, 70);
+            this.lblFName.Location = new System.Drawing.Point(72, 116);
             this.lblFName.Name = "lblFName";
             this.lblFName.Size = new System.Drawing.Size(80, 17);
             this.lblFName.TabIndex = 16;
             this.lblFName.Text = "First Name:";
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(256, 396);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(169, 34);
+            this.btnCancel.TabIndex = 32;
+            this.btnCancel.Text = "Clear";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.Location = new System.Drawing.Point(59, 39);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(257, 25);
+            this.lblMessage.TabIndex = 33;
+            this.lblMessage.Text = "New Customer Fill Out Form";
+            // 
             // NewCustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 409);
+            this.ClientSize = new System.Drawing.Size(708, 526);
+            this.Controls.Add(this.lblMessage);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.txtPostal);
@@ -200,6 +224,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.lblFName);
             this.Name = "NewCustomersForm";
             this.Text = "NewCustomersForm";
+            this.Load += new System.EventHandler(this.NewCustomersForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +248,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.Label lblCity;
         private System.Windows.Forms.Label lblPostalCode;
         private System.Windows.Forms.Label lblFName;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label lblMessage;
     }
 }

@@ -125,8 +125,8 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 aRow["CustomerID"] = aCus.CustomerID;  //NOTE square brackets to indicate index of collections of fields in row.
                 aRow["PersonID"] = aCus.getPersonID;
-                aRow["FistName"] = aCus.getFName;
-                aRow["SecondName"] = aCus.getLName;
+                aRow["FirstName"] = aCus.getFName;
+                aRow["SecondName"] = aCus.getSName;
                 aRow["Email"] = aCus.getEmail;
                 aRow["StreetName"] = aCus.getStreetName;
                 aRow["SuburbName"] = aCus.getSuburbName;
@@ -259,7 +259,10 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@FisrtName", SqlDbType.NVarChar, 50, "FirstName");
+            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
             daMain.InsertCommand.Parameters.Add(param);
 
             param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
@@ -317,7 +320,11 @@ namespace Phumla_Kamnandi_Hotel.Data
             //---Create Parameters to communicate with SQL UPDATE
             SqlParameter param = default(SqlParameter);
 
-            param = new SqlParameter("@Name", SqlDbType.NVarChar, 50, "Name");
+            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
             param.SourceVersion = DataRowVersion.Current;
             daMain.UpdateCommand.Parameters.Add(param);
 
@@ -399,7 +406,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         private void Create_INSERT_Command(Customer aCust)
         {
             //Create the command that must be used to insert values into the customer table..
-            daMain.InsertCommand = new SqlCommand("INSERT into Customer (CustomerID, Name, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @Name, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
+            daMain.InsertCommand = new SqlCommand("INSERT into Customer (CustomerID, FirstName, SecondName, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @FirstName, @SecondName, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
             Build_INSERT_Parameters(aCust);
         }
 
@@ -414,7 +421,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             //Create the command that must be used to insert values into cutosmer table
             //Assumption is that the CustomerID and PersonID cannot be changed
-            daMain.UpdateCommand = new SqlCommand("UPDATE Customer SET Name =@Name, Email =@Email, StreetName =@StreetName, SuburbName = @SuburbName, CityName = @CityName, PostalCode = @PostalCode " + "WHERE CustomerID = @Original_ID", cnMain);
+            daMain.UpdateCommand = new SqlCommand("UPDATE Customer SET FirstName =@FirstName, SecondName = @SecondName, Email =@Email, StreetName =@StreetName, SuburbName = @SuburbName, CityName = @CityName, PostalCode = @PostalCode " + "WHERE CustomerID = @Original_ID", cnMain);
             Build_UPDATE_Parameters(aCust);
         }
 

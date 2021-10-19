@@ -24,13 +24,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #endregion
 
         #region Constructor
-        public NewBookingUI(BookingController aController)
+        public NewBookingUI(BookingController bController)
         {
             InitializeComponent();
 
             lblDate.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
 
-            bookingController = aController;
+            bookingController = bController;
         }
         #endregion
 
@@ -120,9 +120,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             
             PopulateObject();
-            MessageBox.Show("To be submitted to the Database!");
+            MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-            //bookingController.FinalizeChanges(booking);
+            bookingController.FinalizeChanges(booking);
             ClearAll();
             ShowAll();
         }
