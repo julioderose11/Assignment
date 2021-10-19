@@ -42,6 +42,13 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return rooms;
             }
         }
+        public Collection<RoomBooking> AllRoomBookings
+        {
+            get
+            {
+                return roomBookings;
+            }
+        }
         #endregion
 
         #region: Constructor
@@ -116,11 +123,60 @@ namespace Phumla_Kamnandi_Hotel.Business
             return bookingDB.UpdateDataSource(customer);
         }
 
-        /*public bool FinalizeChanges(Booking booking)
+        public bool FinalizeChanges(Booking booking)
         {
             //***call the BookingDB method that will commit the changes to the database
             return bookingDB.UpdateDataSource(booking);
-        }*/
+        }
+        #endregion
+        #region Methods
+        public Customer Find(string ID)
+        {
+            int index = 0;
+            bool found = (customers[index].CustomerID == ID);  //check if it is the first student
+            int count = customers.Count;
+            while (!(found) && (index < customers.Count - 1))  //if not "this" student and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (customers[index].CustomerID == ID);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return customers[index];  // this is the one!  
+        }
+        public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
+        {
+            bool flag = false;          
+            foreach (Room room in rooms)   //different rooms are not associated with different bookings atm
+            {
+                foreach (Booking booking in bookings)
+                {
+                    if (arrivalDate.CompareTo(booking.getDeparture) > 0)
+                    {
+                        flag = true;
+                    }
+                    else if (arrivalDate.CompareTo(booking.getDeparture) < 0)
+                    {
+                        if (departureDate.CompareTo(booking.getArrival) < 0)
+                        {
+                            flag = true;
+                        }
+                        else
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                }
+                if (flag == true)
+                {
+                    break;
+                }
+            }
+            return flag;
+        }
         #endregion
     }
 }

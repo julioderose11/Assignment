@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,10 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region: fields
         private Room room;
         private Booking booking;
+        BookingController bookingController;
+        Collection<Booking> bookings;
+        Collection<Room> rooms;
+
         #endregion
 
         #region: constructor
@@ -18,6 +23,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         {
 
         }
+
 
         public RoomBooking(Room Room, Booking Booking)
         {
@@ -53,7 +59,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region: Methods
-
+        
         #endregion
     }
 }
