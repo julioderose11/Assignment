@@ -89,11 +89,11 @@
       <DependentUpon>HotelDatabaseDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />
-    <Compile Include="Presentation\CustomerForm.cs">
+    <Compile Include="Presentation\ExistingCustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\CustomerForm.Designer.cs">
-      <DependentUpon>CustomerForm.cs</DependentUpon>
+    <Compile Include="Presentation\ExistingCustomerForm.Designer.cs">
+      <DependentUpon>ExistingCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\HomeForm.cs">
       <SubType>Form</SubType>
@@ -107,13 +107,28 @@
     <Compile Include="Presentation\NewBookingUI.Designer.cs">
       <DependentUpon>NewBookingUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\NewCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\NewCustomerForm.Designer.cs">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\ExistingCustomerForm.resx">
+      <DependentUpon>ExistingCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\NewBookingUI.resx">
+      <DependentUpon>NewBookingUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\NewCustomerForm.resx">
+      <DependentUpon>NewCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
