@@ -8,14 +8,14 @@ using System.Collections.ObjectModel;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class BookingController
+    public class BookingController
     {
         #region: Fields
-        private BookingDB bookingDB;
-        private Collection<Customer> customers;
-        private Collection<Booking> bookings;
-        private Collection<Room> rooms;
-        private Collection<RoomBooking> roomBookings;
+         BookingDB bookingDB;
+         Collection<Customer> customers;
+         Collection<Booking> bookings;
+         Collection<Room> rooms;
+         Collection<RoomBooking> roomBookings;
         #endregion
 
         #region Properties
