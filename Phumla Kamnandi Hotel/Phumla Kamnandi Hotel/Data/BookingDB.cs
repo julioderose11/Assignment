@@ -143,7 +143,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 aRow["BookingDate"] = book.getBookingDate;
                 aRow["ArrivalDate"] = book.getArrival;
                 aRow["DepartureDate"] = book.getDeparture;
-                aRow["ReferenceNum"] = book.getRefNumber;
+                aRow["numPeople"] = book.getNumPeople;
             }
         }
 
@@ -309,7 +309,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@DepartureDate", SqlDbType.DateTime, 100, "DepartureDate");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@ReferenceNum", SqlDbType.NVarChar, 15, "ReferenceNum"); //Do i include this?? doublecheck
+            param = new SqlParameter("@numPeople", SqlDbType.TinyInt, 1, "numPeople"); //Do i include this?? doublecheck
             daMain.InsertCommand.Parameters.Add(param);
         }
 
@@ -377,6 +377,10 @@ namespace Phumla_Kamnandi_Hotel.Data
             param.SourceVersion = DataRowVersion.Current;
             daMain.UpdateCommand.Parameters.Add(param);
 
+            param = new SqlParameter("@numPeople", SqlDbType.TinyInt, 1, "numPeople");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
             //testing the ID of record that needs to change with the original ID of the record
             param = new SqlParameter("@Original_ID", SqlDbType.NVarChar, 15, "BookingID");
             param.SourceVersion = DataRowVersion.Original;
@@ -411,8 +415,8 @@ namespace Phumla_Kamnandi_Hotel.Data
 
         private void Create_INSERT_Command(Booking book)
         {
-            //Create the command that must be used to insert values into the customer table..
-            daMain.InsertCommand = new SqlCommand("INSERT into Booking (BookingID, CustomerID, AccountNum, CustomerRequests, BookingDate, ArrivalDate, DepartureDate, ReferenceNum) VALUES (@BookingID, @CustomerID, @AccountNum, @CustomerRequests, @BookingDate, @ArrivalDate, @DepartureDate, @ReferenceNum)", cnMain);
+            //Create the command that must be used to insert values into the booking table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Booking (BookingID, CustomerID, AccountNum, CustomerRequests, BookingDate, ArrivalDate, DepartureDate, numPeople) VALUES (@BookingID, @CustomerID, @AccountNum, @CustomerRequests, @BookingDate, @ArrivalDate, @DepartureDate, @numPeople)", cnMain);
             Build_INSERT_Parameters(book);
         }
 
@@ -428,7 +432,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             //Create the command that must be used to insert values into cutosmer table
             //Assumption is that the CustomerID and PersonID cannot be changed
-            daMain.UpdateCommand = new SqlCommand("UPDATE Booking SET CustomerRequests =@CustomerRequests, BookingDate =@BookingDate, ArrivalDate =@ArrivalDate, DepartureDate = @DepartureDate, ReferenceNum = @ReferenceNum " + "WHERE BookingID = @Original_ID", cnMain);
+            daMain.UpdateCommand = new SqlCommand("UPDATE Booking SET CustomerRequests =@CustomerRequests, BookingDate =@BookingDate, ArrivalDate =@ArrivalDate, DepartureDate = @DepartureDate, numPeople = @numPeople " + "WHERE BookingID = @Original_ID", cnMain);
             Build_UPDATE_Parameters(book);
         }
 

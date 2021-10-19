@@ -32,29 +32,28 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.radNewGuest = new System.Windows.Forms.RadioButton();
             this.radExistingGuest = new System.Windows.Forms.RadioButton();
             this.richTxtSpecInstructions = new System.Windows.Forms.RichTextBox();
-            this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.btnRoomAvailability = new System.Windows.Forms.Button();
             this.lblSpecialInstructions = new System.Windows.Forms.Label();
             this.lblNoOfPeople = new System.Windows.Forms.Label();
             this.txtNoOfPeople = new System.Windows.Forms.TextBox();
-            this.txtDepartureDate = new System.Windows.Forms.TextBox();
-            this.txtArrivaleDate = new System.Windows.Forms.TextBox();
             this.lblDepartureDate = new System.Windows.Forms.Label();
             this.lblArrivalDate = new System.Windows.Forms.Label();
             this.gpBoxGuest = new System.Windows.Forms.GroupBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
+            this.dTPArrivalDate = new System.Windows.Forms.DateTimePicker();
+            this.dTPDepartureDate = new System.Windows.Forms.DateTimePicker();
             this.gpBoxGuest.SuspendLayout();
             this.SuspendLayout();
             // 
             // radNewGuest
             // 
             this.radNewGuest.AutoSize = true;
-            this.radNewGuest.Location = new System.Drawing.Point(211, 57);
-            this.radNewGuest.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radNewGuest.Location = new System.Drawing.Point(158, 46);
+            this.radNewGuest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radNewGuest.Name = "radNewGuest";
-            this.radNewGuest.Size = new System.Drawing.Size(98, 21);
+            this.radNewGuest.Size = new System.Drawing.Size(78, 17);
             this.radNewGuest.TabIndex = 25;
             this.radNewGuest.TabStop = true;
             this.radNewGuest.Text = "New Guest";
@@ -63,10 +62,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // radExistingGuest
             // 
             this.radExistingGuest.AutoSize = true;
-            this.radExistingGuest.Location = new System.Drawing.Point(211, 30);
-            this.radExistingGuest.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.radExistingGuest.Location = new System.Drawing.Point(158, 24);
+            this.radExistingGuest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radExistingGuest.Name = "radExistingGuest";
-            this.radExistingGuest.Size = new System.Drawing.Size(119, 21);
+            this.radExistingGuest.Size = new System.Drawing.Size(92, 17);
             this.radExistingGuest.TabIndex = 24;
             this.radExistingGuest.TabStop = true;
             this.radExistingGuest.Text = "Existing Guest";
@@ -74,26 +73,19 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             // richTxtSpecInstructions
             // 
-            this.richTxtSpecInstructions.Location = new System.Drawing.Point(227, 231);
-            this.richTxtSpecInstructions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.richTxtSpecInstructions.Location = new System.Drawing.Point(170, 188);
+            this.richTxtSpecInstructions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.richTxtSpecInstructions.Name = "richTxtSpecInstructions";
-            this.richTxtSpecInstructions.Size = new System.Drawing.Size(333, 79);
+            this.richTxtSpecInstructions.Size = new System.Drawing.Size(251, 65);
             this.richTxtSpecInstructions.TabIndex = 23;
             this.richTxtSpecInstructions.Text = "";
             // 
-            // monthCalendar
-            // 
-            this.monthCalendar.Location = new System.Drawing.Point(627, 90);
-            this.monthCalendar.Name = "monthCalendar";
-            this.monthCalendar.TabIndex = 22;
-            this.monthCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateChanged);
-            // 
             // btnRoomAvailability
             // 
-            this.btnRoomAvailability.Location = new System.Drawing.Point(109, 449);
-            this.btnRoomAvailability.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnRoomAvailability.Location = new System.Drawing.Point(82, 365);
+            this.btnRoomAvailability.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRoomAvailability.Name = "btnRoomAvailability";
-            this.btnRoomAvailability.Size = new System.Drawing.Size(195, 39);
+            this.btnRoomAvailability.Size = new System.Drawing.Size(146, 32);
             this.btnRoomAvailability.TabIndex = 21;
             this.btnRoomAvailability.Text = "Check Room Availability";
             this.btnRoomAvailability.UseVisualStyleBackColor = true;
@@ -102,60 +94,48 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblSpecialInstructions
             // 
             this.lblSpecialInstructions.AutoSize = true;
-            this.lblSpecialInstructions.Location = new System.Drawing.Point(67, 231);
+            this.lblSpecialInstructions.Location = new System.Drawing.Point(50, 188);
+            this.lblSpecialInstructions.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSpecialInstructions.Name = "lblSpecialInstructions";
-            this.lblSpecialInstructions.Size = new System.Drawing.Size(134, 17);
+            this.lblSpecialInstructions.Size = new System.Drawing.Size(102, 13);
             this.lblSpecialInstructions.TabIndex = 20;
             this.lblSpecialInstructions.Text = "Special Instructions:";
             // 
             // lblNoOfPeople
             // 
             this.lblNoOfPeople.AutoSize = true;
-            this.lblNoOfPeople.Location = new System.Drawing.Point(67, 169);
+            this.lblNoOfPeople.Location = new System.Drawing.Point(50, 137);
+            this.lblNoOfPeople.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNoOfPeople.Name = "lblNoOfPeople";
-            this.lblNoOfPeople.Size = new System.Drawing.Size(94, 17);
+            this.lblNoOfPeople.Size = new System.Drawing.Size(72, 13);
             this.lblNoOfPeople.TabIndex = 19;
             this.lblNoOfPeople.Text = "No of People:";
             // 
             // txtNoOfPeople
             // 
-            this.txtNoOfPeople.Location = new System.Drawing.Point(227, 169);
-            this.txtNoOfPeople.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtNoOfPeople.Location = new System.Drawing.Point(170, 137);
+            this.txtNoOfPeople.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNoOfPeople.Name = "txtNoOfPeople";
-            this.txtNoOfPeople.Size = new System.Drawing.Size(79, 22);
+            this.txtNoOfPeople.Size = new System.Drawing.Size(60, 20);
             this.txtNoOfPeople.TabIndex = 18;
-            // 
-            // txtDepartureDate
-            // 
-            this.txtDepartureDate.Location = new System.Drawing.Point(300, 100);
-            this.txtDepartureDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtDepartureDate.Name = "txtDepartureDate";
-            this.txtDepartureDate.Size = new System.Drawing.Size(233, 22);
-            this.txtDepartureDate.TabIndex = 17;
-            // 
-            // txtArrivaleDate
-            // 
-            this.txtArrivaleDate.Location = new System.Drawing.Point(300, 50);
-            this.txtArrivaleDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtArrivaleDate.Name = "txtArrivaleDate";
-            this.txtArrivaleDate.Size = new System.Drawing.Size(233, 22);
-            this.txtArrivaleDate.TabIndex = 16;
             // 
             // lblDepartureDate
             // 
             this.lblDepartureDate.AutoSize = true;
-            this.lblDepartureDate.Location = new System.Drawing.Point(67, 103);
+            this.lblDepartureDate.Location = new System.Drawing.Point(50, 84);
+            this.lblDepartureDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDepartureDate.Name = "lblDepartureDate";
-            this.lblDepartureDate.Size = new System.Drawing.Size(110, 17);
+            this.lblDepartureDate.Size = new System.Drawing.Size(83, 13);
             this.lblDepartureDate.TabIndex = 15;
             this.lblDepartureDate.Text = "Departure Date:";
             // 
             // lblArrivalDate
             // 
             this.lblArrivalDate.AutoSize = true;
-            this.lblArrivalDate.Location = new System.Drawing.Point(67, 50);
+            this.lblArrivalDate.Location = new System.Drawing.Point(50, 41);
+            this.lblArrivalDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblArrivalDate.Name = "lblArrivalDate";
-            this.lblArrivalDate.Size = new System.Drawing.Size(86, 17);
+            this.lblArrivalDate.Size = new System.Drawing.Size(65, 13);
             this.lblArrivalDate.TabIndex = 14;
             this.lblArrivalDate.Text = "Arrival Date:";
             // 
@@ -163,31 +143,31 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.gpBoxGuest.Controls.Add(this.radExistingGuest);
             this.gpBoxGuest.Controls.Add(this.radNewGuest);
-            this.gpBoxGuest.Location = new System.Drawing.Point(69, 327);
-            this.gpBoxGuest.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gpBoxGuest.Location = new System.Drawing.Point(52, 266);
+            this.gpBoxGuest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gpBoxGuest.Name = "gpBoxGuest";
-            this.gpBoxGuest.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gpBoxGuest.Size = new System.Drawing.Size(339, 100);
+            this.gpBoxGuest.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gpBoxGuest.Size = new System.Drawing.Size(254, 81);
             this.gpBoxGuest.TabIndex = 27;
             this.gpBoxGuest.TabStop = false;
             this.gpBoxGuest.Text = "Guest Type:";
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(365, 449);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancel.Location = new System.Drawing.Point(274, 365);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(195, 39);
+            this.btnCancel.Size = new System.Drawing.Size(146, 32);
             this.btnCancel.TabIndex = 28;
             this.btnCancel.Text = "Cancel ";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(616, 449);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnExit.Location = new System.Drawing.Point(462, 365);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(195, 39);
+            this.btnExit.Size = new System.Drawing.Size(146, 32);
             this.btnExit.TabIndex = 29;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -196,32 +176,46 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblDate
             // 
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(627, 342);
+            this.lblDate.Location = new System.Drawing.Point(572, 65);
+            this.lblDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(89, 17);
+            this.lblDate.Size = new System.Drawing.Size(67, 13);
             this.lblDate.TabIndex = 30;
             this.lblDate.Text = "Current Date";
             // 
+            // dTPArrivalDate
+            // 
+            this.dTPArrivalDate.Location = new System.Drawing.Point(220, 41);
+            this.dTPArrivalDate.Name = "dTPArrivalDate";
+            this.dTPArrivalDate.Size = new System.Drawing.Size(200, 20);
+            this.dTPArrivalDate.TabIndex = 31;
+            // 
+            // dTPDepartureDate
+            // 
+            this.dTPDepartureDate.Location = new System.Drawing.Point(221, 78);
+            this.dTPDepartureDate.Name = "dTPDepartureDate";
+            this.dTPDepartureDate.Size = new System.Drawing.Size(200, 20);
+            this.dTPDepartureDate.TabIndex = 32;
+            // 
             // NewBookingUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 514);
+            this.ClientSize = new System.Drawing.Size(708, 418);
+            this.Controls.Add(this.dTPDepartureDate);
+            this.Controls.Add(this.dTPArrivalDate);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.gpBoxGuest);
             this.Controls.Add(this.richTxtSpecInstructions);
-            this.Controls.Add(this.monthCalendar);
             this.Controls.Add(this.btnRoomAvailability);
             this.Controls.Add(this.lblSpecialInstructions);
             this.Controls.Add(this.lblNoOfPeople);
             this.Controls.Add(this.txtNoOfPeople);
-            this.Controls.Add(this.txtDepartureDate);
-            this.Controls.Add(this.txtArrivaleDate);
             this.Controls.Add(this.lblDepartureDate);
             this.Controls.Add(this.lblArrivalDate);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "NewBookingUI";
             this.Text = "NewBookingUI";
             this.Load += new System.EventHandler(this.NewBookingUI_Load);
@@ -236,18 +230,17 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.RadioButton radNewGuest;
         private System.Windows.Forms.RadioButton radExistingGuest;
         private System.Windows.Forms.RichTextBox richTxtSpecInstructions;
-        private System.Windows.Forms.MonthCalendar monthCalendar;
         private System.Windows.Forms.Button btnRoomAvailability;
         private System.Windows.Forms.Label lblSpecialInstructions;
         private System.Windows.Forms.Label lblNoOfPeople;
         private System.Windows.Forms.TextBox txtNoOfPeople;
-        private System.Windows.Forms.TextBox txtDepartureDate;
-        private System.Windows.Forms.TextBox txtArrivaleDate;
         private System.Windows.Forms.Label lblDepartureDate;
         private System.Windows.Forms.Label lblArrivalDate;
         private System.Windows.Forms.GroupBox gpBoxGuest;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.DateTimePicker dTPArrivalDate;
+        private System.Windows.Forms.DateTimePicker dTPDepartureDate;
     }
 }
