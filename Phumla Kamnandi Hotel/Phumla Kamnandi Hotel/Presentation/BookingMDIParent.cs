@@ -1,5 +1,4 @@
-﻿using Phumla_Kamnandi_Hotel.Business;
-using Phumla_Kamnandi_Hotel.Presentation;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Phumla_Kamnandi_Hotel.Business;
+using Phumla_Kamnandi_Hotel.Presentation;
+
 
 namespace Phumla_Kamnandi_Hotel
 {
@@ -18,7 +20,8 @@ namespace Phumla_Kamnandi_Hotel
         private int childFormNumber = 0;
         ExistingCustomersForm ecusForm;
         NewCustomersForm cusForm;
-        HomeForm homeForm;
+        BookingListingForm bookLForm;
+        CustomerListingForm cusLForm;
         NewBookingUI NBUI;
         BookingController bookingController;
         #endregion
@@ -141,7 +144,9 @@ namespace Phumla_Kamnandi_Hotel
         }
         #endregion
 
-        private void CreateNewCustomerForm()
+        #region Create New Child Form
+
+        private void CreateNewCustomerFsorm()
         {
             cusForm = new NewCustomersForm(bookingController);
             cusForm.MdiParent = this;
@@ -153,15 +158,32 @@ namespace Phumla_Kamnandi_Hotel
             NBUI.MdiParent = this;
             NBUI.StartPosition = FormStartPosition.CenterParent;
         }
-        private void CreateNewHomeForm()
+
+         
+        private void CreateBookingListingForm()
         {
-            homeForm = new HomeForm(bookingController);
-            homeForm.MdiParent = this;
-            homeForm.StartPosition = FormStartPosition.CenterParent;
+            bookLForm = new BookingListingForm(bookingController);
+            bookLForm.MdiParent = this;
+            bookLForm.StartPosition = FormStartPosition.CenterParent;
         }
+
+        private void CreateCustomerListingForm()
+        {
+            cusLForm = new CustomerListingForm(bookingController);
+            cusLForm.MdiParent = this;
+            cusLForm.StartPosition = FormStartPosition.CenterParent;
+        }
+
+        private void CreateExistingCustomerForm()
+        {
+            ecusForm = new ExistingCustomersForm(bookingController);
+            ecusForm.MdiParent = this;
+            ecusForm.StartPosition = FormStartPosition.CenterParent;
+        }
+        #endregion
     }
 
-    
+
 
 
 
