@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class Staff: Person
+    public class Staff: Person
     {
         #region Fields
         private string employeeID;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Phumla_Kamnandi_Hotel.Business;
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    class Customer : Person
+    public class Customer : Person
     {
         #region Fields
         private string customerID;
@@ -36,7 +36,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region ToStringMethod
         public override string ToString()
         {
-            return base.ToString() + "customerID: " + customerID + "\nPhone: " + mobilePhone;
+            return base.ToString() + "customerID: " + customerID;
         }
 
         #endregion

@@ -10,7 +10,7 @@ using Phumla_Kamnandi_Hotel.Properties;
 
 namespace Phumla_Kamnandi_Hotel.Data
 {
-    class DB
+    public class DB
     {
         #region Variable declaration
         //***Once the database is created you can find the correct connection string by using the Settings.Default object to select the correct connection string

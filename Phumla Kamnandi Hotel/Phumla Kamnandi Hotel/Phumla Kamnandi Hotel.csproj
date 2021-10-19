@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -63,8 +63,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presentation\BookingMDIParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\BookingMDIParent.Designer.cs">
+      <DependentUpon>BookingMDIParent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Business\Account.cs" />
     <Compile Include="Business\Booking.cs" />
+    <Compile Include="Business\BookingController.cs" />
     <Compile Include="Business\Customer.cs" />
     <Compile Include="Business\Hotel.cs" />
     <Compile Include="Business\Payment.cs" />
@@ -89,11 +96,11 @@
       <DependentUpon>HotelDatabaseDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />
-    <Compile Include="Presentation\ExistingCustomerForm.cs">
+    <Compile Include="Presentation\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentation\ExistingCustomerForm.Designer.cs">
-      <DependentUpon>ExistingCustomerForm.cs</DependentUpon>
+    <Compile Include="Presentation\CustomerForm.Designer.cs">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\HomeForm.cs">
       <SubType>Form</SubType>
@@ -107,28 +114,22 @@
     <Compile Include="Presentation\NewBookingUI.Designer.cs">
       <DependentUpon>NewBookingUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\NewCustomerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Presentation\NewCustomerForm.Designer.cs">
-      <DependentUpon>NewCustomerForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentation\BookingMDIParent.resx">
+      <DependentUpon>BookingMDIParent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\ExistingCustomerForm.resx">
-      <DependentUpon>ExistingCustomerForm.cs</DependentUpon>
+    <EmbeddedResource Include="Presentation\CustomerForm.resx">
+      <DependentUpon>CustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\NewBookingUI.resx">
       <DependentUpon>NewBookingUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentation\NewCustomerForm.resx">
-      <DependentUpon>NewCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -155,11 +156,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
