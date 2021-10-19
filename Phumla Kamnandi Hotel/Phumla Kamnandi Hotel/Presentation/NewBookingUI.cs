@@ -18,16 +18,19 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #region Data Members
         //declaring a reference to the Booking and the Controller class
         private Booking booking;
-        //add controller reference //private BookingController bookingController
+        private BookingController bookingController;
         public bool newBookingFormClosed = false;
+        private DateTime currentDate = DateTime.Now;
         #endregion
 
         #region Constructor
-        public NewBookingUI()
+        public NewBookingUI(BookingController aController)
         {
             InitializeComponent();
 
-            //add controller constructor //
+            lblDate.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
+
+            bookingController = aController;
         }
         #endregion
 
@@ -65,8 +68,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void PopulateObject() //method to populate a booking object 
         {
             booking = new Booking();
+            booking.getBookingDate = currentDate;
             booking.getArrival = DateTime.Parse(txtArrivaleDate.Text);
             booking.getDeparture = DateTime.Parse(txtDepartureDate.Text);
+            booking.getCustomerRequests = richTxtSpecInstructions.Text;
+
 
             //ask the group about the booking object and the current UI
         }
@@ -75,7 +81,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #region Radio Button CheckChanged Events
 
-        //come back 
+        //come back for forms 
+
+
         #endregion
 
 
@@ -110,15 +118,20 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void btnRoomAvailability_Click(object sender, EventArgs e)
         {
-            //nnot finihsed waiting for controller
+            
             PopulateObject();
             MessageBox.Show("To be submitted to the Database!");
-            //bookingController.DataMaintenance(booking, DB.DBOperation.Add);
+            bookingController.DataMaintenance(booking, DB.DBOperation.Add);
             //bookingController.FinalizeChanges(booking);
             ClearAll();
             ShowAll();
         }
 
         #endregion
+
+        private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
     }
 }
