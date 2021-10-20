@@ -56,9 +56,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.groupBox1.Controls.Add(this.lblFName);
             this.groupBox1.Controls.Add(this.lblQuestion);
             this.groupBox1.Location = new System.Drawing.Point(44, 109);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(277, 138);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
@@ -66,7 +66,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // btnConfirm
             // 
             this.btnConfirm.Location = new System.Drawing.Point(220, 119);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(56, 19);
             this.btnConfirm.TabIndex = 26;
@@ -76,7 +76,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(0, 119);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 19);
             this.btnCancel.TabIndex = 22;
@@ -86,7 +86,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtLName
             // 
             this.txtLName.Location = new System.Drawing.Point(136, 64);
-            this.txtLName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLName.Margin = new System.Windows.Forms.Padding(2);
             this.txtLName.Name = "txtLName";
             this.txtLName.Size = new System.Drawing.Size(88, 20);
             this.txtLName.TabIndex = 25;
@@ -104,7 +104,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtFName
             // 
             this.txtFName.Location = new System.Drawing.Point(136, 41);
-            this.txtFName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtFName.Margin = new System.Windows.Forms.Padding(2);
             this.txtFName.Name = "txtFName";
             this.txtFName.Size = new System.Drawing.Size(88, 20);
             this.txtFName.TabIndex = 23;
@@ -122,17 +122,17 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // lblQuestion
             // 
             this.lblQuestion.AutoSize = true;
-            this.lblQuestion.Location = new System.Drawing.Point(110, 15);
+            this.lblQuestion.Location = new System.Drawing.Point(87, 15);
             this.lblQuestion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblQuestion.Name = "lblQuestion";
-            this.lblQuestion.Size = new System.Drawing.Size(60, 13);
+            this.lblQuestion.Size = new System.Drawing.Size(127, 13);
             this.lblQuestion.TabIndex = 20;
-            this.lblQuestion.Text = "Is this you?";
+            this.lblQuestion.Text = "Confirm customer details?";
             // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(265, 67);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(56, 19);
             this.btnSearch.TabIndex = 25;
@@ -143,7 +143,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // btnHome
             // 
             this.btnHome.Location = new System.Drawing.Point(44, 26);
-            this.btnHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(277, 28);
             this.btnHome.TabIndex = 24;
@@ -153,7 +153,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtGuestID
             // 
             this.txtGuestID.Location = new System.Drawing.Point(146, 69);
-            this.txtGuestID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtGuestID.Margin = new System.Windows.Forms.Padding(2);
             this.txtGuestID.Name = "txtGuestID";
             this.txtGuestID.Size = new System.Drawing.Size(97, 20);
             this.txtGuestID.TabIndex = 23;
@@ -184,9 +184,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.txtGuestID);
             this.Controls.Add(this.lblGuestID);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExistingCustomersForm";
             this.Text = "ExistingCustomersForm";
+            this.Load += new System.EventHandler(this.ExistingCustomersForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
