@@ -69,7 +69,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void PopulateObject() //method to populate a booking object 
         {
-
+            person = new Person();
+            person.getPersonID = iDTxt.Text;
+            person.getFName = txtFName.Text;
+            person.getSName = txtLName.Text;
+            person.getEmail = txtEmail.Text;
+            person.getStreetName = txtStreet.Text;
+            person.getSuburbName = txtSuburb.Text;
+            person.getCityName = txtCity.Text;
+            person.getPostalCode = txtPostal.Text;
 
             customer = new Customer();
             //customer.getPersonID = 
@@ -136,6 +144,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 PopulateObject();
                 bookingController.DataMaintenance(customer, DB.DBOperation.Add);
                 bookingController.FinalizeChanges(customer);
+                bookingController.DataMaintenance(person, DB.DBOperation.Add);
+                bookingController.FinalizeChanges(person);
                 ClearAll();
                 ShowAll();
                 LinkToNewBookingUI();

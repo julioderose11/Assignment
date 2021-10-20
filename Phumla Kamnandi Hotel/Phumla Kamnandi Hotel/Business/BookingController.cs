@@ -16,6 +16,7 @@ namespace Phumla_Kamnandi_Hotel.Business
          Collection<Booking> bookings;
          Collection<Room> rooms;
          Collection<RoomBooking> roomBookings;
+        Collection<Person> persons;
          Room availRoom;
         #endregion
 
@@ -149,6 +150,31 @@ namespace Phumla_Kamnandi_Hotel.Business
                          break;*/
             }
         }
+
+        public void DataMaintenance(Person p, DB.DBOperation operation)
+        {
+            int index = 0;
+            //perform a given database operation to the dataset in meory; 
+            bookingDB.DataSetChange(p, operation);
+            //perform operations on the collection
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    //*** Add the customer to the Collection
+                    persons.Add(p);
+                    break;
+
+                    //Uncomment when FindIndex method is created
+                    /* case DB.DBOperation.Edit:
+                         index = FindIndex(book);
+                         bookings[index] = book;  // replace booking at this index with the updated booking
+                         break;
+                     case DB.DBOperation.Delete:
+                         index = FindIndex(book);  // find the index of the specific booking in collection
+                         bookings.RemoveAt(index);  // remove that booking from the collection
+                         break;*/
+            }
+        }
         //***Commit the changes to the database
         public bool FinalizeChanges(Customer customer)
         {
@@ -161,6 +187,19 @@ namespace Phumla_Kamnandi_Hotel.Business
             //***call the BookingDB method that will commit the changes to the database
             return bookingDB.UpdateDataSource(booking);
         }
+
+        public bool FinalizeChanges(Person person)
+        {
+            //***call the BookingDB method that will commit the changes to the database
+            return bookingDB.UpdateDataSource(person);
+        }
+
+        public bool FinalizeChanges(RoomBooking rb)
+        {
+            //***call the BookingDB method that will commit the changes to the database
+            return bookingDB.UpdateDataSource(rb);
+        }
+
         #endregion
 
         #region: Methods

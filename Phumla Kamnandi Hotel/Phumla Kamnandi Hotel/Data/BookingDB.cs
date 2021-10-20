@@ -407,6 +407,31 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
         }
 
+        //Datasetchange method for person table
+        public void DataSetChange(Person person, DB.DBOperation operation)
+        {
+            DataRow aRow = null;
+            string dataTable = table4;
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    aRow = dsMain.Tables[dataTable].NewRow();
+                    FillRow(aRow, person, operation);
+                    dsMain.Tables[dataTable].Rows.Add(aRow);
+
+                    break;
+                case DB.DBOperation.Edit:
+
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(person, dataTable)];
+
+                    FillRow(aRow, person, operation);
+                    break;
+                case DB.DBOperation.Delete:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(person, dataTable)];
+                    aRow.Delete();
+                    break;
+            }
+        }
 
         #endregion
 
