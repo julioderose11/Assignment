@@ -65,57 +65,129 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
         #endregion
 
+        #region Utility methods
+
+        private void ShowAll(bool value)
+        {
+            
+            //If the form state is View, the Submit button and the Edit button should not be visible
+            if (state == FormStates.Delete)
+            {
+                cancelButton.Visible = !value;
+                submitButton.Visible = !value;
+            }
+            else
+            {
+                cancelButton.Visible = value;
+                submitButton.Visible = value;
+            }
+
+        }
+
+        private void ClearAll()
+        {
+            txtBookingID.Text = " ";
+            txtAccount.Text = " ";
+            txtCusID.Text = " ";
+            txtCustomerRequests.Text = " ";
+            txtBookingDate.Text = " ";
+            txtArrivalDate.Text = " ";
+            txtDepartureDate.Text = " ";
+            txtReference.Text = " ";
+        }
+
+
+        private void EnableEntries(bool value)
+        {
+            if ((state == FormStates.Edit) && value)
+            {
+                txtBookingID.Enabled = !value;
+                //do the same for all buttons & textboxes
+                txtAccount.Enabled = !value;
+            }
+            else
+            {
+                txtBookingID.Enabled = value;
+                txtAccount.Enabled = value;
+            }
+            txtCusID.Enabled = value;
+            txtCustomerRequests.Enabled = value;
+            txtBookingDate.Enabled = value;
+            txtArrivalDate.Enabled = value;
+            txtDepartureDate.Enabled = value;
+            txtReference.Enabled = value;
+            if (state == FormStates.Delete)
+            {
+                cancelButton.Visible = !value;
+                submitButton.Visible = !value;
+            }
+            else
+            {
+                cancelButton.Visible = value;
+                submitButton.Visible = value;
+            }
+        }
+        private void PopulateTextBoxes(Booking booking)
+        {
+            txtBookingID.Text = booking.getBookingID;
+            txtCustomerRequests.Text = booking.getCustomerRequests;
+            
+            
+
+            
+
+        }
+        #endregion
+
         #region ListView set up
         public void setUpEmployeeListView()
         {
-
             ListViewItem bookingDetails;
-            booking.ListView.Clear();
+            bookings = null;
+            bookingListView.Clear();
 
-            employeeListView.Columns.Insert(0, "ID", 120, HorizontalAlignment.Left);
-            employeeListView.Columns.Insert(1, "EMPID", 120, HorizontalAlignment.Left);
-            employeeListView.Columns.Insert(2, "Name", 120, HorizontalAlignment.Left);
-            employeeListView.Columns.Insert(3, "Phone", 120, HorizontalAlignment.Left);
-
-
-
-            foreach (Employee employee in employees)
+            bookingListView.Columns.Insert(0, "BookingID", 15, HorizontalAlignment.Left);
+           // bookingListView.Columns.Insert(1, "CustomerID", 15, HorizontalAlignment.Left);
+           // bookingListView.Columns.Insert(2, "AccountNum", 15, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(3, "CustomerRequests", 200, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(4, "BookingDate", 100, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(5, "ArrivalDate", 100, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(6, "DepartureDate", 100, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(7, "numPeople", 1, HorizontalAlignment.Left);
+            bookings = bookingController.AllBookings;
+            foreach (Booking booking in bookings)
             {
-                employeeDetails = new ListViewItem();
-                employeeDetails.Text = employee.ID.ToString();
-                employeeDetails.SubItems.Add(employee.EmployeeID.ToString());
-                employeeDetails.SubItems.Add(employee.Name.ToString());
-                employeeDetails.SubItems.Add(employee.Telephone.ToString());
-                // Do the same for EmpID, Name and Phone
-                switch (employee.role.getRoleValue)
-                {
-                    case Role.RoleType.Headwaiter:
-                        headW = (HeadWaiter)employee.role;
-                        employeeDetails.SubItems.Add(headW.SalaryAmount.ToString());
-                        break;
-                    case Role.RoleType.Waiter:
-                        waiter = (Waiter)employee.role;
-                        employeeDetails.SubItems.Add(waiter.getRate.ToString());
-                        employeeDetails.SubItems.Add(waiter.getShifts.ToString());
-                        employeeDetails.SubItems.Add(waiter.getTips.ToString());
-                        break;
-                    case Role.RoleType.Runner:
-                        runner = (Runner)employee.role;
-                        employeeDetails.SubItems.Add(runner.getRate.ToString());
-                        employeeDetails.SubItems.Add(runner.getShifts.ToString());
-                        employeeDetails.SubItems.Add(runner.getTips.ToString());
-                        break;
+                bookingDetails = new ListViewItem();
+                bookingDetails.Text = booking.getBookingID.ToString();
+               // bookingDetails.SubItems.Add(booking.getc.ToString());
+                bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
+                bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
+                bookingDetails.SubItems.Add(booking.getArrival.ToString());
+                bookingDetails.SubItems.Add(booking.getDeparture.ToString());
+                bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
 
-                }
-
-                employeeListView.Items.Add(employeeDetails);
-
-
+               // bookingDetails.Items.Add(bookingDetails); //I am getting a error here and i don't know why 
             }
+            bookingListView.Refresh();
+            bookingListView.GridLines = true;
 
-            employeeListView.Refresh();
-            employeeListView.GridLines = true;
         }
+
+        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowAll(true);
+            state = FormStates.View;
+            EnableEntries(false);
+            if (bookingListView.SelectedItems.Count > 0)   
+            {
+                booking = bookingController.FindBooking(bookingListView.SelectedItems[0].Text);  
+                                                                                                     
+                PopulateTextBoxes(booking);
+            }
+        }
+
+        #endregion
+
 
     }
 }
