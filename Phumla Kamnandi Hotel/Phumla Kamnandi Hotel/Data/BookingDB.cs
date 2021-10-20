@@ -562,6 +562,13 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.DeleteCommand.Parameters.Add(param);
         }
 
+        private void Create_INSERT_Command(Person aPerson)
+        {
+            //Create the command that must be used to insert values into the customer table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Customer (FirstName, SecondName, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @FirstName, @SecondName, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
+            Build_INSERT_Parameters(aPerson);
+        }
+
         private void Create_INSERT_Command(Customer aCust)
         {
             //Create the command that must be used to insert values into the customer table..
@@ -598,6 +605,22 @@ namespace Phumla_Kamnandi_Hotel.Data
             Build_UPDATE_Parameters(book);
         }
 
+        private string Create_DELETE_Command(Person aPerson)
+        {
+            string errorString = null;
+            //Create the command that must be used to delete values from the Customer table
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM Person WHERE PersonID = @PersonID", cnMain);
+
+            try
+            {
+                Build_DELETE_Parameters(aPerson);
+            }
+            catch (Exception errObj)
+            {
+                errorString = errObj.Message + "  " + errObj.StackTrace;
+            }
+            return errorString;
+        }
 
         private string Create_DELETE_Command(Customer aCust)
         {
@@ -656,6 +679,15 @@ namespace Phumla_Kamnandi_Hotel.Data
             Create_INSERT_Command(aCust);
             Create_UPDATE_Command(aCust);
             Create_DELETE_Command(aCust);
+            success = UpdateDataSource(sqlLocal1, table1);
+            return success;
+        }
+
+        public bool UpdateDataSource(Person aPerson)
+        {
+            bool success = true;
+            Create_INSERT_Command(aPerson);
+            Create_DELETE_Command(aPerson);
             success = UpdateDataSource(sqlLocal1, table1);
             return success;
         }
