@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Phumla_Kamnandi_Hotel.Properties;
 
 namespace Phumla_Kamnandi_Hotel
 {
@@ -18,7 +19,6 @@ namespace Phumla_Kamnandi_Hotel
         private int childFormNumber = 0;
         ExistingCustomersForm ecusForm;
         NewCustomersForm cusForm;
-        HomeForm homeForm;
         NewBookingUI NBUI;
         BookingController bookingController;
         #endregion
@@ -153,12 +153,12 @@ namespace Phumla_Kamnandi_Hotel
             NBUI.MdiParent = this;
             NBUI.StartPosition = FormStartPosition.CenterParent;
         }
-        private void CreateNewHomeForm()
+       /* private void CreateNewHomeForm()
         {
             homeForm = new HomeForm(bookingController);
             homeForm.MdiParent = this;
             homeForm.StartPosition = FormStartPosition.CenterParent;
-        }
+        }*/
     }
 
     
