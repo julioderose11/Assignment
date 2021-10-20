@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using Phumla_Kamnandi_Hotel.Business;
 using Phumla_Kamnandi_Hotel.Data;
 using System.Collections.ObjectModel;
-using Phumla_Kamnandi_Hotel.Business;
 
 
 namespace Phumla_Kamnandi_Hotel.Presentation
@@ -20,10 +19,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #region Data Members
         //declaring a reference to the Booking and the Controller class
         private Booking booking;
+        private RoomBooking roombooking;
+        private Room room;
         private BookingController bookingController;
         public bool newBookingFormClosed = false;
         private DateTime currentDate = DateTime.Now;
         private Collection<RoomBooking> roomBookings;
+        private Collection<Room> rooms;
         #endregion
 
         #region Constructor
@@ -45,13 +47,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             lblDepartureDate.Visible = true;
             lblNoOfPeople.Visible = true;
             lblSpecialInstructions.Visible = true;
-            gpBoxGuest.Visible = true;
             dTPArrivalDate.Visible = true;
             dTPDepartureDate.Visible = true;
             txtNoOfPeople.Visible = true;
             richTxtSpecInstructions.Visible = true;
-            radExistingGuest.Visible = true;
-            radNewGuest.Visible = true;
             btnRoomAvailability.Visible = true;
             btnCancel.Visible = true;
             btnExit.Visible = true;
@@ -63,8 +62,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             dTPDepartureDate.Text = "";
             txtNoOfPeople.Text = "";
             richTxtSpecInstructions.Text = "";
-            radExistingGuest.Checked = false;
-            radNewGuest.Checked = false;
+
         }
 
         public void PopulateObject() //method to populate a booking object 
@@ -106,59 +104,43 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void NewBookingUI_Activated(object sender, EventArgs e)
         {
             ShowAll();
-            radExistingGuest.Checked = false;
-            radNewGuest.Checked = false;
-
         }
 
         private void btnRoomAvailability_Click(object sender, EventArgs e)
         {
-            //retrieve all roomBooking objects and add it to the roomBookings collection
-            roomBookings = bookingController.AllRoomBookings;
-            //Loop through all roomBooking objects in collection to determine whther dates supplied are valid
-            foreach(RoomBooking roomBooking in roomBookings)
+
+            //controller class enacts availability method to determine whether a room is available for specified dates
+            if (bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
             {
-                //controller class enacts availability method to determine whether a room is available for specified dates
-                if(bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
-                {                    
-                    DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
-                    if(returnDialogResult == DialogResult.Yes)
-                    {
-                        //but must first enter customer deatils and only then can we populate booking object
-                        //maybe make the method public static and then call it in the other forms?
-                        PopulateObject();
-                        bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-                        bookingController.FinalizeChanges(booking);
-
-                        //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
-
-                        if(radExistingGuest.Checked)
-                        {
-                            ExistingCustomersForm existingCustomerForm = new ExistingCustomersForm(bookingController); //is argument necessary???
-                            existingCustomerForm.ShowDialog();
-
-                        }
-                        else
-                        {
-                            NewCustomersForm newCustomerForm = new NewCustomersForm(bookingController); //is argument necessary???
-                            newCustomerForm.ShowDialog();
-                        }
-                    }
-                }
-                else
+                if (returnDialogResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("No available rooms between " + dTPArrivalDate.Value.Date + " and " + dTPDepartureDate.Value.Date 
-                        + "\nPlease select another set of dates.", "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    dTPArrivalDate.Text = "";
-                    dTPDepartureDate.Text = "";
-                    dTPArrivalDate.Focus();
+                    //but must first enter customer deatils and only then can we populate booking object
+                    //maybe make the method public static and then call it in the other forms?
+                    PopulateObject();
+                    bookingController.DataMaintenance(booking, DB.DBOperation.Add);
+                    bookingController.FinalizeChanges(booking);
 
+                    //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
                 }
-    
+            }
+            else
+            {
+                MessageBox.Show("No available rooms between " + dTPArrivalDate.Value.Date + " and " + dTPDepartureDate.Value.Date
+                    + "\nPlease select another set of dates.", "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                dTPArrivalDate.Text = "";
+                dTPDepartureDate.Text = "";
+                dTPArrivalDate.Focus();
+
             }
 
-
+            //room = bookingController.FindRoom(roomNum);
+            //roombooking = new RoomBooking();
+            //roombooking.getBookingObject = booking;
+            //roombooking.getRoomObject = room;
+            //bookingController.DataMaintenance(booking, DB.DBOperation.Add);
+            //bookingController.FinalizeChanges(booking);
         }
 
         #endregion

@@ -69,6 +69,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void ShowAll(bool value)
         {
+
+
             
             //If the form state is View, the Submit button and the Edit button should not be visible
             if (state == FormStates.Delete)
@@ -93,7 +95,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtBookingDate.Text = " ";
             txtArrivalDate.Text = " ";
             txtDepartureDate.Text = " ";
-            txtReference.Text = " ";
+            
         }
 
 
@@ -115,7 +117,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtBookingDate.Enabled = value;
             txtArrivalDate.Enabled = value;
             txtDepartureDate.Enabled = value;
-            txtReference.Enabled = value;
+            
             if (state == FormStates.Delete)
             {
                 cancelButton.Visible = !value;
@@ -131,10 +133,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             txtBookingID.Text = booking.getBookingID;
             txtCustomerRequests.Text = booking.getCustomerRequests;
-            
-            
-
-            
+            txtBookingDate.Text = Convert.ToString(booking.getBookingDate);
+            txtArrivalDate.Text = Convert.ToString(booking.getArrival);
+            txtDepartureDate.Text = Convert.ToString(booking.getDeparture);
 
         }
         #endregion
@@ -186,8 +187,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             }
         }
 
+
         #endregion
 
+        private void submitButton_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
