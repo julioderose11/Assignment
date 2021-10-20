@@ -135,7 +135,10 @@ namespace Phumla_Kamnandi_Hotel
 
         private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Booking newBook = new Booking();
+            //Booking newBook = new Booking();
+            NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
+            newCustomerform.ShowDialog();
+            this.Hide();
         }
 
         private void listToolStripMenuItem_Click(object sender, EventArgs e)

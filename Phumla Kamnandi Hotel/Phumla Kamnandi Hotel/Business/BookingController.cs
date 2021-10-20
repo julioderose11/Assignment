@@ -124,6 +124,31 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
         }
 
+        //DataMaintenance method for roombooking table
+        public void DataMaintenance(RoomBooking roombook, DB.DBOperation operation)
+        {
+            int index = 0;
+            //perform a given database operation to the dataset in meory; 
+            bookingDB.DataSetChange(roombook, operation);
+            //perform operations on the collection
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    //*** Add the customer to the Collection
+                    roomBookings.Add(roombook);
+                    break;
+
+                    //Uncomment when FindIndex method is created
+                    /* case DB.DBOperation.Edit:
+                         index = FindIndex(book);
+                         bookings[index] = book;  // replace booking at this index with the updated booking
+                         break;
+                     case DB.DBOperation.Delete:
+                         index = FindIndex(book);  // find the index of the specific booking in collection
+                         bookings.RemoveAt(index);  // remove that booking from the collection
+                         break;*/
+            }
+        }
         //***Commit the changes to the database
         public bool FinalizeChanges(Customer customer)
         {
