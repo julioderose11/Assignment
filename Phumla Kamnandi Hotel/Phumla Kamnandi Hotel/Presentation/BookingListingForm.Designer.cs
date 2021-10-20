@@ -50,8 +50,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblBookingID = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
-            this.lblReference = new System.Windows.Forms.Label();
-            this.txtReference = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblEdit = new System.Windows.Forms.Label();
+            this.lblDelete = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // bookingListView
@@ -78,7 +82,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtDepartureDate
             // 
             this.txtDepartureDate.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDepartureDate.Location = new System.Drawing.Point(249, 602);
+            this.txtDepartureDate.Location = new System.Drawing.Point(198, 242);
             this.txtDepartureDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDepartureDate.Name = "txtDepartureDate";
             this.txtDepartureDate.Size = new System.Drawing.Size(188, 27);
@@ -88,7 +92,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblDepartureDate.AutoSize = true;
             this.lblDepartureDate.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDepartureDate.Location = new System.Drawing.Point(68, 603);
+            this.lblDepartureDate.Location = new System.Drawing.Point(17, 242);
             this.lblDepartureDate.Name = "lblDepartureDate";
             this.lblDepartureDate.Size = new System.Drawing.Size(114, 22);
             this.lblDepartureDate.TabIndex = 69;
@@ -98,19 +102,20 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.submitButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.submitButton.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(955, 592);
+            this.submitButton.Location = new System.Drawing.Point(823, 607);
             this.submitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(85, 42);
             this.submitButton.TabIndex = 68;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = false;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.cancelButton.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelButton.Location = new System.Drawing.Point(767, 592);
+            this.cancelButton.Location = new System.Drawing.Point(625, 607);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 42);
@@ -121,7 +126,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtArrivalDate
             // 
             this.txtArrivalDate.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtArrivalDate.Location = new System.Drawing.Point(249, 562);
+            this.txtArrivalDate.Location = new System.Drawing.Point(198, 198);
             this.txtArrivalDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtArrivalDate.Name = "txtArrivalDate";
             this.txtArrivalDate.Size = new System.Drawing.Size(188, 27);
@@ -130,7 +135,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtBookingDate
             // 
             this.txtBookingDate.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBookingDate.Location = new System.Drawing.Point(249, 517);
+            this.txtBookingDate.Location = new System.Drawing.Point(198, 147);
             this.txtBookingDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBookingDate.Name = "txtBookingDate";
             this.txtBookingDate.Size = new System.Drawing.Size(188, 27);
@@ -139,7 +144,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtCustomerRequests
             // 
             this.txtCustomerRequests.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomerRequests.Location = new System.Drawing.Point(249, 463);
+            this.txtCustomerRequests.Location = new System.Drawing.Point(198, 93);
             this.txtCustomerRequests.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCustomerRequests.Name = "txtCustomerRequests";
             this.txtCustomerRequests.Size = new System.Drawing.Size(188, 27);
@@ -148,35 +153,37 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtAccount
             // 
             this.txtAccount.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAccount.Location = new System.Drawing.Point(607, 374);
+            this.txtAccount.Location = new System.Drawing.Point(176, 93);
             this.txtAccount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAccount.Name = "txtAccount";
+            this.txtAccount.ReadOnly = true;
             this.txtAccount.Size = new System.Drawing.Size(185, 27);
             this.txtAccount.TabIndex = 61;
             // 
             // txtCusID
             // 
             this.txtCusID.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCusID.Location = new System.Drawing.Point(249, 416);
+            this.txtCusID.Location = new System.Drawing.Point(176, 36);
             this.txtCusID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCusID.Name = "txtCusID";
-            this.txtCusID.Size = new System.Drawing.Size(152, 27);
+            this.txtCusID.ReadOnly = true;
+            this.txtCusID.Size = new System.Drawing.Size(185, 27);
             this.txtCusID.TabIndex = 60;
             // 
             // txtBookingID
             // 
             this.txtBookingID.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBookingID.Location = new System.Drawing.Point(249, 374);
+            this.txtBookingID.Location = new System.Drawing.Point(198, 41);
             this.txtBookingID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBookingID.Name = "txtBookingID";
-            this.txtBookingID.Size = new System.Drawing.Size(152, 27);
+            this.txtBookingID.Size = new System.Drawing.Size(188, 27);
             this.txtBookingID.TabIndex = 59;
             // 
             // lblArrivalDate
             // 
             this.lblArrivalDate.AutoSize = true;
             this.lblArrivalDate.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblArrivalDate.Location = new System.Drawing.Point(68, 562);
+            this.lblArrivalDate.Location = new System.Drawing.Point(17, 198);
             this.lblArrivalDate.Name = "lblArrivalDate";
             this.lblArrivalDate.Size = new System.Drawing.Size(91, 22);
             this.lblArrivalDate.TabIndex = 58;
@@ -186,7 +193,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblBookingDate.AutoSize = true;
             this.lblBookingDate.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBookingDate.Location = new System.Drawing.Point(68, 517);
+            this.lblBookingDate.Location = new System.Drawing.Point(17, 147);
             this.lblBookingDate.Name = "lblBookingDate";
             this.lblBookingDate.Size = new System.Drawing.Size(103, 22);
             this.lblBookingDate.TabIndex = 57;
@@ -196,7 +203,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblCustomerReq.AutoSize = true;
             this.lblCustomerReq.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerReq.Location = new System.Drawing.Point(68, 467);
+            this.lblCustomerReq.Location = new System.Drawing.Point(17, 97);
             this.lblCustomerReq.Name = "lblCustomerReq";
             this.lblCustomerReq.Size = new System.Drawing.Size(146, 22);
             this.lblCustomerReq.TabIndex = 56;
@@ -206,7 +213,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblCustomerID.AutoSize = true;
             this.lblCustomerID.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerID.Location = new System.Drawing.Point(68, 421);
+            this.lblCustomerID.Location = new System.Drawing.Point(11, 41);
             this.lblCustomerID.Name = "lblCustomerID";
             this.lblCustomerID.Size = new System.Drawing.Size(95, 22);
             this.lblCustomerID.TabIndex = 55;
@@ -216,7 +223,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblAccountNum.AutoSize = true;
             this.lblAccountNum.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAccountNum.Location = new System.Drawing.Point(447, 380);
+            this.lblAccountNum.Location = new System.Drawing.Point(11, 94);
             this.lblAccountNum.Name = "lblAccountNum";
             this.lblAccountNum.Size = new System.Drawing.Size(126, 22);
             this.lblAccountNum.TabIndex = 54;
@@ -226,7 +233,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblBookingID.AutoSize = true;
             this.lblBookingID.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBookingID.Location = new System.Drawing.Point(68, 379);
+            this.lblBookingID.Location = new System.Drawing.Point(17, 46);
             this.lblBookingID.Name = "lblBookingID";
             this.lblBookingID.Size = new System.Drawing.Size(82, 22);
             this.lblBookingID.TabIndex = 53;
@@ -236,7 +243,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.deleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deleteButton.BackgroundImage")));
             this.deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.deleteButton.Location = new System.Drawing.Point(1097, 366);
+            this.deleteButton.Location = new System.Drawing.Point(1097, 433);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(60, 42);
@@ -247,61 +254,85 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.editButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("editButton.BackgroundImage")));
             this.editButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.editButton.Location = new System.Drawing.Point(1009, 365);
+            this.editButton.Location = new System.Drawing.Point(987, 433);
             this.editButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(60, 42);
             this.editButton.TabIndex = 65;
             this.editButton.UseVisualStyleBackColor = true;
             // 
-            // lblReference
+            // groupBox1
             // 
-            this.lblReference.AutoSize = true;
-            this.lblReference.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReference.Location = new System.Drawing.Point(68, 652);
-            this.lblReference.Name = "lblReference";
-            this.lblReference.Size = new System.Drawing.Size(80, 22);
-            this.lblReference.TabIndex = 71;
-            this.lblReference.Text = "Reference";
+            this.groupBox1.Controls.Add(this.txtAccount);
+            this.groupBox1.Controls.Add(this.lblAccountNum);
+            this.groupBox1.Controls.Add(this.lblCustomerID);
+            this.groupBox1.Controls.Add(this.txtCusID);
+            this.groupBox1.Location = new System.Drawing.Point(500, 374);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(441, 155);
+            this.groupBox1.TabIndex = 73;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Customer Details for Booking";
             // 
-            // txtReference
+            // groupBox2
             // 
-            this.txtReference.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReference.Location = new System.Drawing.Point(249, 647);
-            this.txtReference.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtReference.Name = "txtReference";
-            this.txtReference.Size = new System.Drawing.Size(188, 27);
-            this.txtReference.TabIndex = 72;
+            this.groupBox2.Controls.Add(this.txtBookingDate);
+            this.groupBox2.Controls.Add(this.lblBookingID);
+            this.groupBox2.Controls.Add(this.txtDepartureDate);
+            this.groupBox2.Controls.Add(this.lblCustomerReq);
+            this.groupBox2.Controls.Add(this.lblDepartureDate);
+            this.groupBox2.Controls.Add(this.lblBookingDate);
+            this.groupBox2.Controls.Add(this.lblArrivalDate);
+            this.groupBox2.Controls.Add(this.txtBookingID);
+            this.groupBox2.Controls.Add(this.txtCustomerRequests);
+            this.groupBox2.Controls.Add(this.txtArrivalDate);
+            this.groupBox2.Location = new System.Drawing.Point(42, 374);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(441, 309);
+            this.groupBox2.TabIndex = 74;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Booking Details";
+            // 
+            // lblEdit
+            // 
+            this.lblEdit.AutoSize = true;
+            this.lblEdit.Location = new System.Drawing.Point(998, 487);
+            this.lblEdit.Name = "lblEdit";
+            this.lblEdit.Size = new System.Drawing.Size(32, 17);
+            this.lblEdit.TabIndex = 75;
+            this.lblEdit.Text = "Edit";
+            // 
+            // lblDelete
+            // 
+            this.lblDelete.AutoSize = true;
+            this.lblDelete.Location = new System.Drawing.Point(1108, 486);
+            this.lblDelete.Name = "lblDelete";
+            this.lblDelete.Size = new System.Drawing.Size(49, 17);
+            this.lblDelete.TabIndex = 76;
+            this.lblDelete.Text = "Delete";
             // 
             // bookingListingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1443, 722);
-            this.Controls.Add(this.txtReference);
-            this.Controls.Add(this.lblReference);
-            this.Controls.Add(this.txtDepartureDate);
-            this.Controls.Add(this.lblDepartureDate);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(1231, 712);
+            this.Controls.Add(this.lblDelete);
+            this.Controls.Add(this.lblEdit);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
-            this.Controls.Add(this.txtArrivalDate);
-            this.Controls.Add(this.txtBookingDate);
-            this.Controls.Add(this.txtCustomerRequests);
-            this.Controls.Add(this.txtAccount);
-            this.Controls.Add(this.txtCusID);
-            this.Controls.Add(this.txtBookingID);
-            this.Controls.Add(this.lblArrivalDate);
-            this.Controls.Add(this.lblBookingDate);
-            this.Controls.Add(this.lblCustomerReq);
-            this.Controls.Add(this.lblCustomerID);
-            this.Controls.Add(this.lblAccountNum);
-            this.Controls.Add(this.lblBookingID);
             this.Controls.Add(this.bookingListView);
             this.Controls.Add(this.listLabel);
             this.Name = "bookingListingForm";
             this.Text = "BookingListingForm";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,7 +360,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.Label lblCustomerID;
         private System.Windows.Forms.Label lblAccountNum;
         private System.Windows.Forms.Label lblBookingID;
-        private System.Windows.Forms.Label lblReference;
-        private System.Windows.Forms.TextBox txtReference;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblEdit;
+        private System.Windows.Forms.Label lblDelete;
     }
 }
