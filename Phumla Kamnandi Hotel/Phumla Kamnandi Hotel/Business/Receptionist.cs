@@ -27,7 +27,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             string refNum = refNumGenerator();
             
             //instantiate booking object
-            Booking booking = new Booking(refNum, custRequests, current, ArrivalDate, DepartureDate);            
+            Booking booking = new Booking(refNum, current, ArrivalDate, DepartureDate, );            
         }
 
         //Double check the placing of this method. We need to make sure a new reference number isn't created when a customer makes two bookings
