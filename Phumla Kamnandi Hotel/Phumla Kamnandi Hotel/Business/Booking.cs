@@ -66,7 +66,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         
         }
 
-        public Booking(string bookingID, string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate, int nPeople)
+        public Booking(string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate, int nPeople)
         {
             bookingID = IdGenerator();
             customerRequests = custRequests;
