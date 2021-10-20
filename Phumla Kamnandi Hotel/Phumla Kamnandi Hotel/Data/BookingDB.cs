@@ -210,6 +210,22 @@ namespace Phumla_Kamnandi_Hotel.Data
                 aRow["numPeople"] = book.getNumPeople;
             }
         }
+        //FillRow method for person table
+        private void FillRow(DataRow aRow, Person aPers, DB.DBOperation operation)
+        {
+            if (operation == DB.DBOperation.Add)
+            {
+                 
+                aRow["PersonID"] = aPers.getPersonID;
+                aRow["FirstName"] = aPers.getFName;
+                aRow["SecondName"] = aPers.getSName;
+                aRow["Email"] = aPers.getEmail;
+                aRow["StreetName"] = aPers.getStreetName;
+                aRow["SuburbName"] = aPers.getSuburbName;
+                aRow["CityName"] = aPers.getCityName;
+                aRow["PostalCode"] = aPers.getPostalCode;
+            }
+        }
 
         //FillRow method for roombooking table
         private void FillRow(DataRow aRow, RoomBooking rb, DB.DBOperation operation)
@@ -468,7 +484,36 @@ namespace Phumla_Kamnandi_Hotel.Data
 
             param = new SqlParameter("@BookingID", SqlDbType.Int, 5, "BookingID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+        }
+        ////Build_INSERT_Parameters for person
+        private void Build_INSERT_Parameters(Person aPers)
+        {
+            //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
+            SqlParameter param = default(SqlParameter);
 
+            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "StreetName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 100, "SuburbName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
+            daMain.InsertCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
+            daMain.InsertCommand.Parameters.Add(param);
         }
 
         ////Build_UPDATE_Parameters for customer
@@ -593,6 +638,21 @@ namespace Phumla_Kamnandi_Hotel.Data
             param.SourceVersion = DataRowVersion.Original;
             daMain.DeleteCommand.Parameters.Add(param);
         }
+        private void Build_DELETE_Parameters(Person aPers)
+        {
+            //--Create Parameters to communicate with SQL DELETE
+            SqlParameter param;
+            param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.DeleteCommand.Parameters.Add(param);
+        }
+
+        private void Create_INSERT_Command(Person aPerson)
+        {
+            //Create the command that must be used to insert values into the customer table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Customer (FirstName, SecondName, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @FirstName, @SecondName, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
+            Build_INSERT_Parameters(aPerson);
+        }
 
         private void Create_INSERT_Command(Customer aCust)
         {
@@ -630,6 +690,22 @@ namespace Phumla_Kamnandi_Hotel.Data
             Build_UPDATE_Parameters(book);
         }
 
+        private string Create_DELETE_Command(Person aPerson)
+        {
+            string errorString = null;
+            //Create the command that must be used to delete values from the Customer table
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM Person WHERE PersonID = @PersonID", cnMain);
+
+            try
+            {
+                Build_DELETE_Parameters(aPerson);
+            }
+            catch (Exception errObj)
+            {
+                errorString = errObj.Message + "  " + errObj.StackTrace;
+            }
+            return errorString;
+        }
 
         private string Create_DELETE_Command(Customer aCust)
         {
@@ -688,6 +764,15 @@ namespace Phumla_Kamnandi_Hotel.Data
             Create_INSERT_Command(aCust);
             Create_UPDATE_Command(aCust);
             Create_DELETE_Command(aCust);
+            success = UpdateDataSource(sqlLocal1, table1);
+            return success;
+        }
+
+        public bool UpdateDataSource(Person aPerson)
+        {
+            bool success = true;
+            Create_INSERT_Command(aPerson);
+            Create_DELETE_Command(aPerson);
             success = UpdateDataSource(sqlLocal1, table1);
             return success;
         }
