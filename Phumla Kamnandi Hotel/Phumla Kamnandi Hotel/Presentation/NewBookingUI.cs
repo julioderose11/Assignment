@@ -71,7 +71,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             
             booking = new Booking();
-            //may have to put bookingID generator method here and create id here...
             booking.getBookingDate = currentDate;
             booking.getArrival = (DateTime) dTPArrivalDate.Value;
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;

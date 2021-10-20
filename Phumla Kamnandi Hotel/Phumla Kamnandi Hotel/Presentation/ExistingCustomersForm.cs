@@ -41,14 +41,18 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             lblLName.Visible = true;
             lblQuestion.Visible = true;
             txtFName.Visible = true;
-            txtGuestID.Visible = true;
             txtLName.Visible = true;
-            btnSearch.Visible = true;
             btnHome.Visible = true;
-            btnConfirm.Visible = true;
-            btnCancel.Visible = true;
+        }
 
-
+        private void HideAll() //method to activated and show controls and labels
+        {
+            lblFName.Visible = false;
+            lblLName.Visible = false;
+            lblQuestion.Visible = false;
+            txtFName.Visible = false;
+            txtLName.Visible = false;
+            btnHome.Visible = false;
         }
 
         private void ClearAll() //method to clear all controls
@@ -61,10 +65,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void PopulateObject() //method to populate a booking object 
         {
 
-            customer = new Customer();
-            customer.CustomerID = controller
-
-
+            customer = new Customer(); 
             //ask how to retrieve specific data from the database. 
         }
         
@@ -118,9 +119,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)  //When the search button is clicked, the find function from the controller is called to find the inputed guest id.
+        //When the search button is clicked, the find function from the controller is called to find the inputed guest id.
+        private void btnSearch_Click(object sender, EventArgs e)  
         {
-            customer = bookingController.Find(txtGuestID.Text);
+            customer = bookingController.FindCustomer(txtGuestID.Text);
             if (customer==null)
             {
                 lblQuestion.Text = "Not Found";
@@ -131,21 +133,28 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             }
             else
             {
+                ShowAll();
                 FillDetails();
             }
             
 
         }
+        //Populate the textboxes with the name and surname of the found customer
         private void FillDetails()
         {
             txtFName.Text = customer.getFName;
-            txtLName.Text = customer.getLName;
+            txtLName.Text = customer.getSName;
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void ExistingCustomersForm_Load(object sender, EventArgs e)
+        {
+            HideAll();
         }
     }
 }
