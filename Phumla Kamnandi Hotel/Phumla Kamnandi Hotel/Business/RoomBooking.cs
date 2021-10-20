@@ -36,12 +36,20 @@ namespace Phumla_Kamnandi_Hotel.Business
             {
                 return room;
             }
+            set
+            {
+                room = value;
+            }
         }
         public Booking getBookingObject
         {
             get
             {
                 return booking;
+            }
+            set
+            {
+                booking = value;
             }
         }
         #endregion

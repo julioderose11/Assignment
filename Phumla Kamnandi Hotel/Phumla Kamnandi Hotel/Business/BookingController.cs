@@ -167,8 +167,6 @@ namespace Phumla_Kamnandi_Hotel.Business
             return bookings[index];  // this is the one!  
         }
 
-
-
         public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
         {
             bool flag = false;          

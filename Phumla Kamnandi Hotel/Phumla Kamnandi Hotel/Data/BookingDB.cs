@@ -247,7 +247,6 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
         }
 
-
         #endregion
 
         #region Build Parameters, Create Commands & Update database
