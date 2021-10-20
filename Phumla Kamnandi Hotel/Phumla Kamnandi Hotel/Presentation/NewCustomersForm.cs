@@ -20,6 +20,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Customer customer;
         private BookingController bookingController;
         public bool newCustomerFormClosed = false;
+        private Person person;
 
         #endregion
 
@@ -68,7 +69,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void PopulateObject() //method to populate a booking object 
         {
+
+
             customer = new Customer();
+            //customer.getPersonID = 
+            customer.getPersonID = iDTxt.Text;
             customer.getFName = txtFName.Text;
             customer.getSName = txtLName.Text;
             customer.getEmail = txtEmail.Text;
@@ -76,9 +81,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             customer.getSuburbName = txtSuburb.Text;
             customer.getCityName = txtCity.Text;
             customer.getPostalCode = txtPostal.Text;
-
-
-            //ask how to retrieve specific data from the database. 
+ 
         }
         #endregion
 
@@ -102,13 +105,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            //By clicking the confirm button a customer object is created and added to the database 
-            PopulateObject();
-            MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            bookingController.DataMaintenance(customer, DB.DBOperation.Add);
-            bookingController.FinalizeChanges(customer);
-            ClearAll();
-            ShowAll();
+           
 
             //look at the flow diagram  and interlink the mdi form 
         }
@@ -120,16 +117,30 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #endregion
 
-        private void btnConfirm_Click_1(object sender, EventArgs e)
-        {
-            LinkToNewBookingUI();
-        }
-
         private void LinkToNewBookingUI()
         {
             NewBookingUI newBookingForm = new NewBookingUI(bookingController);
             newBookingForm.ShowDialog();
             this.Close();
+        }
+
+        private void btnConfirm_Click_1(object sender, EventArgs e)
+        {
+            //By clicking the confirm button a customer object is created and added to the database 
+           
+
+            DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            if (returnDialogResult == DialogResult.Yes)
+            {
+                PopulateObject();
+                bookingController.DataMaintenance(customer, DB.DBOperation.Add);
+                bookingController.FinalizeChanges(customer);
+                ClearAll();
+                ShowAll();
+                LinkToNewBookingUI();
+
+            }
         }
     }
 }

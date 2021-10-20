@@ -47,12 +47,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblFName = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
+            this.iDTxt = new System.Windows.Forms.TextBox();
+            this.iDLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnHome
             // 
             this.btnHome.Location = new System.Drawing.Point(342, 322);
-            this.btnHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(111, 28);
             this.btnHome.TabIndex = 31;
@@ -62,7 +64,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // btnConfirm
             // 
             this.btnConfirm.Location = new System.Drawing.Point(34, 322);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(134, 28);
             this.btnConfirm.TabIndex = 30;
@@ -73,7 +75,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtPostal
             // 
             this.txtPostal.Location = new System.Drawing.Point(158, 275);
-            this.txtPostal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPostal.Margin = new System.Windows.Forms.Padding(2);
             this.txtPostal.Name = "txtPostal";
             this.txtPostal.Size = new System.Drawing.Size(234, 20);
             this.txtPostal.TabIndex = 29;
@@ -81,7 +83,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtCity
             // 
             this.txtCity.Location = new System.Drawing.Point(158, 240);
-            this.txtCity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCity.Margin = new System.Windows.Forms.Padding(2);
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(234, 20);
             this.txtCity.TabIndex = 28;
@@ -89,7 +91,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtSuburb
             // 
             this.txtSuburb.Location = new System.Drawing.Point(158, 210);
-            this.txtSuburb.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSuburb.Margin = new System.Windows.Forms.Padding(2);
             this.txtSuburb.Name = "txtSuburb";
             this.txtSuburb.Size = new System.Drawing.Size(234, 20);
             this.txtSuburb.TabIndex = 27;
@@ -97,7 +99,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtStreet
             // 
             this.txtStreet.Location = new System.Drawing.Point(158, 180);
-            this.txtStreet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtStreet.Margin = new System.Windows.Forms.Padding(2);
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(234, 20);
             this.txtStreet.TabIndex = 26;
@@ -105,7 +107,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(158, 154);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(234, 20);
             this.txtEmail.TabIndex = 25;
@@ -113,7 +115,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtLName
             // 
             this.txtLName.Location = new System.Drawing.Point(158, 121);
-            this.txtLName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLName.Margin = new System.Windows.Forms.Padding(2);
             this.txtLName.Name = "txtLName";
             this.txtLName.Size = new System.Drawing.Size(234, 20);
             this.txtLName.TabIndex = 24;
@@ -121,7 +123,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // txtFName
             // 
             this.txtFName.Location = new System.Drawing.Point(158, 90);
-            this.txtFName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtFName.Margin = new System.Windows.Forms.Padding(2);
             this.txtFName.Name = "txtFName";
             this.txtFName.Size = new System.Drawing.Size(234, 20);
             this.txtFName.TabIndex = 23;
@@ -199,7 +201,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(192, 322);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 28);
             this.btnCancel.TabIndex = 32;
@@ -218,11 +220,31 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblMessage.TabIndex = 33;
             this.lblMessage.Text = "New Customer Fill Out Form";
             // 
+            // iDTxt
+            // 
+            this.iDTxt.Location = new System.Drawing.Point(158, 58);
+            this.iDTxt.Margin = new System.Windows.Forms.Padding(2);
+            this.iDTxt.Name = "iDTxt";
+            this.iDTxt.Size = new System.Drawing.Size(234, 20);
+            this.iDTxt.TabIndex = 35;
+            // 
+            // iDLbl
+            // 
+            this.iDLbl.AutoSize = true;
+            this.iDLbl.Location = new System.Drawing.Point(54, 61);
+            this.iDLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.iDLbl.Name = "iDLbl";
+            this.iDLbl.Size = new System.Drawing.Size(18, 13);
+            this.iDLbl.TabIndex = 34;
+            this.iDLbl.Text = "ID";
+            // 
             // NewCustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 427);
+            this.Controls.Add(this.iDTxt);
+            this.Controls.Add(this.iDLbl);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnHome);
@@ -241,7 +263,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.lblCity);
             this.Controls.Add(this.lblPostalCode);
             this.Controls.Add(this.lblFName);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewCustomersForm";
             this.Text = "NewCustomersForm";
             this.Load += new System.EventHandler(this.NewCustomersForm_Load);
@@ -270,5 +292,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.Label lblFName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.TextBox iDTxt;
+        private System.Windows.Forms.Label iDLbl;
     }
 }

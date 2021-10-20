@@ -16,9 +16,17 @@ namespace Phumla_Kamnandi_Hotel.Business
          Collection<Booking> bookings;
          Collection<Room> rooms;
          Collection<RoomBooking> roomBookings;
+         Room availRoom;
         #endregion
 
         #region Properties
+        public Room AvailRoom
+        {
+            get
+            {
+                return availRoom;
+            }
+        }
         public Collection<Customer> AllCustomers
         {
             get
@@ -116,6 +124,31 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
         }
 
+        //DataMaintenance method for roombooking table
+        public void DataMaintenance(RoomBooking roombook, DB.DBOperation operation)
+        {
+            int index = 0;
+            //perform a given database operation to the dataset in meory; 
+            bookingDB.DataSetChange(roombook, operation);
+            //perform operations on the collection
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    //*** Add the customer to the Collection
+                    roomBookings.Add(roombook);
+                    break;
+
+                    //Uncomment when FindIndex method is created
+                    /* case DB.DBOperation.Edit:
+                         index = FindIndex(book);
+                         bookings[index] = book;  // replace booking at this index with the updated booking
+                         break;
+                     case DB.DBOperation.Delete:
+                         index = FindIndex(book);  // find the index of the specific booking in collection
+                         bookings.RemoveAt(index);  // remove that booking from the collection
+                         break;*/
+            }
+        }
         //***Commit the changes to the database
         public bool FinalizeChanges(Customer customer)
         {
@@ -169,19 +202,20 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
         {
-            bool flag = false;          
-            foreach (Room room in rooms)   //different rooms are not associated with different bookings atm
+            bool flag = false;
+            Collection<RoomBooking> matches;
+            foreach (RoomBooking roomBooking in roomBookings)
             {
-                foreach (Booking booking in bookings)
+                matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
+                foreach (RoomBooking match in matches)
                 {
-                    if (arrivalDate.CompareTo(booking.getDeparture) > 0)
+                    if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) > 0)
                     {
                         flag = true;
-                        
                     }
-                    else if (arrivalDate.CompareTo(booking.getDeparture) < 0)
+                    else if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) < 0)
                     {
-                        if (departureDate.CompareTo(booking.getArrival) < 0)
+                        if (departureDate.CompareTo(match.getBookingObject.getArrival) < 0)
                         {
                             flag = true;
                         }
@@ -191,14 +225,30 @@ namespace Phumla_Kamnandi_Hotel.Business
                             break;
                         }
                     }
-                }
-                if (flag == true)
+                }                
+                if (flag==true)
                 {
+                    availRoom = roomBooking.getRoomObject;
                     break;
                 }
             }
-            return flag;
+            return flag;       
         }
+
+        public Collection<RoomBooking> FindByRoom(Collection<RoomBooking> rbs, Room room)
+        {
+            Collection<RoomBooking> matches = new Collection<RoomBooking>();
+            foreach (RoomBooking rb in rbs)
+            {
+                if (rb.getRoomObject == room)
+                {
+                    matches.Add(rb);
+                }
+            }
+            return matches;
+        }
+
+
         #endregion
     }
 }

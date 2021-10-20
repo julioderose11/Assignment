@@ -19,8 +19,8 @@ namespace Phumla_Kamnandi_Hotel.Data
         private string sqlLocal2 = "SELECT * FROM RoomBooking";
         private string table3 = "Booking";
         private string sqlLocal3 = "SELECT * FROM Booking";
-        private string table4 = "Room";
-        private string sqlLocal4 = "SELECT * FROM Room";
+        private string table4 = "Person";
+        private string sqlLocal4 = "SELECT * FROM Person";
         private string table5 = "Payment";
         private string sqlLocal5 = "SELECT * FROM Payment";
         private string table6 = "Account";
@@ -84,14 +84,14 @@ namespace Phumla_Kamnandi_Hotel.Data
             Add2Collection(table3);
             FillDataSet(sqlLocal4,table4);
             Add2Collection(table4);
-            FillDataSet(sqlLocal5, table5);
+           /* FillDataSet(sqlLocal5, table5);
             Add2Collection(table5);
             FillDataSet(sqlLocal6, table6);
             Add2Collection(table6);
             FillDataSet(sqlLocal7, table7);
             Add2Collection(table7);
             FillDataSet(sqlLocal8, table8);
-            Add2Collection(table8);
+            Add2Collection(table8);*/
         }
         #endregion
         private void Add2Collection(string table)  //
@@ -111,7 +111,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                     //Do the same for all other attributes
                     aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
-                    aCus.getFName = Convert.ToString(myRow["FistName"]).TrimEnd();
+                    aCus.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd();
                     aCus.getSName = Convert.ToString(myRow["SecondName"]).TrimEnd();
                     customers.Add(aCus);
                 }
@@ -134,6 +134,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 aRow["PostalCode"] = aCus.getPostalCode;              
             }           
         }
+
         //FillRow method for booking table
         private void FillRow(DataRow aRow, Booking book, DB.DBOperation operation)
         {          
@@ -148,6 +149,15 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
         }
 
+        //FillRow method for roombooking table
+        private void FillRow(DataRow aRow, RoomBooking rb, DB.DBOperation operation)
+        {
+            if (operation == DB.DBOperation.Add)
+            {
+                aRow["RoomNum"] = rb.getRoomObject.getRoomNo;  //NOTE square brackets to indicate index of collections of fields in row.
+                aRow["BookingID"] = rb.getBookingObject.getBookingID;            
+            }
+        }
 
         //FindRow method for customer table
         private int FindRow(Customer aCus, string table)
@@ -185,7 +195,30 @@ namespace Phumla_Kamnandi_Hotel.Data
                 if (!(myRow.RowState == DataRowState.Deleted))
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if (book.getBookingID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
+                    if ( book.getBookingID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
+                    {
+                        returnValue = rowIndex;
+                    }
+                }
+                rowIndex += 1;
+            }
+            return returnValue;
+        }
+
+        //FindRow method for roombooking table
+        private int FindRow(RoomBooking rBooking, string table)
+        {
+            int rowIndex = 0;
+            DataRow myRow;
+            int returnValue = -1;
+            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+            {
+                myRow = myRow_loopVariable;
+                //Ignore rows marked as deleted in dataset
+                if (!(myRow.RowState == DataRowState.Deleted))
+                {
+                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
+                    if (Convert.ToString(rBooking.getRoomObject.getRoomNo) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["RoomNum"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -246,6 +279,33 @@ namespace Phumla_Kamnandi_Hotel.Data
                     break;
             }
         }
+
+        //DataSetChange method for roombooking table
+        public void DataSetChange(RoomBooking rbook, DB.DBOperation operation)
+        {
+            DataRow aRow = null;
+            string dataTable = table2;
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    aRow = dsMain.Tables[dataTable].NewRow();
+                    FillRow(aRow, rbook, operation);
+                    dsMain.Tables[dataTable].Rows.Add(aRow);
+
+                    break;
+                case DB.DBOperation.Edit:
+
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(rbook, dataTable)];
+
+                    FillRow(aRow, rbook, operation);
+                    break;
+                case DB.DBOperation.Delete:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(rbook, dataTable)];
+                    aRow.Delete();
+                    break;
+            }
+        }
+
 
         #endregion
 
@@ -311,6 +371,19 @@ namespace Phumla_Kamnandi_Hotel.Data
 
             param = new SqlParameter("@numPeople", SqlDbType.TinyInt, 1, "numPeople"); //Do i include this?? doublecheck
             daMain.InsertCommand.Parameters.Add(param);
+        }
+
+        ////Build_UPDATE_Parameters for roombooking
+        private void Build_INSERT_Parameters(RoomBooking rb)
+        {
+            //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
+            SqlParameter param = default(SqlParameter);
+            param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
+            param = new SqlParameter("@BookingID", SqlDbType.Int, 5, "BookingID");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
         }
 
         ////Build_UPDATE_Parameters for customer
@@ -387,6 +460,22 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.UpdateCommand.Parameters.Add(param);
         }
 
+        ////Build_UPDATE_Parameters for roomBooking
+        private void Build_UPDATE_Parameters(RoomBooking rb)
+        {
+            //---Create Parameters to communicate with SQL UPDATE
+            SqlParameter param = default(SqlParameter);
+
+            param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+        }
+
         //Build_DELETE_Parameters for customer
         private void Build_DELETE_Parameters(Customer aCust)
         {
@@ -406,6 +495,20 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.DeleteCommand.Parameters.Add(param);
         }
 
+        //Build_DELETE_Parameters for roomBooking
+        private void Build_DELETE_Parameters(RoomBooking rb)
+        {
+            //--Create Parameters to communicate with SQL DELETE
+            SqlParameter param;
+            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.DeleteCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
+            param.SourceVersion = DataRowVersion.Original;
+            daMain.DeleteCommand.Parameters.Add(param);
+        }
+
         private void Create_INSERT_Command(Customer aCust)
         {
             //Create the command that must be used to insert values into the customer table..
@@ -420,6 +523,12 @@ namespace Phumla_Kamnandi_Hotel.Data
             Build_INSERT_Parameters(book);
         }
 
+        private void Create_INSERT_Command(RoomBooking rb)
+        {
+            //Create the command that must be used to insert values into the customer table..
+            daMain.InsertCommand = new SqlCommand("INSERT into RoomBooking (RoomNum, BookingID) VALUES (@RoomNum, @BookingID)", cnMain);
+            Build_INSERT_Parameters(rb);
+        }
         private void Create_UPDATE_Command(Customer aCust)
         {
             //Create the command that must be used to insert values into cutosmer table
@@ -471,6 +580,23 @@ namespace Phumla_Kamnandi_Hotel.Data
             return errorString;
         }
 
+        private string Create_DELETE_Command(RoomBooking rb)
+        {
+            string errorString = null;
+            //Create the command that must be used to delete values from the roombooking table
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID AND RoomNum = @RoomNum", cnMain);
+
+            try
+            {
+                Build_DELETE_Parameters(rb);
+            }
+            catch (Exception errObj)
+            {
+                errorString = errObj.Message + "  " + errObj.StackTrace;
+            }
+            return errorString;
+        }
+
         public bool UpdateDataSource(Customer aCust)
         {
             bool success = true;
@@ -488,6 +614,15 @@ namespace Phumla_Kamnandi_Hotel.Data
             Create_UPDATE_Command(book);
             Create_DELETE_Command(book);
             success = UpdateDataSource(sqlLocal3, table3);
+            return success;
+        }
+
+        public bool UpdateDataSource(RoomBooking rb)
+        {
+            bool success = true;
+            Create_INSERT_Command(rb);
+            Create_DELETE_Command(rb);
+            success = UpdateDataSource(sqlLocal2, table2);
             return success;
         }
         #endregion
