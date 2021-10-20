@@ -135,7 +135,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
             }
 
-            //room = bookingController.FindRoom(roomNum);
+            //room = bookingController.AvailRoom;
             //roombooking = new RoomBooking();
             //roombooking.getBookingObject = booking;
             //roombooking.getRoomObject = room;
