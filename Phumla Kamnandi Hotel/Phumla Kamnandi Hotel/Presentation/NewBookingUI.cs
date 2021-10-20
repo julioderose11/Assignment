@@ -89,6 +89,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void btnExit_Click(object sender, EventArgs e)
         {
             newBookingFormClosed = true;
+            this.Close();
         }
 
       
@@ -135,10 +136,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
             }
 
-            //room = bookingController.AvailRoom;
-            //roombooking = new RoomBooking();
-            //roombooking.getBookingObject = booking;
-            //roombooking.getRoomObject = room;
+            room = bookingController.AvailRoom;
+            roombooking = new RoomBooking();
+            roombooking.getBookingObject = booking;
+            roombooking.getRoomObject = room;
             //bookingController.DataMaintenance(booking, DB.DBOperation.Add);
             //bookingController.FinalizeChanges(booking);
         }
