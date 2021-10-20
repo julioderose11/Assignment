@@ -72,6 +72,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.btnConfirm.TabIndex = 26;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // btnCancel
             // 

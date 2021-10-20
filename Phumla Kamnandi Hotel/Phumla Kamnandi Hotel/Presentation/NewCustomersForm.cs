@@ -119,5 +119,17 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
 
         #endregion
+
+        private void btnConfirm_Click_1(object sender, EventArgs e)
+        {
+            LinkToNewBookingUI();
+        }
+
+        private void LinkToNewBookingUI()
+        {
+            NewBookingUI newBookingForm = new NewBookingUI(bookingController);
+            newBookingForm.ShowDialog();
+            this.Close();
+        }
     }
 }
