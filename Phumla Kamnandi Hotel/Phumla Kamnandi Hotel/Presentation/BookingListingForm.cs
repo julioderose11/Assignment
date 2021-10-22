@@ -60,7 +60,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void BookingListingForm_Activated(object sender, EventArgs e)
         {
             bookingListView.View = View.Details;
-            setUpEmployeeListView();
+            setUpBookingListView();
             ShowAll(false);
         }
         #endregion
