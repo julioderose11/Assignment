@@ -26,6 +26,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private DateTime currentDate = DateTime.Now;
         private Collection<RoomBooking> roomBookings;
         private Collection<Room> rooms;
+
         #endregion
 
         #region Constructor
@@ -65,17 +66,30 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        public void PopulateObject() //method to populate a booking object 
+        public void PopulateBookingObject() //method to populate a booking object 
         {
             
             booking = new Booking();
+            booking.getAccountNum = "";
+            //booking.getCustomerID = 
             booking.getBookingDate = currentDate;
             booking.getArrival = (DateTime) dTPArrivalDate.Value;
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;
             booking.getCustomerRequests = richTxtSpecInstructions.Text;
+            booking.getNumPeople = Convert.ToInt32(txtNoOfPeople.Text);
 
         }
 
+        public void PopulateRoomBookingObject()
+        {
+            //returns available room 
+            room = bookingController.AvailRoom;
+
+            //instantiates new roomBooking Object
+            roombooking = new RoomBooking();
+            roombooking.getBookingObject = booking;
+            roombooking.getRoomObject = room;
+        }
         #endregion
 
         #region Radio Button CheckChanged Events
@@ -119,11 +133,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 {
                     //but must first enter customer deatils and only then can we populate booking object
                     //maybe make the method public static and then call it in the other forms?
-                    PopulateObject();
+                    PopulateBookingObject();
                     bookingController.DataMaintenance(booking, DB.DBOperation.Add);
                     bookingController.FinalizeChanges(booking);
 
                     //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
+                    PopulateRoomBookingObject();
+                    bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
+                    bookingController.FinalizeChanges(roombooking);
                 }
             }
             else
@@ -136,12 +153,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
             }
 
-            room = bookingController.AvailRoom;
-            roombooking = new RoomBooking();
-            roombooking.getBookingObject = booking;
-            roombooking.getRoomObject = room;
-            //bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-            //bookingController.FinalizeChanges(booking);
+            
+
         }
 
         #endregion
