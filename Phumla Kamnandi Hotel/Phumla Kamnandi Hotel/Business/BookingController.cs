@@ -216,18 +216,18 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Customer FindCustomer(string ID)
         {
             int index = 0;
-            bool found = (bookingDB.AllCustomers[index].CustomerID == ID);  //check if it is the first customer
-            int count = bookingDB.AllCustomers.Count;
-            while (!(found) && (index < bookingDB.AllCustomers.Count - 1))  //if not "this" customer and you are not at the end of the list 
+            bool found = (customers[index].CustomerID == ID);  //check if it is the first customer
+            int count = customers.Count;
+            while (!(found) && (index < customers.Count - 1))  //if not "this" customer and you are not at the end of the list 
             {
                 index = index + 1;
-                found = (bookingDB.AllCustomers[index].CustomerID == ID);   // this will be TRUE if found
+                found = (customers[index].CustomerID == ID);   // this will be TRUE if found
             }
             if (found == false)
             {
                 return null;
             }
-            return bookingDB.AllCustomers[index];  // this is the one!  
+            return customers[index];  // this is the one!  
         }
         public int FindIndex(Customer aCust)
         {

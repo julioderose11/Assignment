@@ -133,10 +133,7 @@ namespace Phumla_Kamnandi_Hotel
 
         }
 
-        private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
+
 
         private void listToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -184,7 +181,7 @@ namespace Phumla_Kamnandi_Hotel
         }
         #endregion
 
-        private void newCustomerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (cusForm == null)
             {
@@ -206,12 +203,12 @@ namespace Phumla_Kamnandi_Hotel
             */
         }
 
-        private void existingCustomerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExistingCustomersForm existingCustomerForm = new ExistingCustomersForm(bookingController);
-            existingCustomerForm.ShowDialog();
-            this.Hide();
+            NewBookingUI newBookingUI = new NewBookingUI(bookingController);
+            newBookingUI.ShowDialog();
         }
+
     }
 
 

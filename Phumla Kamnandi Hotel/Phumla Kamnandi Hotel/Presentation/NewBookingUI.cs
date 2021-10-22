@@ -50,6 +50,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             lblDepartureDate.Visible = true;
             lblNoOfPeople.Visible = true;
             lblSpecialInstructions.Visible = true;
+            lblMessage.Visible = true;
             dTPArrivalDate.Visible = true;
             dTPDepartureDate.Visible = true;
             txtNoOfPeople.Visible = true;
@@ -57,6 +58,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             btnRoomAvailability.Visible = true;
             btnCancel.Visible = true;
             btnExit.Visible = true;
+            btnConfirmCustomer.Visible = true;
+            customersListView.Visible = true;
         }
 
         private void ClearAll() //method to clear all controls
@@ -91,6 +94,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             roombooking = new RoomBooking();
             roombooking.getBookingObject = booking;
             roombooking.getRoomObject = room;
+        }
+
+        private void EnableEntries(bool value)
+        {
+            if()
         }
         #endregion
 
@@ -199,7 +207,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ignore
+            ShowAll();
+            
+            EnableEntries(false);
+            if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
+            {
+                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                                                                                                     // Show the details of the selected customer in the controls
+                PopulateTextBoxes(customer);
+            }
         }
     }
 }
