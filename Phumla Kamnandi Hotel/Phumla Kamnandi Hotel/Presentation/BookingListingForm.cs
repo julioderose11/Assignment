@@ -138,6 +138,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtDepartureDate.Text = Convert.ToString(booking.getDeparture);
 
         }
+        private void PopulateObject()
+        {
+           
+        }
         #endregion
 
         #region ListView set up
@@ -192,7 +196,26 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            PopulateObject(roleValue);
+            if (state == FormStates.Edit)
+            {
+                employeeController.DataMaintenance(employee, Data.DB.DBOperation.Edit);
+            }
+            else
+            {
+                employeeController.DataMaintenance(employee, Data.DB.DBOperation.Delete);
+            }
+            employeeController.FinalizeChanges(employee);
+            ClearAll();
+            state = FormStates.View;
+            ShowAll(false, roleValue);
+            setUpEmployeeListView();
+        }
 
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            state = FormStates.Edit;
+            EnableEntries(true);
         }
     }
 }
