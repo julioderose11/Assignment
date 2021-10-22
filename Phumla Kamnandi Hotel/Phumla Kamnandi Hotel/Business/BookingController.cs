@@ -16,7 +16,8 @@ namespace Phumla_Kamnandi_Hotel.Business
          Collection<Booking> bookings;
          Collection<Room> rooms;
          Collection<RoomBooking> roomBookings;
-        Collection<Person> persons;
+         Collection<Person> persons;
+
          Room availRoom;
         #endregion
 
@@ -58,6 +59,14 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return roomBookings;
             }
         }
+
+        public Collection<Person> AllPersons
+        {
+            get
+            {
+                return persons;
+            }
+        }
         #endregion
 
         #region: Constructor
@@ -69,6 +78,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             bookings = bookingDB.AllBookings;
             rooms = bookingDB.AllRooms;
             roomBookings = bookingDB.AllRoomBookings;
+            persons = bookingDB.AllPersons;
         }
         #endregion 
         
@@ -206,18 +216,18 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Customer FindCustomer(string ID)
         {
             int index = 0;
-            bool found = (customers[index].CustomerID == ID);  //check if it is the first customer
-            int count = customers.Count;
-            while (!(found) && (index < customers.Count - 1))  //if not "this" customer and you are not at the end of the list 
+            bool found = (bookingDB.AllCustomers[index].CustomerID == ID);  //check if it is the first customer
+            int count = bookingDB.AllCustomers.Count;
+            while (!(found) && (index < bookingDB.AllCustomers.Count - 1))  //if not "this" customer and you are not at the end of the list 
             {
                 index = index + 1;
-                found = (customers[index].CustomerID == ID);   // this will be TRUE if found
+                found = (bookingDB.AllCustomers[index].CustomerID == ID);   // this will be TRUE if found
             }
             if (found == false)
             {
                 return null;
             }
-            return customers[index];  // this is the one!  
+            return bookingDB.AllCustomers[index];  // this is the one!  
         }
         public int FindIndex(Customer aCust)
         {

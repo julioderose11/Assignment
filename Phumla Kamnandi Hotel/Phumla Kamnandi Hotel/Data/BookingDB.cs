@@ -36,6 +36,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         private Collection<RoomBooking> roomBookings;
         private Collection<Booking> bookings;
         private Collection<Room> rooms;
+        private Collection<Person> persons;
 
         #endregion
 
@@ -70,12 +71,21 @@ namespace Phumla_Kamnandi_Hotel.Data
                 return rooms;
             }
         }
+
+        public Collection<Person> AllPersons
+        {
+            get
+            {
+                return persons;
+            }
+        }
         #endregion
 
         #region Constructor
         public BookingDB() : base()
         {
             customers = new Collection<Customer>();
+            persons = new Collection<Person>();
             FillDataSet(sqlLocal1, table1);
             Add2Collection(table1);
             FillDataSet(sqlLocal2, table2);
@@ -94,78 +104,79 @@ namespace Phumla_Kamnandi_Hotel.Data
             Add2Collection(table8);*/
         }
         #endregion
-        private void Add2Collection(string table)  //
+        private void Add2Collection(string table)  
         {
             //Declare references to a myRow object and an Employee object
             DataRow myRow = null;
             Customer aCus;
-            Booking aBook;
             RoomBooking RB;
-            if (table == table1)
+            Booking booking;
+            Person person;
+            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
             {
-                foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+                myRow = myRow_loopVariable;
+
+                if(table == "table1")
                 {
-                    myRow = myRow_loopVariable;
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
-                        //Instantiate a new Customer object
+                        //Instantiate a new customer object
                         aCus = new Customer();
                         //Obtain each Customer attribute from the specific field in the row in the table
                         aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
-                        //Do the same for all other attributes
                         aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
-                        aCus.getFName = Convert.ToString(myRow["Email"]).TrimEnd();
-                        aCus.getFName = Convert.ToString(myRow["StreetName"]).TrimEnd();
-                        aCus.getFName = Convert.ToString(myRow["SuburbName"]).TrimEnd();
-                        aCus.getFName = Convert.ToString(myRow["Cityname"]).TrimEnd();
-                        aCus.getFName = Convert.ToString(myRow["PostalCode"]).TrimEnd();
-                        aCus.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd();
-                        aCus.getSName = Convert.ToString(myRow["SecondName"]).TrimEnd();
-
                         customers.Add(aCus);
                     }
                 }
-            }
-            if (table == table2)
-            {
-                foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+                else if(table == "table2")
                 {
-                    myRow = myRow_loopVariable;
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
-                        //Instantiate a new Booking object
-                        aBook = new Booking();
-                        //Obtain each Booking attribute from the specific field in the row in the table
-                        aBook.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
-                        //Do the same for all other attributes
-                        aBook.getCustomerRequests = Convert.ToString(myRow["CustomerRequests"]).TrimEnd();
-                        aBook.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]).TrimEnd();
-                        aBook.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]).TrimEnd();
-                        aBook.getDeparture = Convert.ToString(myRow["DepartureDate"]).TrimEnd();
-                        
-
-                        bookings.Add(aBook);
-                    }
-                }
-            }
-            if (table == table3)
-            {
-                foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
-                {
-                    myRow = myRow_loopVariable;
-                    if (!(myRow.RowState == DataRowState.Deleted))
-                    {
-                        //Instantiate a new RoomBooking object
+                        //Instantiate a new roomBooking object
                         RB = new RoomBooking();
-                        //Obtain each RoomBooking attribute from the specific field in the row in the table
-                        RB.getRoomObject.getRoomNo = Convert.ToString(myRow["RoomNumber"]).TrimEnd();
-                        //Do the same for all other attributes
+                        //Obtain each roomBooking attribute from the specific field in the row in the table
                         RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
                         roomBookings.Add(RB);
                     }
                 }
-            }
+                else if (table == "table3")
+                {
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new Booking object
+                        booking = new Booking();
+                        //Obtain each Booking attribute from the specific field in the row in the table
+                        booking.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        //booking.getCustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
+                        //booking.getAccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
+                        booking.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]);
+                        booking.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]);
+                        booking.getDeparture = Convert.ToDateTime(myRow["DepartureDate"]);
+                        booking.getNumPeople = Convert.ToInt32(myRow["NumPeople"]);    
+                        bookings.Add(booking);
+                    }
+                }
+                else if (table == "table4")
+                {
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new Person object
+                        person = new Person();
+                        //Obtain each Person attribute from the specific field in the row in the table
+                        person.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
+                        person.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd();
+                        person.getSName = Convert.ToString(myRow["SecondName"]).TrimEnd();
+                        person.getEmail = Convert.ToString(myRow["Email"]).TrimEnd();
+                        person.getStreetName = Convert.ToString(myRow["StreetName"]).TrimEnd();
+                        person.getSuburbName = Convert.ToString(myRow["SuburbName"]).TrimEnd();
+                        person.getCityName = Convert.ToString(myRow["CityName"]).TrimEnd();
+                        person.getPostalCode = Convert.ToString(myRow["PostalCode"]).TrimEnd();
 
+                        persons.Add(person);
+                    }
+                }
+            }
 
         }
         //FillRow method for Customer Table
@@ -174,14 +185,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             if (operation == DB.DBOperation.Add)
             {
                 aRow["CustomerID"] = aCus.CustomerID;  //NOTE square brackets to indicate index of collections of fields in row.
-                aRow["PersonID"] = aCus.getPersonID;
-                aRow["FirstName"] = aCus.getFName;
-                aRow["SecondName"] = aCus.getSName;
-                aRow["Email"] = aCus.getEmail;
-                aRow["StreetName"] = aCus.getStreetName;
-                aRow["SuburbName"] = aCus.getSuburbName;
-                aRow["CityName"] = aCus.getCityName;
-                aRow["PostalCode"] = aCus.getPostalCode;              
+                aRow["PersonID"] = aCus.getPersonID;         
             }           
         }
 
@@ -202,8 +206,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         private void FillRow(DataRow aRow, Person aPers, DB.DBOperation operation)
         {
             if (operation == DB.DBOperation.Add)
-            {
-                 
+            {               
                 aRow["PersonID"] = aPers.getPersonID;
                 aRow["FirstName"] = aPers.getFName;
                 aRow["SecondName"] = aPers.getSName;
@@ -270,27 +273,6 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
             return returnValue;
         }
-        private int FindRow(Person p, string table)
-        {
-            int rowIndex = 0;
-            DataRow myRow;
-            int returnValue = -1;
-            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
-            {
-                myRow = myRow_loopVariable;
-                //Ignore rows marked as deleted in dataset
-                if (!(myRow.RowState == DataRowState.Deleted))
-                {
-                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if (p.getPersonID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["PersonID"]))
-                    {
-                        returnValue = rowIndex;
-                    }
-                }
-                rowIndex += 1;
-            }
-            return returnValue;
-        }
 
         //FindRow method for roombooking table
         private int FindRow(RoomBooking rBooking, string table)
@@ -305,7 +287,30 @@ namespace Phumla_Kamnandi_Hotel.Data
                 if (!(myRow.RowState == DataRowState.Deleted))
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if (Convert.ToString(rBooking.getRoomObject.getRoomNo) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["RoomNum"]))
+                    if (Convert.ToString(rBooking.getRoomObject.getRoomNo) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["RoomNum"]) && Convert.ToString(rBooking.getBookingObject.getBookingID) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
+                    {
+                        returnValue = rowIndex;
+                    }
+                }
+                rowIndex += 1;
+            }
+            return returnValue;
+        }
+
+        //FindRow method for Person table
+        private int FindRow(Person person, string table)
+        {
+            int rowIndex = 0;
+            DataRow myRow;
+            int returnValue = -1;
+            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+            {
+                myRow = myRow_loopVariable;
+                //Ignore rows marked as deleted in dataset
+                if (!(myRow.RowState == DataRowState.Deleted))
+                {
+                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
+                    if (person.getPersonID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["PersonID"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -327,14 +332,13 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aRow = dsMain.Tables[dataTable].NewRow();
                     FillRow(aRow, aCus, operation);
                     dsMain.Tables[dataTable].Rows.Add(aRow);
-                    
                     break;
+
                 case DB.DBOperation.Edit:
-                    
-                    aRow = dsMain.Tables[dataTable].Rows[FindRow(aCus, dataTable)];
-                    
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(aCus, dataTable)];                    
                     FillRow(aRow, aCus, operation);
                     break;
+
                 case DB.DBOperation.Delete:
                     aRow = dsMain.Tables[dataTable].Rows[FindRow(aCus, dataTable)];
                     aRow.Delete();
@@ -378,21 +382,22 @@ namespace Phumla_Kamnandi_Hotel.Data
                     aRow = dsMain.Tables[dataTable].NewRow();
                     FillRow(aRow, rbook, operation);
                     dsMain.Tables[dataTable].Rows.Add(aRow);
-
                     break;
+
                 case DB.DBOperation.Edit:
-
                     aRow = dsMain.Tables[dataTable].Rows[FindRow(rbook, dataTable)];
-
                     FillRow(aRow, rbook, operation);
                     break;
+
                 case DB.DBOperation.Delete:
                     aRow = dsMain.Tables[dataTable].Rows[FindRow(rbook, dataTable)];
                     aRow.Delete();
                     break;
             }
         }
-        public void DataSetChange(Person p, DB.DBOperation operation)
+
+        //Datasetchange method for person table
+        public void DataSetChange(Person person, DB.DBOperation operation)
         {
             DataRow aRow = null;
             string dataTable = table4;
@@ -400,27 +405,28 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 case DB.DBOperation.Add:
                     aRow = dsMain.Tables[dataTable].NewRow();
-                    FillRow(aRow, p, operation);
+                    FillRow(aRow, person, operation);
                     dsMain.Tables[dataTable].Rows.Add(aRow);
-
                     break;
+
                 case DB.DBOperation.Edit:
-
-                    aRow = dsMain.Tables[dataTable].Rows[FindRow(p, dataTable)];
-
-                    FillRow(aRow, p, operation);
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(person, dataTable)];
+                    FillRow(aRow, person, operation);
                     break;
+
                 case DB.DBOperation.Delete:
-                    aRow = dsMain.Tables[dataTable].Rows[FindRow(p, dataTable)];
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(person, dataTable)];
                     aRow.Delete();
                     break;
             }
         }
 
-
         #endregion
 
         #region Build Parameters, Create Commands & Update database
+
+        //////////////////////////////////////////////////////////////////////////////////// Build_INSERT_Parameter methods ///////////////////////////////////////////////////////////
+
         ////Build_INSERT_Parameters for customer
         private void Build_INSERT_Parameters(Customer aCust)
         {
@@ -429,29 +435,9 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
-            daMain.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
-            daMain.InsertCommand.Parameters.Add(param);
-
             param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
-            daMain.InsertCommand.Parameters.Add(param);
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
-            daMain.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "StreetName");
-            daMain.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 100, "SuburbName");
-            daMain.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
-            daMain.InsertCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
-            daMain.InsertCommand.Parameters.Add(param);          
         }
 
         //Build_INSERT_Parameters for booking
@@ -492,7 +478,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
-            param = new SqlParameter("@BookingID", SqlDbType.Int, 5, "BookingID");
+            param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
         }
         ////Build_INSERT_Parameters for person
@@ -501,10 +487,10 @@ namespace Phumla_Kamnandi_Hotel.Data
             //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
             SqlParameter param = default(SqlParameter);
 
-            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
+            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 100, "FirstName");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
+            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 100, "SecondName");
             daMain.InsertCommand.Parameters.Add(param);
 
             param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
@@ -516,56 +502,17 @@ namespace Phumla_Kamnandi_Hotel.Data
             param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "StreetName");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 100, "SuburbName");
+            param = new SqlParameter("@SuburbName", SqlDbType.NVarChar, 50, "SuburbName");
             daMain.InsertCommand.Parameters.Add(param);
 
             param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
             daMain.InsertCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
+            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 50, "PostalCode");
             daMain.InsertCommand.Parameters.Add(param);
         }
 
-        ////Build_UPDATE_Parameters for customer
-        private void Build_UPDATE_Parameters(Customer aCust)
-        {
-            //---Create Parameters to communicate with SQL UPDATE
-            SqlParameter param = default(SqlParameter);
-
-            param = new SqlParameter("@FirstName", SqlDbType.NVarChar, 50, "FirstName");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@SecondName", SqlDbType.NVarChar, 50, "SecondName");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            //Do for all fields other than ID and EMPID as for Insert 
-            param = new SqlParameter("@Email", SqlDbType.NVarChar, 50, "Email");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@StreetName", SqlDbType.NVarChar, 100, "Streetname");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@Suburbname", SqlDbType.NVarChar, 100, "SuburbName");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@CityName", SqlDbType.NVarChar, 50, "CityName");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            param = new SqlParameter("@PostalCode", SqlDbType.NVarChar, 10, "PostalCode");
-            param.SourceVersion = DataRowVersion.Current;
-            daMain.UpdateCommand.Parameters.Add(param);
-
-            //testing the ID of record that needs to change with the original ID of the record
-            param = new SqlParameter("@Original_ID", SqlDbType.NVarChar, 15, "CustomerID");
-            param.SourceVersion = DataRowVersion.Original;
-            daMain.UpdateCommand.Parameters.Add(param);
-        }
+        //////////////////////////////////////////////////////////////////////////////////// Build_UPDATE_Parameter methods ///////////////////////////////////////////////////////////
 
         ////Build_UPDATE_Parameters for booking
         private void Build_UPDATE_Parameters(Booking book)
@@ -616,16 +563,9 @@ namespace Phumla_Kamnandi_Hotel.Data
 
         }
 
-        //Build_DELETE_Parameters for customer
-        private void Build_DELETE_Parameters(Customer aCust)
-        {
-            //--Create Parameters to communicate with SQL DELETE
-            SqlParameter param;
-            param = new SqlParameter("@CustomerID", SqlDbType.NVarChar, 15, "CustomerID");
-            param.SourceVersion = DataRowVersion.Original;
-            daMain.DeleteCommand.Parameters.Add(param);
-        }
+        //////////////////////////////////////////////////////////////////////////////////// Build_DELETE_Parameter methods ///////////////////////////////////////////////////////////
 
+        //Build_DELETE_Parameters for Booking
         private void Build_DELETE_Parameters(Booking book)
         {
             //--Create Parameters to communicate with SQL DELETE
@@ -648,26 +588,20 @@ namespace Phumla_Kamnandi_Hotel.Data
             param.SourceVersion = DataRowVersion.Original;
             daMain.DeleteCommand.Parameters.Add(param);
         }
-        private void Build_DELETE_Parameters(Person aPers)
-        {
-            //--Create Parameters to communicate with SQL DELETE
-            SqlParameter param;
-            param = new SqlParameter("@PersonID", SqlDbType.NVarChar, 15, "PersonID");
-            param.SourceVersion = DataRowVersion.Original;
-            daMain.DeleteCommand.Parameters.Add(param);
-        }
 
+        //////////////////////////////////////////////////////////////////////////////////// Create_INSERT_Parameter methods ///////////////////////////////////////////////////////////
+        
         private void Create_INSERT_Command(Person aPerson)
         {
-            //Create the command that must be used to insert values into the customer table..
-            daMain.InsertCommand = new SqlCommand("INSERT into Customer (FirstName, SecondName, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @FirstName, @SecondName, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
+            //Create the command that must be used to insert values into the person table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Person (PersonID, FirstName, SecondName, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@PersonID, @FirstName, @SecondName, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
             Build_INSERT_Parameters(aPerson);
         }
 
         private void Create_INSERT_Command(Customer aCust)
         {
             //Create the command that must be used to insert values into the customer table..
-            daMain.InsertCommand = new SqlCommand("INSERT into Customer (CustomerID, FirstName, SecondName, PersonID, Email, StreetName, SuburbName, CityName, PostalCode) VALUES (@CustomerID, @FirstName, @SecondName, @PersonID, @Email, @StreetName, @SuburbName, @CityName, @PostalCode)", cnMain);
+            daMain.InsertCommand = new SqlCommand("INSERT into Customer (CustomerID, PersonID) VALUES (@CustomerID, @PersonID)", cnMain);
             Build_INSERT_Parameters(aCust);
         }
 
@@ -684,14 +618,9 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.InsertCommand = new SqlCommand("INSERT into RoomBooking (RoomNum, BookingID) VALUES (@RoomNum, @BookingID)", cnMain);
             Build_INSERT_Parameters(rb);
         }
-        private void Create_UPDATE_Command(Customer aCust)
-        {
-            //Create the command that must be used to insert values into cutosmer table
-            //Assumption is that the CustomerID and PersonID cannot be changed
-            daMain.UpdateCommand = new SqlCommand("UPDATE Customer SET FirstName =@FirstName, SecondName = @SecondName, Email =@Email, StreetName =@StreetName, SuburbName = @SuburbName, CityName = @CityName, PostalCode = @PostalCode " + "WHERE CustomerID = @Original_ID", cnMain);
-            Build_UPDATE_Parameters(aCust);
-        }
 
+        //////////////////////////////////////////////////////////////////////////////////// Create_UPDATE_Parameter methods /////////////////////////////////////////////////////////// 
+        
         private void Create_UPDATE_Command(Booking book)
         {
             //Create the command that must be used to insert values into cutosmer table
@@ -700,39 +629,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             Build_UPDATE_Parameters(book);
         }
 
-        private string Create_DELETE_Command(Person aPerson)
-        {
-            string errorString = null;
-            //Create the command that must be used to delete values from the Customer table
-            daMain.DeleteCommand = new SqlCommand("DELETE FROM Person WHERE PersonID = @PersonID", cnMain);
-
-            try
-            {
-                Build_DELETE_Parameters(aPerson);
-            }
-            catch (Exception errObj)
-            {
-                errorString = errObj.Message + "  " + errObj.StackTrace;
-            }
-            return errorString;
-        }
-
-        private string Create_DELETE_Command(Customer aCust)
-        {
-            string errorString = null;
-            //Create the command that must be used to delete values from the Customer table
-            daMain.DeleteCommand = new SqlCommand("DELETE FROM Customer WHERE CustomerID = @CustomerID", cnMain);
-
-            try
-            {
-                Build_DELETE_Parameters(aCust);
-            }
-            catch (Exception errObj)
-            {
-                errorString = errObj.Message + "  " + errObj.StackTrace;
-            }
-            return errorString;
-        }
+        //////////////////////////////////////////////////////////////////////////////////// Create_DELETE_Parameter methods ///////////////////////////////////////////////////////////
 
         private string Create_DELETE_Command(Booking book)
         {
@@ -768,12 +665,12 @@ namespace Phumla_Kamnandi_Hotel.Data
             return errorString;
         }
 
+        //////////////////////////////////////////////////////////////////////////////////// UpdateDataSource methods ///////////////////////////////////////////////////////////
+
         public bool UpdateDataSource(Customer aCust)
         {
             bool success = true;
             Create_INSERT_Command(aCust);
-            Create_UPDATE_Command(aCust);
-            Create_DELETE_Command(aCust);
             success = UpdateDataSource(sqlLocal1, table1);
             return success;
         }
@@ -782,8 +679,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             bool success = true;
             Create_INSERT_Command(aPerson);
-            Create_DELETE_Command(aPerson);
-            success = UpdateDataSource(sqlLocal1, table1);
+            success = UpdateDataSource(sqlLocal4, table4);
             return success;
         }
 

@@ -25,6 +25,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Customer() : base()
         {
             customerID = IdGenerator();
+
         }
 
 

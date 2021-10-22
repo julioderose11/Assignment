@@ -67,9 +67,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        private void PopulateObject() //method to populate a booking object 
+        private void PopulatePerson() //method to populate a booking object 
         {
-            person = new Person();
+            /*person = new Person();
             person.getPersonID = iDTxt.Text;
             person.getFName = txtFName.Text;
             person.getSName = txtLName.Text;
@@ -77,19 +77,25 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             person.getStreetName = txtStreet.Text;
             person.getSuburbName = txtSuburb.Text;
             person.getCityName = txtCity.Text;
-            person.getPostalCode = txtPostal.Text;
+            person.getPostalCode = txtPostal.Text;*/
 
+            string pID = iDTxt.Text;
+            string fname = txtFName.Text;
+            string sname = txtLName.Text;
+            string mail = txtEmail.Text;
+            string streetname = txtStreet.Text;
+            string suburbname = txtSuburb.Text;
+            string cityname = txtCity.Text;
+            string postalcode = txtPostal.Text;
+
+            person = new Person(pID, fname, sname, mail, streetname, suburbname, cityname, postalcode);
+
+        }
+
+        private void PopulateCustomer()
+        {
             customer = new Customer();
-            //customer.getPersonID = 
             customer.getPersonID = iDTxt.Text;
-            customer.getFName = txtFName.Text;
-            customer.getSName = txtLName.Text;
-            customer.getEmail = txtEmail.Text;
-            customer.getStreetName = txtStreet.Text;
-            customer.getSuburbName = txtSuburb.Text;
-            customer.getCityName = txtCity.Text;
-            customer.getPostalCode = txtPostal.Text;
- 
         }
         #endregion
 
@@ -141,11 +147,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
             if (returnDialogResult == DialogResult.Yes)
             {
-                PopulateObject();
-                bookingController.DataMaintenance(customer, DB.DBOperation.Add);
-                bookingController.FinalizeChanges(customer);
+                PopulatePerson();
                 bookingController.DataMaintenance(person, DB.DBOperation.Add);
                 bookingController.FinalizeChanges(person);
+                PopulateCustomer();
+                bookingController.DataMaintenance(customer, DB.DBOperation.Add);
+                bookingController.FinalizeChanges(customer);
+                
                 ClearAll();
                 ShowAll();
                 LinkToNewBookingUI();

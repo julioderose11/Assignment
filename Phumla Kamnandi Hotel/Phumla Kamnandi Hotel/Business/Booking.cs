@@ -10,6 +10,8 @@ namespace Phumla_Kamnandi_Hotel.Business
     {
         #region Fields
         private string bookingID;
+        private string accountNum;
+        private string customerID;
         private string customerRequests;
         private DateTime bookingDate;
         private DateTime arrivalDate;
@@ -22,6 +24,18 @@ namespace Phumla_Kamnandi_Hotel.Business
         {
             get { return bookingID; }
             set { bookingID = value; }
+        }
+
+        public string getCustomerID
+        {
+            get { return customerID; }
+            set { customerID = value; }
+        }
+
+        public string getAccountNum
+        {
+            get { return accountNum; }
+            set { accountNum = value; }
         }
 
         public string getCustomerRequests
@@ -58,6 +72,8 @@ namespace Phumla_Kamnandi_Hotel.Business
         public Booking()
         {
             bookingID = "" ;
+            accountNum = "";
+            customerID = "";
             customerRequests = "";
             bookingDate = default(DateTime);
             arrivalDate = default(DateTime);
@@ -66,9 +82,11 @@ namespace Phumla_Kamnandi_Hotel.Business
         
         }
 
-        public Booking(string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate, int nPeople)
+        public Booking(string custID, string accNum, string custRequests, DateTime BookingDate, DateTime ArrivalDate , DateTime DepartureDate, int nPeople)
         {
             bookingID = IdGenerator();
+            customerID = custID;
+            accountNum = accNum;
             customerRequests = custRequests;
             bookingDate = BookingDate;
             arrivalDate = ArrivalDate;
