@@ -60,8 +60,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void BookingListingForm_Activated(object sender, EventArgs e)
         {
             bookingListView.View = View.Details;
-           // setUpEmployeeListView();
-           // ShowAll(false, roleValue);
+            setUpEmployeeListView();
+            ShowAll(false);
         }
         #endregion
 
@@ -140,12 +140,18 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
         private void PopulateObject()
         {
-           
+            booking = new Booking();
+            booking.getBookingID = txtBookingID.Text;                                    
+            booking.getCustomerRequests = txtCustomerRequests.Text; 
+            booking.getBookingDate =Convert.ToDateTime(txtBookingDate.Text); 
+            booking.getArrival = Convert.ToDateTime(txtArrivalDate.Text); 
+            booking.getDeparture = Convert.ToDateTime(txtDepartureDate.Text); 
+           // booking.getNumPeople = txt.Text;       No num people txt box
         }
         #endregion
 
         #region ListView set up
-        public void setUpEmployeeListView()
+        public void setUpBookingListView()
         {
             ListViewItem bookingDetails;
             bookings = null;
@@ -196,26 +202,31 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            PopulateObject(roleValue);
+            PopulateObject();
             if (state == FormStates.Edit)
             {
-                employeeController.DataMaintenance(employee, Data.DB.DBOperation.Edit);
+                bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
             }
             else
             {
-                employeeController.DataMaintenance(employee, Data.DB.DBOperation.Delete);
+                bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
             }
-            employeeController.FinalizeChanges(employee);
+            bookingController.FinalizeChanges(booking);
             ClearAll();
             state = FormStates.View;
-            ShowAll(false, roleValue);
-            setUpEmployeeListView();
+            ShowAll(false);
+            setUpBookingListView();
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
             state = FormStates.Edit;
             EnableEntries(true);
+        }
+
+        private void bookingListingForm_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
