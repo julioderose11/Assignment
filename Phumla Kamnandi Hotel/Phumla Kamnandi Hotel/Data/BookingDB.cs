@@ -139,8 +139,8 @@ namespace Phumla_Kamnandi_Hotel.Data
                         aBook.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
                         //Do the same for all other attributes
                         aBook.getCustomerRequests = Convert.ToString(myRow["CustomerRequests"]).TrimEnd();
-                        aBook.getBookingDate = Convert.ToString(myRow["BookingDate"]).TrimEnd();
-                        aBook.getArrival = Convert.ToString(myRow["ArrivalDate"]).TrimEnd();
+                        aBook.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]).TrimEnd();
+                        aBook.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]).TrimEnd();
                         aBook.getDeparture = Convert.ToString(myRow["DepartureDate"]).TrimEnd();
                         
 
