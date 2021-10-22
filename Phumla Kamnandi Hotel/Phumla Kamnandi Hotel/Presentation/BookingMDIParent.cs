@@ -183,9 +183,24 @@ namespace Phumla_Kamnandi_Hotel
 
         private void newCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
-            newCustomerform.ShowDialog();
-            this.Hide();
+            if (cusForm == null)
+            {
+                CreateCustomerListingForm();
+            }
+           /* if (cusForm.listFormClosed)
+            {
+                CreateCustomerListingForm();
+            }
+            employeeListForm.RoleValue = Role.RoleType.NoRole;
+            //7.3 write the code to call the setUpEmployeeListView method
+            employeeListForm.setUpEmployeeListView();
+            //7.4 write the code to show the employeeListForm form
+            employeeListForm.Show();
+            //NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
+            //newCustomerform.ShowDialog();
+            // this.Hide();
+
+            */
         }
 
         private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
