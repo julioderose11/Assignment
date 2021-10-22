@@ -162,7 +162,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
             customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
             customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(3, "Email", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
             customers = bookingController.AllCustomers;
             foreach (Customer customer in customers)
             {
