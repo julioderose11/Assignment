@@ -26,6 +26,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private DateTime currentDate = DateTime.Now;
         private Collection<RoomBooking> roomBookings;
         private Collection<Room> rooms;
+        private Collection<Customer> customers;
+   
 
         #endregion
 
@@ -157,8 +159,47 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
+
         #endregion
 
- 
+        #region ListView set up
+        public void setUpCustomerListView()
+        {
+            ListViewItem customerDetails;
+            customers = null;
+            customersListView.Clear();
+
+            customersListView.Columns.Insert(0, "PersonID", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(2, "FirstName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
+            customers = bookingController.AllCustomers;
+            foreach (Customer customer in customers)
+            {
+                customerDetails = new ListViewItem();
+                customerDetails.Text = customer.getPersonID.ToString();
+                customerDetails.SubItems.Add(customer.CustomerID.ToString());
+                customerDetails.SubItems.Add(customer.getFName.ToString());
+                customerDetails.SubItems.Add(customer.getEmail.ToString());
+                customerDetails.SubItems.Add(customer.getStreetName.ToString());
+                customerDetails.SubItems.Add(customer.getSuburbName.ToString());
+                customerDetails.SubItems.Add(customer.getCityName.ToString());
+                customerDetails.SubItems.Add(customer.getPostalCode.ToString());
+
+                customersListView.Items.Add(customerDetails);
+            }
+            customersListView.Refresh();
+            customersListView.GridLines = true;
+        }
+        #endregion
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //ignore
+        }
     }
 }
