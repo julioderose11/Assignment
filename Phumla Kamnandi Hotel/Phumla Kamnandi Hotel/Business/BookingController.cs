@@ -16,7 +16,8 @@ namespace Phumla_Kamnandi_Hotel.Business
          Collection<Booking> bookings;
          Collection<Room> rooms;
          Collection<RoomBooking> roomBookings;
-        Collection<Person> persons;
+         Collection<Person> persons;
+
          Room availRoom;
         #endregion
 
@@ -58,6 +59,14 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return roomBookings;
             }
         }
+
+        public Collection<Person> AllPersons
+        {
+            get
+            {
+                return persons;
+            }
+        }
         #endregion
 
         #region: Constructor
@@ -69,6 +78,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             bookings = bookingDB.AllBookings;
             rooms = bookingDB.AllRooms;
             roomBookings = bookingDB.AllRoomBookings;
+            persons = bookingDB.AllPersons;
         }
         #endregion 
         
