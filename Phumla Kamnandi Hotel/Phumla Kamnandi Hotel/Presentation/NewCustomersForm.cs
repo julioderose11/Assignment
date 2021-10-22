@@ -17,6 +17,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
     {
         #region Data Members
         //declaring a reference to the Booking and the Controller class
+        public bool listFormClosed;
         private Customer customer;
         private BookingController bookingController;
         public bool newCustomerFormClosed = false;
@@ -128,6 +129,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             ClearAll();
         }
+
+        private void NewCustomersForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            listFormClosed = true;
+        }
+
 
         #endregion
 
