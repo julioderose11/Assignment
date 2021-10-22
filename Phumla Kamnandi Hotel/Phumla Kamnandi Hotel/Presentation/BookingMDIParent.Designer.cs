@@ -66,6 +66,7 @@ namespace Phumla_Kamnandi_Hotel
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bookingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -82,8 +83,6 @@ namespace Phumla_Kamnandi_Hotel
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.newCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.existingCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -378,6 +377,7 @@ namespace Phumla_Kamnandi_Hotel
             // bookingsToolStripMenuItem
             // 
             this.bookingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newCustomerToolStripMenuItem1,
             this.addBookingToolStripMenuItem,
             this.listToolStripMenuItem});
             this.bookingsToolStripMenuItem.Name = "bookingsToolStripMenuItem";
@@ -387,13 +387,17 @@ namespace Phumla_Kamnandi_Hotel
             // 
             // addBookingToolStripMenuItem
             // 
-            this.addBookingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newCustomerToolStripMenuItem,
-            this.existingCustomerToolStripMenuItem});
             this.addBookingToolStripMenuItem.Name = "addBookingToolStripMenuItem";
             this.addBookingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addBookingToolStripMenuItem.Text = "Make a Booking";
             this.addBookingToolStripMenuItem.Click += new System.EventHandler(this.addBookingToolStripMenuItem_Click);
+            // 
+            // newCustomerToolStripMenuItem1
+            // 
+            this.newCustomerToolStripMenuItem1.Name = "newCustomerToolStripMenuItem1";
+            this.newCustomerToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newCustomerToolStripMenuItem1.Text = "New Customer";
+            this.newCustomerToolStripMenuItem1.Click += new System.EventHandler(this.newCustomerToolStripMenuItem1_Click);
             // 
             // listToolStripMenuItem
             // 
@@ -524,20 +528,6 @@ namespace Phumla_Kamnandi_Hotel
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // newCustomerToolStripMenuItem
-            // 
-            this.newCustomerToolStripMenuItem.Name = "newCustomerToolStripMenuItem";
-            this.newCustomerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.newCustomerToolStripMenuItem.Text = "New Customer";
-            this.newCustomerToolStripMenuItem.Click += new System.EventHandler(this.newCustomerToolStripMenuItem_Click);
-            // 
-            // existingCustomerToolStripMenuItem
-            // 
-            this.existingCustomerToolStripMenuItem.Name = "existingCustomerToolStripMenuItem";
-            this.existingCustomerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.existingCustomerToolStripMenuItem.Text = "Existing Customer";
-            this.existingCustomerToolStripMenuItem.Click += new System.EventHandler(this.existingCustomerToolStripMenuItem_Click);
-            // 
             // BookingMDIParent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -615,8 +605,7 @@ namespace Phumla_Kamnandi_Hotel
         private System.Windows.Forms.ToolStripMenuItem customersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem bookingsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem newCustomerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem existingCustomerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newCustomerToolStripMenuItem1;
     }
 }
 
