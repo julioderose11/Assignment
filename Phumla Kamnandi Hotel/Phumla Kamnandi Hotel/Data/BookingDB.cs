@@ -139,9 +139,9 @@ namespace Phumla_Kamnandi_Hotel.Data
                         aBook.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
                         //Do the same for all other attributes
                         aBook.getCustomerRequests = Convert.ToString(myRow["CustomerRequests"]).TrimEnd();
-                        aBook.getBookingDate = Convert.ToString(myRow["BookingDate"]).TrimEnd();
-                        aBook.getArrival = Convert.ToString(myRow["ArrivalDate"]).TrimEnd();
-                        aBook.getDeparture = Convert.ToString(myRow["DepartureDate"]).TrimEnd();
+                        aBook.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]).TrimEnd();
+                        aBook.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]).TrimEnd();
+                        aBook.getDeparture = Convert.ToDateTime(myRow["DepartureDate"]).TrimEnd();
                         
 
                         bookings.Add(aBook);
@@ -158,7 +158,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                         //Instantiate a new RoomBooking object
                         RB = new RoomBooking();
                         //Obtain each RoomBooking attribute from the specific field in the row in the table
-                        RB.getRoomObject.getRoomNo = Convert.ToString(myRow["RoomNumber"]).TrimEnd();
+                        RB.getRoomObject.getRoomNo = Convert.ToDateTime(myRow["RoomNumber"]).TrimEnd();
                         //Do the same for all other attributes
                         RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
                         roomBookings.Add(RB);
