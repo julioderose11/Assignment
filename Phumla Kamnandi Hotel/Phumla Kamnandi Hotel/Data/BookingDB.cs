@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Phumla_Kamnandi_Hotel.Business;
+using System.Windows.Forms;
 
 namespace Phumla_Kamnandi_Hotel.Data
 {
@@ -86,6 +87,9 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             customers = new Collection<Customer>();
             persons = new Collection<Person>();
+            bookings = new Collection<Booking>();
+            roomBookings = new Collection<RoomBooking>(); 
+
             FillDataSet(sqlLocal1, table1);
             Add2Collection(table1);
             FillDataSet(sqlLocal2, table2);
@@ -115,9 +119,10 @@ namespace Phumla_Kamnandi_Hotel.Data
             foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
             {
                 myRow = myRow_loopVariable;
-
-                if(table == "table1")
+                //MessageBox.Show("i");
+                if (table == table1)
                 {
+                   
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
                         //Instantiate a new customer object
@@ -125,42 +130,18 @@ namespace Phumla_Kamnandi_Hotel.Data
                         //Obtain each Customer attribute from the specific field in the row in the table
                         aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                         aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
+                       //aCus.getPerson.FName = Convert.ToString(myRow["FirstName"]).TrimEnd();
+                      
                         customers.Add(aCus);
+                        
                     }
                 }
-                else if(table == "table2")
+                else if (table == table4)
                 {
+                    
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
-                        //Instantiate a new roomBooking object
-                        RB = new RoomBooking();
-                        //Obtain each roomBooking attribute from the specific field in the row in the table
-                        RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
-                        RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
-                        roomBookings.Add(RB);
-                    }
-                }
-                else if (table == "table3")
-                {
-                    if (!(myRow.RowState == DataRowState.Deleted))
-                    {
-                        //Instantiate a new Booking object
-                        booking = new Booking();
-                        //Obtain each Booking attribute from the specific field in the row in the table
-                        booking.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
-                        //booking.getCustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
-                        //booking.getAccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
-                        booking.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]);
-                        booking.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]);
-                        booking.getDeparture = Convert.ToDateTime(myRow["DepartureDate"]);
-                        booking.getNumPeople = Convert.ToInt32(myRow["NumPeople"]);    
-                        bookings.Add(booking);
-                    }
-                }
-                else if (table == "table4")
-                {
-                    if (!(myRow.RowState == DataRowState.Deleted))
-                    {
+
                         //Instantiate a new Person object
                         person = new Person();
                         //Obtain each Person attribute from the specific field in the row in the table
@@ -176,6 +157,37 @@ namespace Phumla_Kamnandi_Hotel.Data
                         persons.Add(person);
                     }
                 }
+                else if (table == table3)
+                {
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new Booking object
+                        booking = new Booking();
+                        //Obtain each Booking attribute from the specific field in the row in the table
+                        booking.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        booking.getCustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
+                        booking.getAccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
+                        booking.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]);
+                        booking.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]);
+                        booking.getDeparture = Convert.ToDateTime(myRow["DepartureDate"]);
+                        booking.getNumPeople = Convert.ToInt32(myRow["NumPeople"]);
+                        bookings.Add(booking);
+                    }
+                }
+                else if(table == "table2")
+                {
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new roomBooking object
+                        RB = new RoomBooking();
+                        //Obtain each roomBooking attribute from the specific field in the row in the table
+                        RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
+                        roomBookings.Add(RB);
+                    }
+                }
+                
+                
             }
 
         }

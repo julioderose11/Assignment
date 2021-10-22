@@ -10,6 +10,7 @@ namespace Phumla_Kamnandi_Hotel.Business
     {
         #region Fields
         private string customerID;
+        private Person person;
  
         #endregion
 
@@ -19,15 +20,26 @@ namespace Phumla_Kamnandi_Hotel.Business
             get { return customerID; }
             set { customerID = value; }
         }
+
+        public Person getPerson
+        {
+            get { return person;  }
+            set { person = value;  }
+        }
         #endregion
 
         #region Construtor
+        public Customer(Person p)
+        {
+            person = p;
+            customerID = IdGenerator();
+        }
         public Customer() : base()
         {
+
             customerID = IdGenerator();
 
         }
-
 
         #endregion
 
