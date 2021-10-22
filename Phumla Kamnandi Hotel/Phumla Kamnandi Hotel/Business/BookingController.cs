@@ -174,20 +174,20 @@ namespace Phumla_Kamnandi_Hotel.Business
                     break;
 
                     //Uncomment when FindIndex method is created
-                    /* case DB.DBOperation.Edit:
-                         index = FindIndex(book);
-                         bookings[index] = book;  // replace booking at this index with the updated booking
+                     case DB.DBOperation.Edit:
+                         index = FindIndex(p);
+                         persons[index] = p;  // replace booking at this index with the updated booking
                          break;
                      case DB.DBOperation.Delete:
-                         index = FindIndex(book);  // find the index of the specific booking in collection
-                         bookings.RemoveAt(index);  // remove that booking from the collection
-                         break;*/
+                         index = FindIndex(p);  // find the index of the specific booking in collection
+                        persons.RemoveAt(index);  // remove that booking from the collection
+                         break;
             }
         }
         //***Commit the changes to the database
         public bool FinalizeChanges(Customer customer)
         {
-            //***call the EmployeeDB method that will commit the changes to the database
+            
             return bookingDB.UpdateDataSource(customer);
         }
 
@@ -238,6 +238,25 @@ namespace Phumla_Kamnandi_Hotel.Business
             {
                 counter += 1;
                 found = (aCust.CustomerID == customers[counter].CustomerID);
+            }
+            if (found)
+            {
+                return counter;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        public int FindIndex(Person aPers)
+        {
+            int counter = 0;
+            bool found = false;
+            found = (aPers.getPersonID == persons[counter].getPersonID);   //using a Boolean Expression to initialise found
+            while (!(found) & counter < persons.Count - 1)
+            {
+                counter += 1;
+                found = (aPers.getPersonID == persons[counter].getPersonID);
             }
             if (found)
             {

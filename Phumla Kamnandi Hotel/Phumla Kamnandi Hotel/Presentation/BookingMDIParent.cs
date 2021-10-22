@@ -18,7 +18,7 @@ namespace Phumla_Kamnandi_Hotel
     {
         #region Variable declaration
         private int childFormNumber = 0;
-        ExistingCustomersForm ecusForm;
+        //ExistingCustomersForm ecusForm;
         NewCustomersForm cusForm;
         bookingListingForm bookLForm;
         CustomerListingForm cusLForm;
@@ -145,7 +145,7 @@ namespace Phumla_Kamnandi_Hotel
 
         #region Create New Child Form
 
-        private void CreateNewCustomerFsorm()
+        private void CreateNewCustomersForm()
         {
             cusForm = new NewCustomersForm(bookingController);
             cusForm.MdiParent = this;
@@ -166,49 +166,112 @@ namespace Phumla_Kamnandi_Hotel
             bookLForm.StartPosition = FormStartPosition.CenterParent;
         }
 
+        
         private void CreateCustomerListingForm()
         {
             cusLForm = new CustomerListingForm(bookingController);
             cusLForm.MdiParent = this;
             cusLForm.StartPosition = FormStartPosition.CenterParent;
         }
-
+        
+        /*
         private void CreateExistingCustomerForm()
         {
             ecusForm = new ExistingCustomersForm(bookingController);
             ecusForm.MdiParent = this;
             ecusForm.StartPosition = FormStartPosition.CenterParent;
         }
+        */
+
+
         #endregion
 
         private void newCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (cusForm == null)
+            /*
+            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+            if (cusLForm == null)
             {
-                CreateCustomerListingForm();
+                CreateCustomerListingForm()
             }
-           /* if (cusForm.listFormClosed)
+            if (cusLForm.listFormClosed)
             {
-                CreateCustomerListingForm();
+                CreateCustomerListingForm()
             }
-            employeeListForm.RoleValue = Role.RoleType.NoRole;
-            //7.3 write the code to call the setUpEmployeeListView method
-            employeeListForm.setUpEmployeeListView();
-            //7.4 write the code to show the employeeListForm form
-            employeeListForm.Show();
-            //NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
-            //newCustomerform.ShowDialog();
-            // this.Hide();
-
+            
             */
+
+            CustomerListingForm customerListingForm = new CustomerListingForm(bookingController);
+            customerListingForm.ShowDialog();
+            this.Hide();
+
+
+            
         }
 
         private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
+           //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+           if (bookLForm == null)
+           {
+               CreateNewBookingUIForm();
+           }
+           if (bookLForm.listFormClosed)
+           {
+               CreateNewBookingUIForm();
+           }
+           NewCustomersForm.Show();
+           */
+
+
             NewBookingUI newBookingUI = new NewBookingUI(bookingController);
             newBookingUI.ShowDialog();
+            this.Hide();
         }
 
+        private void customersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            /*
+            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+            if (cusForm == null)
+            {
+                CreateNewCustomersForm()
+            }
+            if (cusForm.listFormClosed)
+            {
+                CreateNewCustomersForm()
+            }
+            NewCustomersForm.Show();
+            */
+
+            NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
+            newCustomerform.ShowDialog();
+            this.Hide();
+
+        }
+
+        private void bookingsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //this needs to be edited 
+            /*
+            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+            if (cusForm == null)
+            {
+                CreateNewCustomersForm()
+            }
+            if (cusForm.listFormClosed)
+            {
+                CreateNewCustomersForm()
+            }
+            NewCustomersForm.Show();
+            */
+
+            NewBookingUI newBookingUI = new NewBookingUI(bookingController);
+            newBookingUI.ShowDialog();
+            this.Hide();
+        }
     }
 
 

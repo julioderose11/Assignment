@@ -73,6 +73,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.submitButton.TabIndex = 66;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = false;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
             // cancelButton
             // 
@@ -281,7 +282,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.idLabel);
             this.Controls.Add(this.customersListView);
             this.Controls.Add(this.listLabel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CustomerListingForm";
             this.Text = "ListingForm";
             this.Load += new System.EventHandler(this.CustomerListingForm_Load);

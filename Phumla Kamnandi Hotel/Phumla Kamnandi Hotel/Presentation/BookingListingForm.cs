@@ -228,5 +228,28 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
 
         }
+
+        private void bookingListView_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            //set the form state to Delete
+            state = FormStates.Delete;
+            editButton.Visible = false;
+            //call the ShowAll method
+            //ShowAll(false);
+            EnableEntries(false);
+            MessageBox.Show("This record is about to be deleted");
+        }
+
+        private void bookingListingForm_Activated_1(object sender, EventArgs e)
+        {
+            bookingListView.View = View.Details;
+            setUpBookingListView();
+            ShowAll(false);
+        }
     }
 }

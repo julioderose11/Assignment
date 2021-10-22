@@ -147,7 +147,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             PostalCodeTextBox.Text = customer.getPostalCode;
             
         }
-        
+        private void CustomerListingForm_Activated(object sender, EventArgs e)
+        {
+            customersListView.View = View.Details;
+            setUpCustomerListView();
+            ShowAll(false);
+            
+        }
+
         #endregion
         #region ListView set up
         public void setUpCustomerListView()
@@ -201,5 +208,35 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             }
         }
         #endregion
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+            PopulateObject();
+            if (state == FormStates.Edit)
+            {
+                bookingController.DataMaintenance(customer, Data.DB.DBOperation.Edit);
+            }
+            else
+            {
+                bookingController.DataMaintenance(customer, Data.DB.DBOperation.Delete);
+            }
+            bookingController.FinalizeChanges(customer);
+            ClearAll();
+            state = FormStates.View;
+            ShowAll(false);
+            setUpCustomerListView();
+        }
+        private void PopulateObject()
+        {
+            customer = new Customer();
+            customer.CustomerID = cusIDTextBox.Text;
+            customer.getPersonID = idTextBox.Text;
+            customer.getEmail = emailTextBox.Text;
+            customer.getStreetName = streetNameTextBox.Text;
+            customer.getSuburbName = suburbTextBox.Text;
+            customer.getCityName = cityTextBox.Text;
+            customer.getPostalCode = PostalCodeTextBox.Text;
+            
+        }
     }
 }
