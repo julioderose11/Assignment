@@ -193,8 +193,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             EnableEntries(false);
             if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
             {
-                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected student becoms current student
-                                                                                             // Show the details of the selected student in the controls
+                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                                                                                             // Show the details of the selected customer in the controls
                 PopulateTextBoxes(customer);
             }
         }

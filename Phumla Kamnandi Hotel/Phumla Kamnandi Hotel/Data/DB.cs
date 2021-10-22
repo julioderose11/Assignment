@@ -18,6 +18,13 @@ namespace Phumla_Kamnandi_Hotel.Data
         protected SqlConnection cnMain;
         protected DataSet dsMain;
         protected SqlDataAdapter daMain;
+        public enum DBOperation
+        {
+            Add = 0,
+            Edit = 1,
+            Delete = 2,
+            Query = 3
+        }
         #endregion
 
         #region Constructor
@@ -36,13 +43,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
         }
 
-        public enum DBOperation
-        {
-            Add = 0,
-            Edit = 1,
-            Delete = 2,
-            Query = 3
-        }
+        
 
         #endregion
 

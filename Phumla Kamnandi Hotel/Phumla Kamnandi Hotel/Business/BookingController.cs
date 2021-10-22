@@ -86,15 +86,14 @@ namespace Phumla_Kamnandi_Hotel.Business
                     //*** Add the customer to the Collection
                     customers.Add(aCust);
                     break;
-                //Include below actions if we decide to allow edit and deletion of customers/////////////////////////////
-                /*case DB.DBOperation.Edit:
+                case DB.DBOperation.Edit:
                     index = FindIndex(aCust);
                     customers[index] = aCust;  // replace customer at this index with the updated customer
                     break;
                 case DB.DBOperation.Delete:
                     index = FindIndex(aCust);  // find the index of the specific customer in collection
                     customers.RemoveAt(index);  // remove that customer form the collection
-                    break;*/
+                    break;
 
             }
         }
@@ -113,19 +112,19 @@ namespace Phumla_Kamnandi_Hotel.Business
                     bookings.Add(book);
                     break;
 
-                    //Uncomment when FindIndex method is created
-                   /* case DB.DBOperation.Edit:
+                    
+                    case DB.DBOperation.Edit:
                         index = FindIndex(book);
                         bookings[index] = book;  // replace booking at this index with the updated booking
                         break;
                     case DB.DBOperation.Delete:
                         index = FindIndex(book);  // find the index of the specific booking in collection
                         bookings.RemoveAt(index);  // remove that booking from the collection
-                        break;*/
+                        break;
             }
         }
 
-        //DataMaintenance method for roombooking table
+        //DataMaintenance method for roombooking table?
         public void DataMaintenance(RoomBooking roombook, DB.DBOperation operation)
         {
             int index = 0;
@@ -160,7 +159,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             switch (operation)
             {
                 case DB.DBOperation.Add:
-                    //*** Add the customer to the Collection
+                    //*** Add the person to the Collection
                     persons.Add(p);
                     break;
 
@@ -220,6 +219,25 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return customers[index];  // this is the one!  
         }
+        public int FindIndex(Customer aCust)
+        {
+            int counter = 0;
+            bool found = false;
+            found = (aCust.CustomerID == customers[counter].CustomerID);   //using a Boolean Expression to initialise found
+            while (!(found) & counter < customers.Count - 1)
+            {
+                counter += 1;
+                found = (aCust.CustomerID == customers[counter].CustomerID);
+            }
+            if (found)
+            {
+                return counter;
+            }
+            else
+            {
+                return -1;
+            }
+        }
 
         //This method receives a BookingID as a parameter; finds the booking object in the collection of bookings and then returns this object
         public Booking FindBooking(string ID)
@@ -238,6 +256,26 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return bookings[index];  // this is the one!  
         }
+        public int FindIndex(Booking aBook)
+        {
+            int counter = 0;
+            bool found = false;
+            found = (aBook.getBookingID == bookings[counter].getBookingID);   //using a Boolean Expression to initialise found
+            while (!(found) & counter < bookings.Count - 1)
+            {
+                counter += 1;
+                found = (aBook.getBookingID == bookings[counter].getBookingID);
+            }
+            if (found)
+            {
+                return counter;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        //RoomBooking?
 
         public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
         {

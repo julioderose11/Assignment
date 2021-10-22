@@ -36,7 +36,6 @@ namespace Phumla_Kamnandi_Hotel.Data
         private Collection<RoomBooking> roomBookings;
         private Collection<Booking> bookings;
         private Collection<Room> rooms;
-        private Collection<Person> persons;
 
         #endregion
 
@@ -95,89 +94,78 @@ namespace Phumla_Kamnandi_Hotel.Data
             Add2Collection(table8);*/
         }
         #endregion
-        private void Add2Collection(string table)  
+        private void Add2Collection(string table)  //
         {
             //Declare references to a myRow object and an Employee object
             DataRow myRow = null;
             Customer aCus;
+            Booking aBook;
             RoomBooking RB;
-            Booking booking;
-            Person person;
-            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+            if (table == table1)
             {
-                myRow = myRow_loopVariable;
-
-                if(table == "table1")
+                foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
                 {
+                    myRow = myRow_loopVariable;
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
-                        //Instantiate a new Employee object
+                        //Instantiate a new Customer object
                         aCus = new Customer();
-                        //Obtain each employee attribute from the specific field in the row in the table
+                        //Obtain each Customer attribute from the specific field in the row in the table
                         aCus.CustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                         //Do the same for all other attributes
                         aCus.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
+                        aCus.getFName = Convert.ToString(myRow["Email"]).TrimEnd();
+                        aCus.getFName = Convert.ToString(myRow["StreetName"]).TrimEnd();
+                        aCus.getFName = Convert.ToString(myRow["SuburbName"]).TrimEnd();
+                        aCus.getFName = Convert.ToString(myRow["Cityname"]).TrimEnd();
+                        aCus.getFName = Convert.ToString(myRow["PostalCode"]).TrimEnd();
                         aCus.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd();
                         aCus.getSName = Convert.ToString(myRow["SecondName"]).TrimEnd();
-                        aCus.getEmail = Convert.ToString(myRow["Email"]).TrimEnd();
-                        aCus.getStreetName = Convert.ToString(myRow["StreetName"]).TrimEnd();
-                        aCus.getSuburbName = Convert.ToString(myRow["SuburbName"]).TrimEnd();
-                        aCus.getCityName = Convert.ToString(myRow["CityName"]).TrimEnd();
-                        aCus.getPostalCode = Convert.ToString(myRow["PostalCode"]).TrimEnd();
 
                         customers.Add(aCus);
                     }
                 }
-                else if(table == "table2")
+            }
+            if (table == table2)
+            {
+                foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
                 {
+                    myRow = myRow_loopVariable;
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
-                        //Instantiate a new Employee object
-                        RB = new RoomBooking();
-                        //Obtain each roomBooking attribute from the specific field in the row in the table
-                        RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        //Instantiate a new Booking object
+                        aBook = new Booking();
+                        //Obtain each Booking attribute from the specific field in the row in the table
+                        aBook.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
                         //Do the same for all other attributes
-                        RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
-                        roomBookings.Add(RB);
-                    }
-                }
-                else if (table == "table3")
-                {
-                    if (!(myRow.RowState == DataRowState.Deleted))
-                    {
-                        //Instantiate a new Employee object
-                        booking = new Booking();
-                        //Obtain each employee attribute from the specific field in the row in the table
-                        booking.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
-                        //booking.getCustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
-                        //booking.getAccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
-                        booking.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]);
-                        booking.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]);
-                        booking.getDeparture = Convert.ToDateTime(myRow["DepartureDate"]);
-                        booking.getNumPeople = Convert.ToInt32(myRow["NumPeople"]);    
-                        bookings.Add(booking);
-                    }
-                }
-                else if (table == "table4")
-                {
-                    if (!(myRow.RowState == DataRowState.Deleted))
-                    {
-                        //Instantiate a new Employee object
-                        person = new Person();
-                        //Obtain each employee attribute from the specific field in the row in the table
-                        person.getPersonID = Convert.ToString(myRow["PersonID"]).TrimEnd();
-                        person.getFName = Convert.ToString(myRow["FirstName"]).TrimEnd();
-                        person.getSName = Convert.ToString(myRow["SecondName"]).TrimEnd();
-                        person.getEmail = Convert.ToString(myRow["Email"]).TrimEnd();
-                        person.getStreetName = Convert.ToString(myRow["StreetName"]).TrimEnd();
-                        person.getSuburbName = Convert.ToString(myRow["SuburbName"]).TrimEnd();
-                        person.getCityName = Convert.ToString(myRow["CityName"]).TrimEnd();
-                        person.getPostalCode = Convert.ToString(myRow["PostalCode"]).TrimEnd();
+                        aBook.getCustomerRequests = Convert.ToString(myRow["CustomerRequests"]).TrimEnd();
+                        aBook.getBookingDate = Convert.ToString(myRow["BookingDate"]).TrimEnd();
+                        aBook.getArrival = Convert.ToString(myRow["ArrivalDate"]).TrimEnd();
+                        aBook.getDeparture = Convert.ToString(myRow["DepartureDate"]).TrimEnd();
+                        
 
-                        persons.Add(person);
+                        bookings.Add(aBook);
                     }
                 }
             }
+            if (table == table3)
+            {
+                foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+                {
+                    myRow = myRow_loopVariable;
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new RoomBooking object
+                        RB = new RoomBooking();
+                        //Obtain each RoomBooking attribute from the specific field in the row in the table
+                        RB.getRoomObject.getRoomNo = Convert.ToString(myRow["RoomNumber"]).TrimEnd();
+                        //Do the same for all other attributes
+                        RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        roomBookings.Add(RB);
+                    }
+                }
+            }
+
 
         }
         //FillRow method for Customer Table
@@ -282,6 +270,27 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
             return returnValue;
         }
+        private int FindRow(Person p, string table)
+        {
+            int rowIndex = 0;
+            DataRow myRow;
+            int returnValue = -1;
+            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+            {
+                myRow = myRow_loopVariable;
+                //Ignore rows marked as deleted in dataset
+                if (!(myRow.RowState == DataRowState.Deleted))
+                {
+                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
+                    if (p.getPersonID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["PersonID"]))
+                    {
+                        returnValue = rowIndex;
+                    }
+                }
+                rowIndex += 1;
+            }
+            return returnValue;
+        }
 
         //FindRow method for roombooking table
         private int FindRow(RoomBooking rBooking, string table)
@@ -297,29 +306,6 @@ namespace Phumla_Kamnandi_Hotel.Data
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
                     if (Convert.ToString(rBooking.getRoomObject.getRoomNo) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["RoomNum"]))
-                    {
-                        returnValue = rowIndex;
-                    }
-                }
-                rowIndex += 1;
-            }
-            return returnValue;
-        }
-
-        //FindRow method for Person table
-        private int FindRow(Person person, string table)
-        {
-            int rowIndex = 0;
-            DataRow myRow;
-            int returnValue = -1;
-            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
-            {
-                myRow = myRow_loopVariable;
-                //Ignore rows marked as deleted in dataset
-                if (!(myRow.RowState == DataRowState.Deleted))
-                {
-                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if (person.getPersonID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["PersonID"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -406,9 +392,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                     break;
             }
         }
-
-        //Datasetchange method for person table
-        public void DataSetChange(Person person, DB.DBOperation operation)
+        public void DataSetChange(Person p, DB.DBOperation operation)
         {
             DataRow aRow = null;
             string dataTable = table4;
@@ -416,22 +400,23 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 case DB.DBOperation.Add:
                     aRow = dsMain.Tables[dataTable].NewRow();
-                    FillRow(aRow, person, operation);
+                    FillRow(aRow, p, operation);
                     dsMain.Tables[dataTable].Rows.Add(aRow);
 
                     break;
                 case DB.DBOperation.Edit:
 
-                    aRow = dsMain.Tables[dataTable].Rows[FindRow(person, dataTable)];
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(p, dataTable)];
 
-                    FillRow(aRow, person, operation);
+                    FillRow(aRow, p, operation);
                     break;
                 case DB.DBOperation.Delete:
-                    aRow = dsMain.Tables[dataTable].Rows[FindRow(person, dataTable)];
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(p, dataTable)];
                     aRow.Delete();
                     break;
             }
         }
+
 
         #endregion
 
