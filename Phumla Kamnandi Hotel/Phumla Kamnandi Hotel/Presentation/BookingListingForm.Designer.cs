@@ -66,6 +66,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.bookingListView.Size = new System.Drawing.Size(840, 254);
             this.bookingListView.TabIndex = 5;
             this.bookingListView.UseCompatibleStateImageBehavior = false;
+            this.bookingListView.SelectedIndexChanged += new System.EventHandler(this.bookingListView_SelectedIndexChanged_1);
             // 
             // listLabel
             // 
@@ -254,6 +255,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.deleteButton.Size = new System.Drawing.Size(45, 34);
             this.deleteButton.TabIndex = 66;
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // editButton
             // 
