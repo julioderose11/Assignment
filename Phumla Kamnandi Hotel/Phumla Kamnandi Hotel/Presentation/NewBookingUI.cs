@@ -157,9 +157,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     bookingController.FinalizeChanges(booking);
 
                     //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
-                    /*PopulateRoomBookingObject();
+                    PopulateRoomBookingObject();
                     bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(roombooking);*/
+                    bookingController.FinalizeChanges(roombooking);
                 }
             }
             else

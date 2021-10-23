@@ -304,40 +304,72 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return -1;
             }
         }
+
+        public int FindIndex(RoomBooking rBook)
+        {
+            int counter = 0;
+            bool found1 = false;
+            bool found2 = false;
+            found1 = (rBook.getBookingObject.getBookingID == roomBookings[counter].getBookingObject.getBookingID);   //using a Boolean Expression to initialise found
+            found2 = (rBook.getRoomObject.getRoomNo == roomBookings[counter].getRoomObject.getRoomNo);
+            while (!(found1 && found2) & counter < roomBookings.Count - 1)
+            {
+                counter += 1;
+                found1 = (rBook.getBookingObject.getBookingID == roomBookings[counter].getBookingObject.getBookingID);
+                found2 = (rBook.getRoomObject.getRoomNo == roomBookings[counter].getRoomObject.getRoomNo);
+            }
+            if (found1 && found2)
+            {
+                return counter;
+            }
+            else
+            {
+                return -1;
+            }
+        }
         //RoomBooking?
 
         public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
         {
             bool flag = false;
             Collection<RoomBooking> matches;
-            foreach (RoomBooking roomBooking in roomBookings)
+            if(roomBookings == null)
             {
-                matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
-                foreach (RoomBooking match in matches)
+                flag = true;
+                
+            }
+            else
+            {
+                foreach (RoomBooking roomBooking in roomBookings)
                 {
-                    if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) > 0)
+                    matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
+                    foreach (RoomBooking match in matches)
                     {
-                        flag = true;
-                    }
-                    else if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) < 0)
-                    {
-                        if (departureDate.CompareTo(match.getBookingObject.getArrival) < 0)
+                        if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) > 0)
                         {
                             flag = true;
                         }
-                        else
+                        else if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) < 0)
                         {
-                            flag = false;
-                            break;
+                            if (departureDate.CompareTo(match.getBookingObject.getArrival) < 0)
+                            {
+                                flag = true;
+                            }
+                            else
+                            {
+                                flag = false;
+                                break;
+                            }
                         }
                     }
-                }                
-                if (flag==true)
-                {
-                    availRoom = roomBooking.getRoomObject;
-                    break;
+                    if (flag == true)
+                    {
+                        availRoom = roomBooking.getRoomObject;
+                        break;
+                    }
                 }
             }
+            
             return flag;       
         }
 

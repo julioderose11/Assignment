@@ -174,7 +174,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                         bookings.Add(booking);
                     }
                 }
-                else if(table == "table2")
+                else if(table == table2)
                 {
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
