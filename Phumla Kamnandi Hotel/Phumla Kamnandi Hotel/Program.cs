@@ -17,7 +17,7 @@ namespace Phumla_Kamnandi_Hotel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BookingMDIParent());
+            Application.Run(new LoginForm());
         }
     }
 }

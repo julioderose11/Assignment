@@ -180,6 +180,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                     {
                         //Instantiate a new roomBooking object
                         RB = new RoomBooking();
+                        Booking book = RB.getBookingObject;
                         //Obtain each roomBooking attribute from the specific field in the row in the table
                         RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
                         RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
