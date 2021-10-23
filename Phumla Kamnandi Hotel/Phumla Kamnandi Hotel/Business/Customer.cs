@@ -10,7 +10,7 @@ namespace Phumla_Kamnandi_Hotel.Business
     {
         #region Fields
         private string customerID;
- 
+        public int MyProperty { get; set; }
         #endregion
 
         #region Properties

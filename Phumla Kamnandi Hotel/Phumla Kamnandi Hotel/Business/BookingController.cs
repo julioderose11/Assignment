@@ -232,6 +232,8 @@ namespace Phumla_Kamnandi_Hotel.Business
         public int FindIndex(Customer aCust)
         {
             int counter = 0;
+            //customers.Where(x => x.CustomerID == aCust.CustomerID).FirstOrDefault();
+            //customers.IndexOf(aCust);
             bool found = false;
             found = (aCust.CustomerID == customers[counter].CustomerID);   //using a Boolean Expression to initialise found
             while (!(found) & counter < customers.Count - 1)
