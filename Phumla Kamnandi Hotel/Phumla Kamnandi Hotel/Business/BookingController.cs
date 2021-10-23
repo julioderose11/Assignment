@@ -327,6 +327,7 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return -1;
             }
         }
+
         //RoomBooking?
 
         public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
