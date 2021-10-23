@@ -233,10 +233,24 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer                                                                                                     // Show the details of the selected customer in the controls
             }
         }
+
+
+
         #endregion
 
+        private void txtNoOfPeople_TextChanged(object sender, EventArgs e)
+        {
 
+        }
 
+        private void lblDate_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void currentDatetxt_TextChanged(object sender, EventArgs e)
+        {
+            currentDatetxt.Text= Convert.ToString(DateTime.UtcNow);
+        }
     }
 }
