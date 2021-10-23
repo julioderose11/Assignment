@@ -182,8 +182,10 @@ namespace Phumla_Kamnandi_Hotel.Data
                         RB = new RoomBooking();
                         Booking book = RB.getBookingObject;
                         //Obtain each roomBooking attribute from the specific field in the row in the table
-                        RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
-                        RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
+                        string bID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        RB.getBookingObject = FindBooking(bID);
+                        int rnum = Convert.ToInt32((myRow["RoomNum"]));
+                        RB.getRoomObject = FindRoom(rnum);
                         roomBookings.Add(RB);
                     }
                 }
@@ -191,6 +193,38 @@ namespace Phumla_Kamnandi_Hotel.Data
                 
             }
 
+        }
+        public Booking FindBooking(string ID)
+        {
+            int index = 0;
+            bool found = (bookings[index].getBookingID == ID);  //check if it is the first booking
+            int count = bookings.Count;
+            while (!(found) && (index < bookings.Count - 1))  //if not "this" booking and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (bookings[index].getBookingID == ID);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return bookings[index];  // this is the one!  
+        }
+        public Room FindRoom(int num)
+        {
+            int index = 0;
+            bool found = (rooms[index].getRoomNo == num);  //check if it is the first booking
+            int count = rooms.Count;
+            while (!(found) && (index < rooms.Count - 1))  //if not "this" booking and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (rooms[index].getRoomNo == num);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return bookings[index];  // this is the one!  
         }
         //FillRow method for Customer Table
         private void FillRow(DataRow aRow, Customer aCus, DB.DBOperation operation)
@@ -240,6 +274,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 aRow["BookingID"] = rb.getBookingObject.getBookingID;            
             }
         }
+        
 
         //FindRow method for customer table
         private int FindRow(Customer aCus, string table)
