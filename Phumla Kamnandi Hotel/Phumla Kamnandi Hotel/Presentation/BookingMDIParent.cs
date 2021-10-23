@@ -174,14 +174,7 @@ namespace Phumla_Kamnandi_Hotel
             cusLForm.StartPosition = FormStartPosition.CenterParent;
         }
         
-        /*
-        private void CreateExistingCustomerForm()
-        {
-            ecusForm = new ExistingCustomersForm(bookingController);
-            ecusForm.MdiParent = this;
-            ecusForm.StartPosition = FormStartPosition.CenterParent;
-        }
-        */
+
 
 
         #endregion
@@ -198,25 +191,15 @@ namespace Phumla_Kamnandi_Hotel
             {
                 CreateNewCustomersForm();
             }
-            cusForm.Show();
-            
-            
-            
-            /*
-            CustomerListingForm customerListingForm = new CustomerListingForm(bookingController);
-            customerListingForm.ShowDialog();
-            this.Hide();
-            */
-
-
-            
+            cusForm.Show();            
+               
         }
 
         private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-           if (NBUI == null)
+           /*if (NBUI == null)
            {
                CreateNewBookingUIForm();
            }
@@ -225,21 +208,34 @@ namespace Phumla_Kamnandi_Hotel
                CreateNewBookingUIForm();
            }
             
-            bookLForm.Show();
-           
-           
-
-            /*
+            NBUI.Show();*/
             NewBookingUI newBookingUI = new NewBookingUI(bookingController);
             newBookingUI.ShowDialog();
             this.Hide();
-            */
+
         }
 
-        private void customersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
-            
+        private void updateBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+            /* if (bookLForm == null)
+             {
+                 CreateBookingListingForm();
+             }
+             if (bookLForm.listFormClosed)
+             {
+                 CreateBookingListingForm();
+             }
+             bookLForm.Show();*/
+
+            bookingListingForm bookingListingForm = new bookingListingForm(bookingController);
+            bookingListingForm.ShowDialog();
+            this.Hide();
+        }
+
+        private void viewCustomerListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
             if (cusLForm == null)
             {
@@ -250,34 +246,6 @@ namespace Phumla_Kamnandi_Hotel
                 CreateCustomerListingForm();
             }
             cusLForm.Show();
-            
-            /*
-            NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
-            newCustomerform.ShowDialog();
-            this.Hide();
-            */
-
-        }
-
-        private void bookingsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-           
-            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-            if (bookLForm == null)
-            {
-                CreateBookingListingForm();
-            }
-            if (bookLForm.listFormClosed)
-            {
-                CreateBookingListingForm();
-            }
-            bookLForm.Show();
-            
-            /*
-            NewBookingUI newBookingUI = new NewBookingUI(bookingController);
-            newBookingUI.ShowDialog();
-            this.Hide();
-            */
         }
     }
 

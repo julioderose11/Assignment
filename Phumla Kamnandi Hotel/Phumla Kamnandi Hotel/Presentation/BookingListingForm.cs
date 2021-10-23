@@ -21,6 +21,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Booking booking;
         private BookingController bookingController;
         private FormStates state;
+        private String arrivalDateTempVal;
+        private String departureDateTempVal;
 
         //Form state enumeration allows the recpetionist to edit or change bookings
         public enum FormStates
@@ -88,13 +90,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void ClearAll()
         {
-            txtBookingID.Text = " ";
-            txtAccount.Text = " ";
-            txtCusID.Text = " ";
-            txtCustomerRequests.Text = " ";
+            txtBookingID.Text = "";
+            txtAccount.Text = "";
+            txtCusID.Text = "";
+            txtCustomerRequests.Text = "";
             txtBookingDate.Text = " ";
-            txtArrivalDate.Text = " ";
-            txtDepartureDate.Text = " ";
+            dtPArrivalDate.CustomFormat = "";
+            dTPDepDate.CustomFormat = "";
+            txtNumPeople.Text = "";
             
         }
 
@@ -104,19 +107,22 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             if ((state == FormStates.Edit) && value)
             {
                 txtBookingID.Enabled = !value;
-                //do the same for all buttons & textboxes
                 txtAccount.Enabled = !value;
+                txtCusID.Enabled = !value;
+                txtBookingDate.Enabled = !value;
             }
             else
             {
                 txtBookingID.Enabled = value;
                 txtAccount.Enabled = value;
+                txtCusID.Enabled = value;
             }
-            txtCusID.Enabled = value;
+            
             txtCustomerRequests.Enabled = value;
             txtBookingDate.Enabled = value;
-            txtArrivalDate.Enabled = value;
-            txtDepartureDate.Enabled = value;
+            dtPArrivalDate.Enabled = value;
+            dTPDepDate.Enabled = value;
+            txtNumPeople.Enabled = value;
             
             if (state == FormStates.Delete)
             {
@@ -132,21 +138,26 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void PopulateTextBoxes(Booking booking)
         {
             txtBookingID.Text = booking.getBookingID;
+            txtCusID.Text = booking.getCustomerID;
+            txtAccount.Text = booking.getAccountNum;
             txtCustomerRequests.Text = booking.getCustomerRequests;
             txtBookingDate.Text = Convert.ToString(booking.getBookingDate);
-            txtArrivalDate.Text = Convert.ToString(booking.getArrival);
-            txtDepartureDate.Text = Convert.ToString(booking.getDeparture);
+            dtPArrivalDate.Text = Convert.ToString(booking.getArrival);
+            dTPDepDate.Text = Convert.ToString(booking.getDeparture);
+            txtNumPeople.Text = Convert.ToString(booking.getNumPeople);
 
         }
         private void PopulateObject()
         {
             booking = new Booking();
-            booking.getBookingID = txtBookingID.Text;                                    
+            booking.getBookingID = txtBookingID.Text;
+            booking.getCustomerID = txtCusID.Text;
+            booking.getAccountNum = txtAccount.Text;
             booking.getCustomerRequests = txtCustomerRequests.Text; 
             booking.getBookingDate =Convert.ToDateTime(txtBookingDate.Text); 
-            booking.getArrival = Convert.ToDateTime(txtArrivalDate.Text); 
-            booking.getDeparture = Convert.ToDateTime(txtDepartureDate.Text); 
-           // booking.getNumPeople = txt.Text;       No num people txt box
+            booking.getArrival = Convert.ToDateTime(dtPArrivalDate.Text); 
+            booking.getDeparture = Convert.ToDateTime(dTPDepDate.Text); 
+            booking.getNumPeople = Convert.ToInt32(txtNumPeople.Text);      
         }
         #endregion
 
@@ -157,14 +168,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookings = null;
             bookingListView.Clear();
 
-            bookingListView.Columns.Insert(0, "Reference Number", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(0, "Reference Number", 150, HorizontalAlignment.Left);
             //bookingListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
             //bookingListView.Columns.Insert(2, "AccountNum", 120, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(3, "CustomerRequests", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(1, "CustomerRequests", 240, HorizontalAlignment.Left);
             //bookingListView.Columns.Insert(4, "BookingDate", 120, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(1, "ArrivalDate", 120, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(2, "DepartureDate", 120, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(7, "numPeople", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(2, "ArrivalDate", 150, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(3, "DepartureDate", 150, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(4, "numPeople", 120, HorizontalAlignment.Left);
 
             bookings = bookingController.AllBookings;
             foreach (Booking booking in bookings)
@@ -173,11 +184,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 bookingDetails.Text = booking.getBookingID.ToString();
                 //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
                 //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
-                //bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
+                bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
                 //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
-                bookingDetails.SubItems.Add(booking.getArrival.ToString());
-                bookingDetails.SubItems.Add(booking.getDeparture.ToString());
-                //bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
+                bookingDetails.SubItems.Add(booking.getArrival.ToShortDateString());
+                bookingDetails.SubItems.Add(booking.getDeparture.ToShortDateString());
+                bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
 
                 bookingListView.Items.Add(bookingDetails); 
             }
@@ -186,31 +197,53 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
+         
+        private void bookingListView_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             ShowAll(true);
             state = FormStates.View;
             EnableEntries(false);
-            if (bookingListView.SelectedItems.Count > 0)   
+            //checks if a list item is selected
+            if (bookingListView.SelectedItems.Count > 0)
             {
-                booking = bookingController.FindBooking(bookingListView.SelectedItems[0].Text);  
-                                                                                                     
+                //populates a booking object with the selected booking items information using the FindBooking objec
+                booking = bookingController.FindBooking(bookingListView.SelectedItems[0].Text);
+                //Calls the PopulateTextBoxes method to populate texboxes with the selected bookings information from the database
                 PopulateTextBoxes(booking);
+                //captures the original dates of the booking to use as reference if the user decides to edit them 
+                arrivalDateTempVal = Convert.ToString(booking.getArrival);
+                departureDateTempVal = Convert.ToString(booking.getDeparture);
             }
         }
-
 
         #endregion
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            PopulateObject();
+            //Depending on which state the receptionist has entered (Edit or delete), the following code will run
             if (state == FormStates.Edit)
             {
-                bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                //first checks whether the user has entered new arrival and/or departure dates
+                if(arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
+                {
+                    //checks whether there are any rooms available for the new dates
+                    if (bookingController.isAvailable(dtPArrivalDate.Value, dTPDepDate.Value) == true)
+                    {
+                        PopulateObject();
+                        bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                    }
+                }
+                else //dont have to check room availability
+                {
+                    PopulateObject();
+                    bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                } 
+                //PopulateObject();
+               // bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
             }
             else
             {
+                PopulateObject();
                 bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
             }
             bookingController.FinalizeChanges(booking);
@@ -224,16 +257,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             state = FormStates.Edit;
             EnableEntries(true);
-        }
-
-        private void bookingListingForm_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bookingListView_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -252,6 +275,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookingListView.View = View.Details;
             setUpBookingListView();
             ShowAll(false);
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {           
+            this.Close();
         }
     }
 }

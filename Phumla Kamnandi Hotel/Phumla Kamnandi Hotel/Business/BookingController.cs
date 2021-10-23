@@ -17,6 +17,7 @@ namespace Phumla_Kamnandi_Hotel.Business
          public Collection<Room> rooms;
          public Collection<RoomBooking> roomBookings;
          public Collection<Person> persons;
+        public Collection<Account> accounts;
 
          Room availRoom;
         #endregion
@@ -67,6 +68,14 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return persons;
             }
         }
+
+        public Collection<Account> AllAccounts
+        {
+            get
+            {
+                return accounts;
+            }
+        }
         #endregion
 
         #region: Constructor
@@ -79,6 +88,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             rooms = bookingDB.AllRooms;
             roomBookings = bookingDB.AllRoomBookings;
             persons = bookingDB.AllPersons;
+            accounts = bookingDB.AllAccounts;
         }
         #endregion 
         
@@ -184,6 +194,28 @@ namespace Phumla_Kamnandi_Hotel.Business
                          break;
             }
         }
+
+        public void DataMaintenance(Account acc, DB.DBOperation operation)
+        {
+            int index = 0;
+            //perform a given database operation to the dataset in meory; 
+            bookingDB.DataSetChange(acc, operation);
+            //perform operations on the collection
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    //*** Add the person to the Collection
+                    accounts.Add(acc);
+                    break;
+
+                //Uncomment when FindIndex method is created
+                case DB.DBOperation.Edit:
+                    index = FindIndex(acc);
+                    accounts[index] = acc;  // replace booking at this index with the updated booking
+                    break;
+              
+            }
+        }
         //***Commit the changes to the database
         public bool FinalizeChanges(Customer customer)
         {
@@ -209,6 +241,11 @@ namespace Phumla_Kamnandi_Hotel.Business
             return bookingDB.UpdateDataSource(rb);
         }
 
+        public bool FinalizeChanges(Account acc)
+        {
+            //***call the BookingDB method that will commit the changes to the database
+            return bookingDB.UpdateDataSource(acc);
+        }
         #endregion
 
         #region: Methods
@@ -273,6 +310,26 @@ namespace Phumla_Kamnandi_Hotel.Business
             {
                 counter += 1;
                 found = (aPers.getPersonID == persons[counter].getPersonID);
+            }
+            if (found)
+            {
+                return counter;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public int FindIndex(Account acc)
+        {
+            int counter = 0;
+            bool found = false;
+            found = (acc.AccountNum == accounts[counter].AccountNum);   //using a Boolean Expression to initialise found
+            while (!(found) & counter < accounts.Count - 1)
+            {
+                counter += 1;
+                found = (acc.AccountNum == accounts[counter].AccountNum);
             }
             if (found)
             {

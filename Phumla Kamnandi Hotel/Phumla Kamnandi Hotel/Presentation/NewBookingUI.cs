@@ -79,14 +79,18 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         public void PopulateAccountObject()
         {
-            account = new Account();            
+  
+            account = new Account();
+            account.AmountDue = 0;
+            account.DepositAmount = 0;
+            //account.DepositAmount = account.AmountDue * 0.15;
         }
 
         public void PopulateBookingObject() //method to populate a booking object 
         {
             
             booking = new Booking();
-            booking.getAccountNum = "N/A";
+            booking.getAccountNum = account.AccountNum;
             booking.getCustomerID = customerID; 
             booking.getBookingDate = currentDate;
             booking.getArrival = (DateTime) dTPArrivalDate.Value;
@@ -152,8 +156,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
                 if (returnDialogResult == DialogResult.Yes)
                 {
-                    //but must first enter customer deatils and only then can we populate booking object
-                    //maybe make the method public static and then call it in the other forms?
+                    //populate account object first to obtain account number for booking object
+                    PopulateAccountObject();
+                    bookingController.DataMaintenance(account, DB.DBOperation.Add);
+                    bookingController.FinalizeChanges(account);
+
                     PopulateBookingObject();
                     bookingController.DataMaintenance(booking, DB.DBOperation.Add);
                     bookingController.FinalizeChanges(booking);
@@ -163,7 +170,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
                     bookingController.FinalizeChanges(roombooking);
 
-                    MessageBox.Show("Customer booking reference number is: " + )
+                    MessageBox.Show("Customer booking reference number is: " + booking.getBookingID, "Reference Number", MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
             }
             else

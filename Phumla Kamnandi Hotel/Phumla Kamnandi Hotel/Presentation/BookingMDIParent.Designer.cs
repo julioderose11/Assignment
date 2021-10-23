@@ -67,10 +67,9 @@ namespace Phumla_Kamnandi_Hotel
             this.bookingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newCustomerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.bookingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCustomerListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -85,7 +84,6 @@ namespace Phumla_Kamnandi_Hotel
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.updateBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -383,8 +381,9 @@ namespace Phumla_Kamnandi_Hotel
             this.bookingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newCustomerToolStripMenuItem1,
             this.addBookingToolStripMenuItem,
-            this.listToolStripMenuItem,
-            this.updateBookingToolStripMenuItem});
+            this.updateBookingToolStripMenuItem,
+            this.reportsToolStripMenuItem,
+            this.viewCustomerListToolStripMenuItem});
             this.bookingsToolStripMenuItem.Name = "bookingsToolStripMenuItem";
             this.bookingsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.bookingsToolStripMenuItem.Text = "Bookings";
@@ -404,35 +403,25 @@ namespace Phumla_Kamnandi_Hotel
             this.addBookingToolStripMenuItem.Text = "Make a Booking";
             this.addBookingToolStripMenuItem.Click += new System.EventHandler(this.addBookingToolStripMenuItem_Click);
             // 
-            // listToolStripMenuItem
+            // updateBookingToolStripMenuItem
             // 
-            this.listToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customersToolStripMenuItem,
-            this.toolStripSeparator9,
-            this.bookingsToolStripMenuItem1});
-            this.listToolStripMenuItem.Name = "listToolStripMenuItem";
-            this.listToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.listToolStripMenuItem.Text = "List";
-            this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
+            this.updateBookingToolStripMenuItem.Name = "updateBookingToolStripMenuItem";
+            this.updateBookingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateBookingToolStripMenuItem.Text = "Update a Booking";
+            this.updateBookingToolStripMenuItem.Click += new System.EventHandler(this.updateBookingToolStripMenuItem_Click);
             // 
-            // customersToolStripMenuItem
+            // reportsToolStripMenuItem
             // 
-            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.customersToolStripMenuItem.Text = "Customers";
-            this.customersToolStripMenuItem.Click += new System.EventHandler(this.customersToolStripMenuItem_Click);
+            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reportsToolStripMenuItem.Text = "Reports";
             // 
-            // toolStripSeparator9
+            // viewCustomerListToolStripMenuItem
             // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(177, 6);
-            // 
-            // bookingsToolStripMenuItem1
-            // 
-            this.bookingsToolStripMenuItem1.Name = "bookingsToolStripMenuItem1";
-            this.bookingsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.bookingsToolStripMenuItem1.Text = "Bookings";
-            this.bookingsToolStripMenuItem1.Click += new System.EventHandler(this.bookingsToolStripMenuItem1_Click);
+            this.viewCustomerListToolStripMenuItem.Name = "viewCustomerListToolStripMenuItem";
+            this.viewCustomerListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewCustomerListToolStripMenuItem.Text = "View Customer List";
+            this.viewCustomerListToolStripMenuItem.Click += new System.EventHandler(this.viewCustomerListToolStripMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -557,13 +546,6 @@ namespace Phumla_Kamnandi_Hotel
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // updateBookingToolStripMenuItem
-            // 
-            this.updateBookingToolStripMenuItem.Name = "updateBookingToolStripMenuItem";
-            this.updateBookingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.updateBookingToolStripMenuItem.Text = "Update Booking";
-            this.updateBookingToolStripMenuItem.Click += new System.EventHandler(this.updateBookingToolStripMenuItem_Click);
-            // 
             // BookingMDIParent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 12F);
@@ -643,14 +625,12 @@ namespace Phumla_Kamnandi_Hotel
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem bookingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addBookingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem customersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripMenuItem bookingsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem newCustomerToolStripMenuItem1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem updateBookingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewCustomerListToolStripMenuItem;
     }
 }
 
