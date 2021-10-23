@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Phumla_Kamnandi_Hotel.Business;
 
 namespace Phumla_Kamnandi_Hotel
 {
     public class Person
     {
         #region data members
-        private string personID, FName, SName, email, streetName, suburbName, cityName, postalCode;
+        public string personID, FName, SName, email, streetName, suburbName, cityName, postalCode; 
         #endregion
+
         #region Properties
         public string getPersonID
         {
@@ -60,7 +62,7 @@ namespace Phumla_Kamnandi_Hotel
         public Person()
         {
             personID = "";
-            FName = "";
+            FName = "James";
             SName = "";
             email = "";
             streetName = "";
@@ -69,7 +71,7 @@ namespace Phumla_Kamnandi_Hotel
             postalCode = "";
         }
 
-        public Person(string pID, string pFName, string pSName, string pEmail, string street, string suburb, string city, string pCode)
+        public Person( string pID, string pFName, string pSName, string pEmail, string street, string suburb, string city, string pCode)
         {
             personID = pID;
             FName = pFName;
@@ -79,6 +81,7 @@ namespace Phumla_Kamnandi_Hotel
             suburbName = suburb;
             cityName = city;
             postalCode = pCode;
+
         }
         #endregion
 

@@ -42,9 +42,6 @@ namespace Phumla_Kamnandi_Hotel.Data
                 return;
             }
         }
-
-        
-
         #endregion
 
         #region Update the DateSet

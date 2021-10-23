@@ -344,6 +344,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "bookingListingForm";
             this.Text = "BookingListingForm";
+            this.Activated += new System.EventHandler(this.bookingListingForm_Activated_1);
             this.Load += new System.EventHandler(this.bookingListingForm_Load_1);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

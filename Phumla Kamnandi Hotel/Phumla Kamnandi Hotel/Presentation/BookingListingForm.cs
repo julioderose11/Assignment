@@ -244,5 +244,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             EnableEntries(false);
             MessageBox.Show("This record is about to be deleted");
         }
+
+        private void bookingListingForm_Activated_1(object sender, EventArgs e)
+        {
+            bookingListView.View = View.Details;
+            setUpBookingListView();
+            ShowAll(false);
+        }
     }
 }

@@ -27,6 +27,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Collection<RoomBooking> roomBookings;
         private Collection<Room> rooms;
         private Collection<Customer> customers;
+        private Customer customer;
+        private Collection<Person> persons;
+        private Person person;
+        private Account account;
+
    
 
         #endregion
@@ -35,10 +40,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         public NewBookingUI(BookingController bController)
         {
             InitializeComponent();
-
             lblDate.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
-
             bookingController = bController;
+            this.Load += NewBookingUI_Load;
+            this.Activated += NewBookingUI_Activated_1; 
         }
         #endregion
 
@@ -58,7 +63,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             btnRoomAvailability.Visible = true;
             btnCancel.Visible = true;
             btnExit.Visible = true;
-            btnConfirmCustomer.Visible = true;
             customersListView.Visible = true;
         }
 
@@ -71,12 +75,17 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
+        public void PopulateAccountObject()
+        {
+            account = new Account();            
+        }
+
         public void PopulateBookingObject() //method to populate a booking object 
         {
             
             booking = new Booking();
             booking.getAccountNum = "";
-            //booking.getCustomerID = 
+            booking.getCustomerID = customer.CustomerID; 
             booking.getBookingDate = currentDate;
             booking.getArrival = (DateTime) dTPArrivalDate.Value;
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;
@@ -98,15 +107,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void EnableEntries(bool value)
         {
-            if()
+            dTPArrivalDate.Enabled = value;
+            dTPDepartureDate.Enabled = value;
+            txtNoOfPeople.Enabled = value;
+            richTxtSpecInstructions.Enabled = value;
+            btnRoomAvailability.Enabled = value;
         }
-        #endregion
-
-        #region Radio Button CheckChanged Events
-
-        //come back for forms 
-
-
         #endregion
 
         #region Form Events
@@ -116,7 +122,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Close();
         }
 
-      
         private void NewBookingUI_Load(object sender, EventArgs e)
         {
             dTPArrivalDate.Format = DateTimePickerFormat.Short;
@@ -124,11 +129,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //bookingController = new BookingController();
             ClearAll();
             ShowAll();
+            EnableEntries(false);
+            customersListView.View = View.Details;
         }
 
-        private void NewBookingUI_Activated(object sender, EventArgs e)
+        private void NewBookingUI_Activated_1(object sender, EventArgs e)
         {
-            ShowAll();
+            customersListView.View = View.Details;
+            setUpCustomerListView();
+
         }
 
         private void btnRoomAvailability_Click(object sender, EventArgs e)
@@ -148,9 +157,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     bookingController.FinalizeChanges(booking);
 
                     //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
-                    PopulateRoomBookingObject();
+                    /*PopulateRoomBookingObject();
                     bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(roombooking);
+                    bookingController.FinalizeChanges(roombooking);*/
                 }
             }
             else
@@ -174,48 +183,60 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         public void setUpCustomerListView()
         {
             ListViewItem customerDetails;
-            customers = null;
+            persons = null;
             customersListView.Clear();
 
             customersListView.Columns.Insert(0, "PersonID", 120, HorizontalAlignment.Left);
             customersListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
             customersListView.Columns.Insert(2, "FirstName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
-            customers = bookingController.AllCustomers;
-            foreach (Customer customer in customers)
-            {
-                customerDetails = new ListViewItem();
-                customerDetails.Text = customer.getPersonID.ToString();
-                customerDetails.SubItems.Add(customer.CustomerID.ToString());
-                customerDetails.SubItems.Add(customer.getFName.ToString());
-                customerDetails.SubItems.Add(customer.getEmail.ToString());
-                customerDetails.SubItems.Add(customer.getStreetName.ToString());
-                customerDetails.SubItems.Add(customer.getSuburbName.ToString());
-                customerDetails.SubItems.Add(customer.getCityName.ToString());
-                customerDetails.SubItems.Add(customer.getPostalCode.ToString());
+            customersListView.Columns.Insert(3, "StreetName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(4, "SuburbName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(5, "Cityname", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(6, "PostalCode", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(7, "Email", 120, HorizontalAlignment.Left);
 
-                customersListView.Items.Add(customerDetails);
+            customers = bookingController.AllCustomers;
+            persons = bookingController.AllPersons;
+            foreach (Customer customer in customers)
+            {               
+                foreach(Person person in persons)
+                {
+                    
+                    
+                    customerDetails = new ListViewItem();
+                    if (customer.getPersonID.Equals(person.getPersonID))
+                    {
+                        customerDetails.Text = customer.getPersonID.ToString();
+                        customerDetails.SubItems.Add(customer.CustomerID);
+                        customerDetails.SubItems.Add(person.getFName.ToString());
+                        customerDetails.SubItems.Add(person.getEmail.ToString());
+                        customerDetails.SubItems.Add(person.getStreetName.ToString());
+                        customerDetails.SubItems.Add(person.getSuburbName.ToString());
+                        customerDetails.SubItems.Add(person.getCityName.ToString());
+                        customerDetails.SubItems.Add(person.getPostalCode.ToString());
+                        customersListView.Items.Add(customerDetails);
+                    }
+                }
             }
+            
             customersListView.Refresh();
             customersListView.GridLines = true;
         }
-        #endregion
 
+        //Determine the index of the selected item in the ListView
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             ShowAll();
-            
-            EnableEntries(false);
+            EnableEntries(true);
             if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
             {
-                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
-                                                                                                     // Show the details of the selected customer in the controls
-                PopulateTextBoxes(customer);
+                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer                                                                                                     // Show the details of the selected customer in the controls
             }
         }
+        #endregion
+
+
+
+
     }
 }
