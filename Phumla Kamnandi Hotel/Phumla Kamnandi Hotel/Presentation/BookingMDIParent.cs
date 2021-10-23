@@ -151,6 +151,7 @@ namespace Phumla_Kamnandi_Hotel
             cusForm.MdiParent = this;
             cusForm.StartPosition = FormStartPosition.CenterParent;
         }
+
         private void CreateNewBookingUIForm()
         {
             NBUI = new NewBookingUI(bookingController);
@@ -267,9 +268,17 @@ namespace Phumla_Kamnandi_Hotel
             }
             NewCustomersForm.Show();
             */
+            
 
             NewBookingUI newBookingUI = new NewBookingUI(bookingController);
             newBookingUI.ShowDialog();
+            this.Hide();
+        }
+
+        private void updateBookingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bookingListingForm bookingListingForm = new bookingListingForm(bookingController);
+            bookingListingForm.ShowDialog();
             this.Hide();
         }
     }

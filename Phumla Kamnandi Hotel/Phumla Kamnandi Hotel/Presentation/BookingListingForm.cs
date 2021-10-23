@@ -157,27 +157,29 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookings = null;
             bookingListView.Clear();
 
-            bookingListView.Columns.Insert(0, "BookingID", 15, HorizontalAlignment.Left);
-           // bookingListView.Columns.Insert(1, "CustomerID", 15, HorizontalAlignment.Left);
-           // bookingListView.Columns.Insert(2, "AccountNum", 15, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(3, "CustomerRequests", 200, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(4, "BookingDate", 100, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(5, "ArrivalDate", 100, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(6, "DepartureDate", 100, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(7, "numPeople", 1, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(0, "Reference Number", 120, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(2, "AccountNum", 120, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(3, "CustomerRequests", 120, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(4, "BookingDate", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(1, "ArrivalDate", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(2, "DepartureDate", 120, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(7, "numPeople", 120, HorizontalAlignment.Left);
+
             bookings = bookingController.AllBookings;
             foreach (Booking booking in bookings)
             {
                 bookingDetails = new ListViewItem();
                 bookingDetails.Text = booking.getBookingID.ToString();
-               // bookingDetails.SubItems.Add(booking.getc.ToString());
-                bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
-                bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
+                //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
+                //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
+                //bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
+                //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
                 bookingDetails.SubItems.Add(booking.getArrival.ToString());
                 bookingDetails.SubItems.Add(booking.getDeparture.ToString());
-                bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
+                //bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
 
-               // bookingDetails.Items.Add(bookingDetails); //I am getting a error here and i don't know why 
+                bookingListView.Items.Add(bookingDetails); 
             }
             bookingListView.Refresh();
             bookingListView.GridLines = true;

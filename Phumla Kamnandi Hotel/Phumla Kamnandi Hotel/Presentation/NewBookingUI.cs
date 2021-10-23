@@ -161,6 +161,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     PopulateRoomBookingObject();
                     bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
                     bookingController.FinalizeChanges(roombooking);
+
+                    MessageBox.Show("Customer booking reference number is: " + )
                 }
             }
             else

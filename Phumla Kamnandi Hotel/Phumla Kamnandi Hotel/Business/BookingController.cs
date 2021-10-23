@@ -12,11 +12,11 @@ namespace Phumla_Kamnandi_Hotel.Business
     {
         #region: Fields
          BookingDB bookingDB;
-         Collection<Customer> customers;
-         Collection<Booking> bookings;
-         Collection<Room> rooms;
-         Collection<RoomBooking> roomBookings;
-         Collection<Person> persons;
+         public Collection<Customer> customers;
+         public Collection<Booking> bookings;
+         public Collection<Room> rooms;
+         public Collection<RoomBooking> roomBookings;
+         public Collection<Person> persons;
 
          Room availRoom;
         #endregion
