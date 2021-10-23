@@ -22,6 +22,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private BookingController bookingController;
         private FormStates state;
 
+
         //Add form states 
          public enum FormStates
          {
@@ -184,6 +185,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 customerDetails.SubItems.Add(customer.getPostalCode.ToString());
 
                 customersListView.Items.Add(customerDetails);
+
             }
             customersListView.Refresh();
             customersListView.GridLines = true;
