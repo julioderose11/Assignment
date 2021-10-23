@@ -192,17 +192,17 @@ namespace Phumla_Kamnandi_Hotel
             //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
             if (cusLForm == null)
             {
-                CreateCustomerListingForm()
+                CreateNewCustomerForm()
             }
             if (cusLForm.listFormClosed)
             {
-                CreateCustomerListingForm()
+                CreateNewCustomerForm()
             }
             
             */
 
-            CustomerListingForm customerListingForm = new CustomerListingForm(bookingController);
-            customerListingForm.ShowDialog();
+            NewCustomersForm newCustomerForm = new NewCustomersForm(bookingController);
+            newCustomerForm.ShowDialog();
             this.Hide();
 
 
