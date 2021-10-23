@@ -22,8 +22,8 @@ namespace Phumla_Kamnandi_Hotel.Data
         private string sqlLocal3 = "SELECT * FROM Booking";
         private string table4 = "Person";
         private string sqlLocal4 = "SELECT * FROM Person";
-        private string table5 = "Payment";
-        private string sqlLocal5 = "SELECT * FROM Payment";
+        private string table5 = "Room";
+        private string sqlLocal5 = "SELECT * FROM Room";
         private string table6 = "Account";
         private string sqlLocal6 = "SELECT * FROM Account";
         private string table7 = "Booking";
@@ -88,19 +88,21 @@ namespace Phumla_Kamnandi_Hotel.Data
             customers = new Collection<Customer>();
             persons = new Collection<Person>();
             bookings = new Collection<Booking>();
-            roomBookings = new Collection<RoomBooking>(); 
+            roomBookings = new Collection<RoomBooking>();
+            rooms = new Collection<Room>();
 
+            FillDataSet(sqlLocal5, table5);
+            Add2Collection(table5);
             FillDataSet(sqlLocal1, table1);
-            Add2Collection(table1);
-            FillDataSet(sqlLocal2, table2);
-            Add2Collection(table2);
+            Add2Collection(table1);           
             FillDataSet(sqlLocal3, table3);
             Add2Collection(table3);
+            FillDataSet(sqlLocal2, table2);
+            Add2Collection(table2);
             FillDataSet(sqlLocal4,table4);
             Add2Collection(table4);
-           /* FillDataSet(sqlLocal5, table5);
-            Add2Collection(table5);
-            FillDataSet(sqlLocal6, table6);
+                      
+            /*FillDataSet(sqlLocal6, table6);
             Add2Collection(table6);
             FillDataSet(sqlLocal7, table7);
             Add2Collection(table7);
@@ -116,6 +118,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             RoomBooking RB;
             Booking booking;
             Person person;
+            Room room;
             foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
             {
                 myRow = myRow_loopVariable;
@@ -167,6 +170,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                         booking.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
                         booking.getCustomerID = Convert.ToString(myRow["CustomerID"]).TrimEnd();
                         booking.getAccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
+                        booking.getCustomerRequests = Convert.ToString(myRow["CustomerRequests"]).TrimEnd();
                         booking.getBookingDate = Convert.ToDateTime(myRow["BookingDate"]);
                         booking.getArrival = Convert.ToDateTime(myRow["ArrivalDate"]);
                         booking.getDeparture = Convert.ToDateTime(myRow["DepartureDate"]);
@@ -182,15 +186,78 @@ namespace Phumla_Kamnandi_Hotel.Data
                         RB = new RoomBooking();
                         Booking book = RB.getBookingObject;
                         //Obtain each roomBooking attribute from the specific field in the row in the table
-                        RB.getBookingObject.getBookingID = Convert.ToString(myRow["BookingID"]).TrimEnd();
-                        RB.getRoomObject.getRoomNo = Convert.ToInt32((myRow["RoomNum"]));
+                        string bID = Convert.ToString(myRow["BookingID"]).TrimEnd();
+                        RB.getBookingObject = FindBooking(bID);
+                        int rnum = Convert.ToInt32((myRow["RoomNumber"]));
+                        RB.getRoomObject = FindRoom(rnum);
                         roomBookings.Add(RB);
                     }
                 }
-                
-                
+                else if (table == table5)
+                {
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new roomBooking object
+                        room = new Room();
+                        room.getRoomNo = Convert.ToInt32(myRow["RoomNumber"]);
+                        switch (room.getRate)
+                        {
+                            case Room.RateType.lowSeason:
+                                room.getPrice = 550;
+                                break;
+                            case Room.RateType.midSeason:
+                                room.getPrice = 750;
+                                break;
+                            case Room.RateType.highSeason:
+                                room.getPrice = 995;
+                                break;
+                        }
+                        room.getFloorNo = Convert.ToInt32(myRow["FloorNumber"]);
+                        room.getRate = (Room.RateType)Convert.ToByte(myRow["Rate"]);
+                       // room.getPrice = Convert.ToDecimal(myRow["Price"]);
+                        rooms.Add(room);
+                    }
+                }
+
+
             }
 
+        }
+        public Booking FindBooking(string ID)
+        {
+            
+            int index = 0;
+            //MessageBox.Show(Convert.ToString(bookings.Count));
+            bool found = (bookings[index].getBookingID == ID);  //check if it is the first booking
+            
+            int count = bookings.Count;
+             
+            while (!(found) && (index < bookings.Count - 1))  //if not "this" booking and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (bookings[index].getBookingID == ID);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return bookings[index];  // this is the one!  
+        }
+        public Room FindRoom(int num)
+        {
+            int index = 0;
+            bool found = (rooms[index].getRoomNo == num);  //check if it is the first booking
+            int count = rooms.Count;
+            while (!(found) && (index < rooms.Count - 1))  //if not "this" booking and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (rooms[index].getRoomNo == num);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return rooms[index];  // this is the one!  
         }
         //FillRow method for Customer Table
         private void FillRow(DataRow aRow, Customer aCus, DB.DBOperation operation)
@@ -208,6 +275,8 @@ namespace Phumla_Kamnandi_Hotel.Data
             if (operation == DB.DBOperation.Add)
             {
                 aRow["BookingID"] = book.getBookingID;  //NOTE square brackets to indicate index of collections of fields in row.
+                aRow["CustomerID"] = book.getCustomerID;
+                //aRow["AccountNum"] = book.getAccountNum;
                 aRow["CustomerRequests"] = book.getCustomerRequests;
                 aRow["BookingDate"] = book.getBookingDate;
                 aRow["ArrivalDate"] = book.getArrival;
@@ -236,10 +305,11 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             if (operation == DB.DBOperation.Add)
             {
-                aRow["RoomNum"] = rb.getRoomObject.getRoomNo;  //NOTE square brackets to indicate index of collections of fields in row.
+                aRow["RoomNumber"] = rb.getRoomObject.getRoomNo;  //NOTE square brackets to indicate index of collections of fields in row.
                 aRow["BookingID"] = rb.getBookingObject.getBookingID;            
             }
         }
+        
 
         //FindRow method for customer table
         private int FindRow(Customer aCus, string table)
@@ -300,7 +370,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 if (!(myRow.RowState == DataRowState.Deleted))
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if (Convert.ToString(rBooking.getRoomObject.getRoomNo) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["RoomNum"]) && Convert.ToString(rBooking.getBookingObject.getBookingID) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
+                    if (Convert.ToString(rBooking.getRoomObject.getRoomNo) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["RoomNumber"]) && Convert.ToString(rBooking.getBookingObject.getBookingID) == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -488,7 +558,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
             SqlParameter param = default(SqlParameter);
-            param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
+            param = new SqlParameter("@RoomNumber", SqlDbType.Int, 5, "RoomNumber");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
             param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
@@ -566,7 +636,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             //---Create Parameters to communicate with SQL UPDATE
             SqlParameter param = default(SqlParameter);
 
-            param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
+            param = new SqlParameter("@RoomNumber", SqlDbType.Int, 5, "RoomNumber");
             param.SourceVersion = DataRowVersion.Current;
             daMain.UpdateCommand.Parameters.Add(param);
 
@@ -597,7 +667,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             param.SourceVersion = DataRowVersion.Original;
             daMain.DeleteCommand.Parameters.Add(param);
 
-            param = new SqlParameter("@RoomNum", SqlDbType.Int, 5, "RoomNum");
+            param = new SqlParameter("@RoomNumber", SqlDbType.Int, 5, "RoomNumber");
             param.SourceVersion = DataRowVersion.Original;
             daMain.DeleteCommand.Parameters.Add(param);
         }
@@ -628,7 +698,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         private void Create_INSERT_Command(RoomBooking rb)
         {
             //Create the command that must be used to insert values into the customer table..
-            daMain.InsertCommand = new SqlCommand("INSERT into RoomBooking (RoomNum, BookingID) VALUES (@RoomNum, @BookingID)", cnMain);
+            daMain.InsertCommand = new SqlCommand("INSERT into RoomBooking (RoomNumber, BookingID) VALUES (@RoomNumber, @BookingID)", cnMain);
             Build_INSERT_Parameters(rb);
         }
 
@@ -665,7 +735,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             string errorString = null;
             //Create the command that must be used to delete values from the roombooking table
-            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID AND RoomNum = @RoomNum", cnMain);
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID AND RoomNumber = @RoomNumber", cnMain);
 
             try
             {
