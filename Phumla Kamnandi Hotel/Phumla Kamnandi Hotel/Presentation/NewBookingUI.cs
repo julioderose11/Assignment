@@ -252,5 +252,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             currentDatetxt.Text= Convert.ToString(DateTime.UtcNow);
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+        }
     }
 }
