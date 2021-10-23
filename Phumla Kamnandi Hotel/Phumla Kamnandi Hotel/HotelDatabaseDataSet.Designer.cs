@@ -2500,7 +2500,7 @@ namespace Phumla_Kamnandi_Hotel {
             
             private global::System.Data.DataColumn columnRate;
             
-            private global::System.Data.DataColumn columnRate1;
+            private global::System.Data.DataColumn columnPrice;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -2561,9 +2561,9 @@ namespace Phumla_Kamnandi_Hotel {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Rate1Column {
+            public global::System.Data.DataColumn PriceColumn {
                 get {
-                    return this.columnRate1;
+                    return this.columnPrice;
                 }
             }
             
@@ -2604,13 +2604,13 @@ namespace Phumla_Kamnandi_Hotel {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public RoomRow AddRoomRow(int RoomNumber, int FloorNumber, decimal Rate, int Rate1) {
+            public RoomRow AddRoomRow(int RoomNumber, int FloorNumber, decimal Rate, decimal Price) {
                 RoomRow rowRoomRow = ((RoomRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RoomNumber,
                         FloorNumber,
                         Rate,
-                        Rate1};
+                        Price};
                 rowRoomRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRoomRow);
                 return rowRoomRow;
@@ -2643,7 +2643,7 @@ namespace Phumla_Kamnandi_Hotel {
                 this.columnRoomNumber = base.Columns["RoomNumber"];
                 this.columnFloorNumber = base.Columns["FloorNumber"];
                 this.columnRate = base.Columns["Rate"];
-                this.columnRate1 = base.Columns["Rate1"];
+                this.columnPrice = base.Columns["Price"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2655,13 +2655,12 @@ namespace Phumla_Kamnandi_Hotel {
                 base.Columns.Add(this.columnFloorNumber);
                 this.columnRate = new global::System.Data.DataColumn("Rate", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRate);
-                this.columnRate1 = new global::System.Data.DataColumn("Rate1", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRate1);
+                this.columnPrice = new global::System.Data.DataColumn("Price", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrice);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnRoomNumber}, true));
                 this.columnRoomNumber.AllowDBNull = false;
                 this.columnRoomNumber.Unique = true;
-                this.columnRate1.Caption = "Rate";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4267,17 +4266,17 @@ namespace Phumla_Kamnandi_Hotel {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Rate1 {
+            public decimal Price {
                 get {
                     try {
-                        return ((int)(this[this.tableRoom.Rate1Column]));
+                        return ((decimal)(this[this.tableRoom.PriceColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Rate1\' in table \'Room\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Price\' in table \'Room\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableRoom.Rate1Column] = value;
+                    this[this.tableRoom.PriceColumn] = value;
                 }
             }
             
@@ -4307,14 +4306,14 @@ namespace Phumla_Kamnandi_Hotel {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRate1Null() {
-                return this.IsNull(this.tableRoom.Rate1Column);
+            public bool IsPriceNull() {
+                return this.IsNull(this.tableRoom.PriceColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRate1Null() {
-                this[this.tableRoom.Rate1Column] = global::System.Convert.DBNull;
+            public void SetPriceNull() {
+                this[this.tableRoom.PriceColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7515,41 +7514,42 @@ SELECT ReceptionistID, EmployeeID FROM Receptionist WHERE (ReceptionistID = @Rec
             tableMapping.DataSetTable = "Room";
             tableMapping.ColumnMappings.Add("RoomNumber", "RoomNumber");
             tableMapping.ColumnMappings.Add("FloorNumber", "FloorNumber");
-            tableMapping.ColumnMappings.Add("Rate", "Rate1");
+            tableMapping.ColumnMappings.Add("Price", "Price");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [Room] WHERE (([RoomNumber] = @Original_RoomNumber) AND ((@IsNull_Flo" +
                 "orNumber = 1 AND [FloorNumber] IS NULL) OR ([FloorNumber] = @Original_FloorNumbe" +
-                "r)) AND ((@IsNull_Rate = 1 AND [Rate] IS NULL) OR ([Rate] = @Original_Rate)))";
+                "r)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price))" +
+                ")";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RoomNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RoomNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_FloorNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FloorNumber", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_FloorNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FloorNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Rate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Rate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Rate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Rate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Price", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [Room] ([RoomNumber], [FloorNumber], [Rate]) VALUES (@RoomNumber, @Fl" +
-                "oorNumber, @Rate);\r\nSELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNu" +
-                "mber = @RoomNumber)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Room] ([RoomNumber], [FloorNumber], [Price]) VALUES (@RoomNumber, @F" +
+                "loorNumber, @Price);\r\nSELECT RoomNumber, FloorNumber, Price FROM Room WHERE (Roo" +
+                "mNumber = @RoomNumber)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RoomNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RoomNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FloorNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FloorNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Rate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Rate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Room] SET [RoomNumber] = @RoomNumber, [FloorNumber] = @FloorNumber, [Rate] = @Rate WHERE (([RoomNumber] = @Original_RoomNumber) AND ((@IsNull_FloorNumber = 1 AND [FloorNumber] IS NULL) OR ([FloorNumber] = @Original_FloorNumber)) AND ((@IsNull_Rate = 1 AND [Rate] IS NULL) OR ([Rate] = @Original_Rate)));
-SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Room] SET [RoomNumber] = @RoomNumber, [FloorNumber] = @FloorNumber, [Price] = @Price WHERE (([RoomNumber] = @Original_RoomNumber) AND ((@IsNull_FloorNumber = 1 AND [FloorNumber] IS NULL) OR ([FloorNumber] = @Original_FloorNumber)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)));
+SELECT RoomNumber, FloorNumber, Price FROM Room WHERE (RoomNumber = @RoomNumber)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RoomNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RoomNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FloorNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FloorNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Rate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Rate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RoomNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RoomNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_FloorNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FloorNumber", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_FloorNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FloorNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Rate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Rate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Rate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Rate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Price", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7565,7 +7565,7 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        RoomNumber, FloorNumber, Rate\r\nFROM            Room";
+            this._commandCollection[0].CommandText = "SELECT RoomNumber, FloorNumber, Price FROM Room";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7626,7 +7626,7 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_RoomNumber, global::System.Nullable<int> Original_FloorNumber, global::System.Nullable<int> Original_Rate) {
+        public virtual int Delete(int Original_RoomNumber, global::System.Nullable<int> Original_FloorNumber, global::System.Nullable<decimal> Original_Price) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_RoomNumber));
             if ((Original_FloorNumber.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -7636,9 +7636,9 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((Original_Rate.HasValue == true)) {
+            if ((Original_Price.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_Rate.Value));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_Price.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
@@ -7664,7 +7664,7 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int RoomNumber, global::System.Nullable<int> FloorNumber, global::System.Nullable<int> Rate) {
+        public virtual int Insert(int RoomNumber, global::System.Nullable<int> FloorNumber, global::System.Nullable<decimal> Price) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(RoomNumber));
             if ((FloorNumber.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(FloorNumber.Value));
@@ -7672,8 +7672,8 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((Rate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Rate.Value));
+            if ((Price.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(Price.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
@@ -7698,7 +7698,7 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int RoomNumber, global::System.Nullable<int> FloorNumber, global::System.Nullable<int> Rate, int Original_RoomNumber, global::System.Nullable<int> Original_FloorNumber, global::System.Nullable<int> Original_Rate) {
+        public virtual int Update(int RoomNumber, global::System.Nullable<int> FloorNumber, global::System.Nullable<decimal> Price, int Original_RoomNumber, global::System.Nullable<int> Original_FloorNumber, global::System.Nullable<decimal> Original_Price) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(RoomNumber));
             if ((FloorNumber.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(FloorNumber.Value));
@@ -7706,8 +7706,8 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((Rate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Rate.Value));
+            if ((Price.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(Price.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
@@ -7721,9 +7721,9 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((Original_Rate.HasValue == true)) {
+            if ((Original_Price.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Rate.Value));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(Original_Price.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
@@ -7749,8 +7749,8 @@ SELECT RoomNumber, FloorNumber, Rate FROM Room WHERE (RoomNumber = @RoomNumber)"
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> FloorNumber, global::System.Nullable<int> Rate, int Original_RoomNumber, global::System.Nullable<int> Original_FloorNumber, global::System.Nullable<int> Original_Rate) {
-            return this.Update(Original_RoomNumber, FloorNumber, Rate, Original_RoomNumber, Original_FloorNumber, Original_Rate);
+        public virtual int Update(global::System.Nullable<int> FloorNumber, global::System.Nullable<decimal> Price, int Original_RoomNumber, global::System.Nullable<int> Original_FloorNumber, global::System.Nullable<decimal> Original_Price) {
+            return this.Update(Original_RoomNumber, FloorNumber, Price, Original_RoomNumber, Original_FloorNumber, Original_Price);
         }
     }
     

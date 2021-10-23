@@ -31,6 +31,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Collection<Person> persons;
         private Person person;
         private Account account;
+        public string customerID;
 
    
 
@@ -84,8 +85,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             
             booking = new Booking();
-            booking.getAccountNum = "";
-            booking.getCustomerID = customer.CustomerID; 
+            booking.getAccountNum = "N/A";
+            booking.getCustomerID = customerID; 
             booking.getBookingDate = currentDate;
             booking.getArrival = (DateTime) dTPArrivalDate.Value;
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;
@@ -186,14 +187,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             persons = null;
             customersListView.Clear();
 
-            customersListView.Columns.Insert(0, "PersonID", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(0, "CustomerID", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(1, "PersonID", 120, HorizontalAlignment.Left);
             customersListView.Columns.Insert(2, "FirstName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(3, "StreetName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(4, "SuburbName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(5, "Cityname", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(6, "PostalCode", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(7, "Email", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(3, "SecondName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
 
             customers = bookingController.AllCustomers;
             persons = bookingController.AllPersons;
@@ -206,9 +208,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     customerDetails = new ListViewItem();
                     if (customer.getPersonID.Equals(person.getPersonID))
                     {
-                        customerDetails.Text = customer.getPersonID.ToString();
-                        customerDetails.SubItems.Add(customer.CustomerID);
+                        customerDetails.Text = customer.CustomerID.ToString();
+                        customerDetails.SubItems.Add(customer.getPersonID);
                         customerDetails.SubItems.Add(person.getFName.ToString());
+                        customerDetails.SubItems.Add(person.getSName.ToString());
                         customerDetails.SubItems.Add(person.getEmail.ToString());
                         customerDetails.SubItems.Add(person.getStreetName.ToString());
                         customerDetails.SubItems.Add(person.getSuburbName.ToString());
@@ -230,8 +233,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             EnableEntries(true);
             if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
             {
-                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer                                                                                                     // Show the details of the selected customer in the controls
+                //person = bookingController.FindPerson(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);
+                customerID = customer.CustomerID;
             }
+            
         }
 
 

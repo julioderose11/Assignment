@@ -11,15 +11,15 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region: Fields
         protected int roomNo;
         protected int floorNo;
-        protected bool roomAvailability;
-        public enum RoomRate
+        protected decimal roomPrice;
+        public enum RateType
         {
             lowSeason = 0,
             midSeason = 1,
             highSeason = 2
         }
 
-        protected RoomRate rate;
+        public RateType rate;
         #endregion
 
         #region: constructors
@@ -28,11 +28,10 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         }
 
-        public Room(int rNum, int fNo, bool roomAvail, RoomRate rRate)
+        public Room(int rNum, int fNo, RateType rRate)
         {
             rNum = roomNo;
             fNo = floorNo;
-            roomAvail = roomAvailability;
             rRate = rate;
         }
         #endregion
@@ -61,19 +60,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
         }
 
-        public bool getRoomAvailability
-        {
-            get
-            {
-                return roomAvailability;
-            }
-            set
-            {
-                roomAvailability = value;
-            }
-        }
-
-        public RoomRate getRate
+        public RateType getRate
         {
             get
             {
@@ -84,12 +71,23 @@ namespace Phumla_Kamnandi_Hotel.Business
                 rate = value;
             }
         }
+        public decimal getPrice
+        {
+            get
+            {
+                return roomPrice;
+            }
+            set
+            {
+                roomPrice = value;
+            }
+        }
         #endregion
 
         #region: Methods
         public override string ToString()
         {
-            return "Room Number: " + roomNo + "\nFloor Number: " + floorNo + "\nRoom Availability: " + roomAvailability + "\nRoomRate: " + rate;
+            return "Room Number: " + roomNo + "\nFloor Number: " + floorNo + "\nRoomRate: " + rate;
         }
         #endregion 
     }
