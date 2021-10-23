@@ -63,9 +63,39 @@ namespace Phumla_Kamnandi_Hotel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Company_Vision {
+            get {
+                object obj = ResourceManager.GetObject("Company Vision", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoginImage {
             get {
                 object obj = ResourceManager.GetObject("LoginImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ocean_sunset_view_mykonos_article {
+            get {
+                object obj = ResourceManager.GetObject("ocean-sunset-view-mykonos-article", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Summary_Photo {
+            get {
+                object obj = ResourceManager.GetObject("Summary Photo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
