@@ -266,6 +266,22 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return customers[index];  // this is the one!  
         }
+        public Customer FindCustomer2(string pID)
+        {
+            int index = 0;
+            bool found = (customers[index].getPersonID == pID);  //check if it is the first customer
+            int count = customers.Count;
+            while (!(found) && (index < customers.Count - 1))  //if not "this" customer and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (customers[index].getPersonID == pID);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return customers[index];  // this is the one!  
+        }
         public Person FindPerson(string ID)
         {
             int index = 0;

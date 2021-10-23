@@ -101,7 +101,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             rooms = new Collection<Room>();
             accounts = new Collection<Account>();
 
-            FillDataSet(sqlLocal5, table6);
+            FillDataSet(sqlLocal6, table6);
             Add2Collection(table6);
             FillDataSet(sqlLocal5, table5);
             Add2Collection(table5);
@@ -225,7 +225,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                         rooms.Add(room);
                     }
                 }
-                if (table == table6)
+                else if (table == table6)
                 {
 
                     if (!(myRow.RowState == DataRowState.Deleted))
@@ -233,6 +233,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                         //Instantiate a new account object
                         acc = new Account();
                         //Obtain each Customer attribute from the specific field in the row in the table
+                        //MessageBox.Show(Convert.ToString(myRow["AccountNum"]).TrimEnd());
                         acc.AccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
                         acc.AmountDue = Convert.ToDecimal(myRow["AmountDue"]);
                         acc.DepositAmount = Convert.ToDecimal(myRow["DepositAmount"]);

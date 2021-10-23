@@ -20,7 +20,7 @@ namespace Phumla_Kamnandi_Hotel
         private int childFormNumber = 0;
         //ExistingCustomersForm ecusForm;
         NewCustomersForm cusForm;
-        bookingListingForm bookLForm;
+        BookingListingForm bookLForm;
         CustomerListingForm cusLForm;
         NewBookingUI NBUI;
         BookingController bookingController;
@@ -161,7 +161,7 @@ namespace Phumla_Kamnandi_Hotel
          
         private void CreateBookingListingForm()
         {
-            bookLForm = new bookingListingForm(bookingController);
+            bookLForm = new BookingListingForm(bookingController);
             bookLForm.MdiParent = this;
             bookLForm.StartPosition = FormStartPosition.CenterParent;
         }
@@ -179,22 +179,6 @@ namespace Phumla_Kamnandi_Hotel
 
         #endregion
 
-        private void newCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            
-            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-            if (cusForm == null)
-            {
-                CreateNewCustomersForm();
-            }
-            if (cusForm.listFormClosed)
-            {
-                CreateNewCustomersForm();
-            }
-            cusForm.Show();            
-               
-        }
-
         private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
@@ -210,8 +194,13 @@ namespace Phumla_Kamnandi_Hotel
             
             NBUI.Show();*/
             NewBookingUI newBookingUI = new NewBookingUI(bookingController);
-            newBookingUI.ShowDialog();
             this.Hide();
+
+            if (newBookingUI.ShowDialog() == DialogResult.OK)
+            {
+                newBookingUI.Close();
+                this.Show();
+            }
 
         }
 
@@ -229,23 +218,60 @@ namespace Phumla_Kamnandi_Hotel
              }
              bookLForm.Show();*/
 
-            bookingListingForm bookingListingForm = new bookingListingForm(bookingController);
-            bookingListingForm.ShowDialog();
+            BookingListingForm bookingListingForm = new BookingListingForm(bookingController);
             this.Hide();
+
+            //Checks if dialog response is OK in bookingListingForm form and closes that form if it is
+            if (bookingListingForm.ShowDialog() == DialogResult.OK)
+            {
+                bookingListingForm.Close();
+                this.Show();
+            }
         }
 
-        private void viewCustomerListToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void newCustomerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-            if (cusLForm == null)
+            /*if (cusForm == null)
             {
-                CreateCustomerListingForm();
+                CreateNewCustomersForm();
             }
-            if (cusLForm.listFormClosed)
+            if (cusForm.listFormClosed)
             {
-                CreateCustomerListingForm();
+                CreateNewCustomersForm();
             }
-            cusLForm.Show();
+            cusForm.Show();*/
+            NewCustomersForm newCustomersForm = new NewCustomersForm(bookingController);
+            this.Hide();
+
+            if (newCustomersForm.ShowDialog() == DialogResult.OK)
+            {
+                newCustomersForm.Close();
+                this.Show();
+            }
+        }
+
+        private void viewCustomerListToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+            /* if (cusLForm == null)
+             {
+                 CreateCustomerListingForm();
+             }
+             if (cusLForm.listFormClosed)
+             {
+                 CreateCustomerListingForm();
+             }
+             cusLForm.Show();*/
+            CustomerListingForm newCustomerListForm = new CustomerListingForm(bookingController);
+            this.Hide();           
+
+            if (newCustomerListForm.ShowDialog() == DialogResult.OK)
+            {
+                newCustomerListForm.Close();
+                this.Show();
+            }
         }
     }
 

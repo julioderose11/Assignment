@@ -13,7 +13,7 @@ using Phumla_Kamnandi_Hotel.Business;
 
 namespace Phumla_Kamnandi_Hotel.Presentation
 {
-    public partial class bookingListingForm : Form
+    public partial class BookingListingForm : Form
     {
         #region Variables
         public bool listFormClosed;//= true;
@@ -37,7 +37,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #region Constructor
         
-        public bookingListingForm(BookingController cusController)
+        public BookingListingForm(BookingController cusController)
         {
             InitializeComponent();
             bookingController = cusController;
@@ -93,7 +93,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtBookingID.Text = "";
             txtAccount.Text = "";
             txtCusID.Text = "";
-            txtCustomerRequests.Text = "";
+            rTxtCustRequests.Text = "";
             txtBookingDate.Text = " ";
             dtPArrivalDate.CustomFormat = "";
             dTPDepDate.CustomFormat = "";
@@ -118,7 +118,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 txtCusID.Enabled = value;
             }
             
-            txtCustomerRequests.Enabled = value;
+            rTxtCustRequests.Enabled = value;
             txtBookingDate.Enabled = value;
             dtPArrivalDate.Enabled = value;
             dTPDepDate.Enabled = value;
@@ -140,7 +140,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtBookingID.Text = booking.getBookingID;
             txtCusID.Text = booking.getCustomerID;
             txtAccount.Text = booking.getAccountNum;
-            txtCustomerRequests.Text = booking.getCustomerRequests;
+            rTxtCustRequests.Text = booking.getCustomerRequests;
             txtBookingDate.Text = Convert.ToString(booking.getBookingDate);
             dtPArrivalDate.Text = Convert.ToString(booking.getArrival);
             dTPDepDate.Text = Convert.ToString(booking.getDeparture);
@@ -153,7 +153,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             booking.getBookingID = txtBookingID.Text;
             booking.getCustomerID = txtCusID.Text;
             booking.getAccountNum = txtAccount.Text;
-            booking.getCustomerRequests = txtCustomerRequests.Text; 
+            booking.getCustomerRequests = rTxtCustRequests.Text; 
             booking.getBookingDate =Convert.ToDateTime(txtBookingDate.Text); 
             booking.getArrival = Convert.ToDateTime(dtPArrivalDate.Text); 
             booking.getDeparture = Convert.ToDateTime(dTPDepDate.Text); 
@@ -280,6 +280,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void cancelButton_Click(object sender, EventArgs e)
         {           
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
+            DialogResult = DialogResult.OK;
         }
     }
 }

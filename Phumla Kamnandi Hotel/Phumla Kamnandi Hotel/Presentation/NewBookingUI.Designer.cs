@@ -130,7 +130,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(170, 53);
             this.btnCancel.TabIndex = 28;
-            this.btnCancel.Text = "Cancel ";
+            this.btnCancel.Text = "Clear";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -142,7 +142,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(170, 53);
             this.btnExit.TabIndex = 29;
-            this.btnExit.Text = "Exit";
+            this.btnExit.Text = "Home";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -203,7 +203,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.currentDatetxt.Location = new System.Drawing.Point(214, 263);
             this.currentDatetxt.Margin = new System.Windows.Forms.Padding(2);
             this.currentDatetxt.Name = "currentDatetxt";
-            this.currentDatetxt.Size = new System.Drawing.Size(101, 22);
+            this.currentDatetxt.Size = new System.Drawing.Size(179, 22);
             this.currentDatetxt.TabIndex = 35;
             this.currentDatetxt.TextChanged += new System.EventHandler(this.currentDatetxt_TextChanged);
             // 
@@ -231,6 +231,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewBookingUI";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewBookingUI";
             this.Activated += new System.EventHandler(this.NewBookingUI_Activated_1);
             this.Load += new System.EventHandler(this.NewBookingUI_Load);
