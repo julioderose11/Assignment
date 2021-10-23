@@ -306,6 +306,25 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return -1;
             }
         }
+        public int FindIndex(RoomBooking RB)
+        {
+            int counter = 0;
+            bool found = false;
+            found = (RB. == roomBookings[counter].getBookingID);   //using a Boolean Expression to initialise found
+            while (!(found) & counter < bookings.Count - 1)
+            {
+                counter += 1;
+                found = (aBook.getBookingID == bookings[counter].getBookingID);
+            }
+            if (found)
+            {
+                return counter;
+            }
+            else
+            {
+                return -1;
+            }
+        }
         //RoomBooking?
 
         public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
