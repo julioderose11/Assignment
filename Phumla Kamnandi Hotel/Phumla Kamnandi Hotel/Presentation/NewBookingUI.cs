@@ -18,6 +18,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
     {
         #region Data Members
         //declaring a reference to the Booking and the Controller class
+        public bool listFormClosed;
         private Booking booking;
         private RoomBooking roombooking;
         private Room room;

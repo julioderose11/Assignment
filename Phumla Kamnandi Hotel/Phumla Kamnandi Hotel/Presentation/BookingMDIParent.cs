@@ -188,22 +188,25 @@ namespace Phumla_Kamnandi_Hotel
 
         private void newCustomerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            /*
-            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-            if (cusLForm == null)
-            {
-                CreateCustomerListingForm()
-            }
-            if (cusLForm.listFormClosed)
-            {
-                CreateCustomerListingForm()
-            }
             
-            */
-
+            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
+            if (cusForm == null)
+            {
+                CreateNewCustomersForm();
+            }
+            if (cusForm.listFormClosed)
+            {
+                CreateNewCustomersForm();
+            }
+            cusForm.Show();
+            
+            
+            
+            /*
             CustomerListingForm customerListingForm = new CustomerListingForm(bookingController);
             customerListingForm.ShowDialog();
             this.Hide();
+            */
 
 
             
@@ -211,66 +214,70 @@ namespace Phumla_Kamnandi_Hotel
 
         private void addBookingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
+            
            //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-           if (bookLForm == null)
+           if (NBUI == null)
            {
                CreateNewBookingUIForm();
            }
-           if (bookLForm.listFormClosed)
+           if (NBUI.listFormClosed)
            {
                CreateNewBookingUIForm();
            }
-           NewCustomersForm.Show();
-           */
+            
+            bookLForm.Show();
+           
+           
 
-
+            /*
             NewBookingUI newBookingUI = new NewBookingUI(bookingController);
             newBookingUI.ShowDialog();
             this.Hide();
+            */
         }
 
         private void customersToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            /*
+            
             //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-            if (cusForm == null)
+            if (cusLForm == null)
             {
-                CreateNewCustomersForm()
+                CreateCustomerListingForm();
             }
-            if (cusForm.listFormClosed)
+            if (cusLForm.listFormClosed)
             {
-                CreateNewCustomersForm()
+                CreateCustomerListingForm();
             }
-            NewCustomersForm.Show();
-            */
-
+            cusLForm.Show();
+            
+            /*
             NewCustomersForm newCustomerform = new NewCustomersForm(bookingController);
             newCustomerform.ShowDialog();
             this.Hide();
+            */
 
         }
 
         private void bookingsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //this needs to be edited 
-            /*
+           
             //This creates the directs the user to the newBooking and it does this through testing if the form is instantiated or not.
-            if (cusForm == null)
+            if (bookLForm == null)
             {
-                CreateNewCustomersForm()
+                CreateBookingListingForm();
             }
-            if (cusForm.listFormClosed)
+            if (bookLForm.listFormClosed)
             {
-                CreateNewCustomersForm()
+                CreateBookingListingForm();
             }
-            NewCustomersForm.Show();
-            */
-
+            bookLForm.Show();
+            
+            /*
             NewBookingUI newBookingUI = new NewBookingUI(bookingController);
             newBookingUI.ShowDialog();
             this.Hide();
+            */
         }
     }
 
