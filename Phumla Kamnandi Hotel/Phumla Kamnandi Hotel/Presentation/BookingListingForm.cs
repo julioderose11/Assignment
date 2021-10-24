@@ -268,7 +268,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //call the ShowAll method
             //ShowAll(false);
             EnableEntries(false);
+            Booking book = bookingController.FindBooking(txtBookingID.Text);
+            bookings.Remove(book);
+            setUpBookingListView();
             MessageBox.Show("This record is about to be deleted");
+
         }
 
         private void bookingListingForm_Activated_1(object sender, EventArgs e)
