@@ -23,7 +23,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Collection<RoomBooking> roomBookings;
         private Collection<Booking> bookings;
         private RoomBooking roomBook;
-        
+        private Collection<Account> accounts;
+
         private BookingController bookingController;
         public bool listFormClosed;//= true;
         #endregion
@@ -85,15 +86,52 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtTotal.Enabled = value;
             
         }
-        private void PopulateTextBoxes(RoomBooking roombooking)
+            public void setUpOccupancyListView()
         {
+            ListViewItem OccupancyReport;
+            roomBookings = null;
+            bookingListView.Clear();
 
+            bookingListView.Columns.Insert(0, "Reference Number", 150, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(2, "AccountNum", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(1, "CustomerRequests", 240, HorizontalAlignment.Left);
+            //bookingListView.Columns.Insert(4, "BookingDate", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(2, "ArrivalDate", 150, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(3, "DepartureDate", 150, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(4, "numPeople", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(5, "Amount Due", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(6, "Deposit Amount", 120, HorizontalAlignment.Left);
 
+            roomBookings = bookingController.AllRoomBookings;
+            Collection<RoomBooking> rbs;
+            rbs = BookingController.FindByDate(roomBookings, dTPStartDate.Value, dTPEndDate.Value);
+            accounts = bookingController.AllAccounts;
+            
+                foreach (RoomBooking rb in rbs)
+                {
+                foreach (Account account in accounts)
+                {
+                    if (rb.getBookingObject.getAccountNum == account.AccountNum)
+                    {
+                        OccupancyReport = new ListViewItem();
+                        OccupancyReport.Text = rb.getBookingObject.getBookingID.ToString();
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getCustomerRequests.ToString());
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getArrival.ToShortDateString());
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getDeparture.ToShortDateString());
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getNumPeople.ToString());
+                        OccupancyReport.SubItems.Add(account.AmountDue.ToString());
+                        OccupancyReport.SubItems.Add(account.DepositAmount.ToString());
+                        bookingListView.Items.Add(OccupancyReport);
+                    }
+                }                    
+                }            
+            bookingListView.Refresh();
+            bookingListView.GridLines = true;
+            txtTotal.Text = Convert.ToString(rbs.Count);
         }
-
-
-
-       
         #endregion
+
+        
     }
 }

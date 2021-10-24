@@ -154,19 +154,11 @@ namespace Phumla_Kamnandi_Hotel.Business
             switch (operation)
             {
                 case DB.DBOperation.Add:
-                    //*** Add the customer to the Collection
+                    //*** Add the Roombooking to the Collection
                     roomBookings.Add(roombook);
                     break;
 
-                    //Uncomment when FindIndex method is created
-                    /* case DB.DBOperation.Edit:
-                         index = FindIndex(book);
-                         bookings[index] = book;  // replace booking at this index with the updated booking
-                         break;
-                     case DB.DBOperation.Delete:
-                         index = FindIndex(book);  // find the index of the specific booking in collection
-                         bookings.RemoveAt(index);  // remove that booking from the collection
-                         break;*/
+                    
             }
         }
 
@@ -183,15 +175,15 @@ namespace Phumla_Kamnandi_Hotel.Business
                     persons.Add(p);
                     break;
 
-                    //Uncomment when FindIndex method is created
+                    
                      case DB.DBOperation.Edit:
                          index = FindIndex(p);
-                         persons[index] = p;  // replace booking at this index with the updated booking
+                         persons[index] = p;  // replace Person at this index with the updated booking
                          break;
                      case DB.DBOperation.Delete:
-                         index = FindIndex(p);  // find the index of the specific booking in collection
-                        persons.RemoveAt(index);  // remove that booking from the collection
-                         break;
+                         index = FindIndex(p);  // find the index of the specific Person in collection
+                    persons.RemoveAt(index);  // remove that Person from the collection
+                    break;
             }
         }
 
@@ -204,14 +196,14 @@ namespace Phumla_Kamnandi_Hotel.Business
             switch (operation)
             {
                 case DB.DBOperation.Add:
-                    //*** Add the person to the Collection
+                    //*** Add the account to the Collection
                     accounts.Add(acc);
                     break;
 
-                //Uncomment when FindIndex method is created
+                
                 case DB.DBOperation.Edit:
                     index = FindIndex(acc);
-                    accounts[index] = acc;  // replace booking at this index with the updated booking
+                    accounts[index] = acc;  // replace account at this index with the updated account
                     break;
               
             }
@@ -356,7 +348,6 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return -1;
             }
         }
-
         //This method receives a BookingID as a parameter; finds the booking object in the collection of bookings and then returns this object
         public Booking FindBooking(string ID)
         {
@@ -409,7 +400,6 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return -1;
             }
         }
-
         public int FindIndex(RoomBooking rBook)
         {
             int counter = 0;
@@ -431,18 +421,14 @@ namespace Phumla_Kamnandi_Hotel.Business
             {
                 return -1;
             }
-        }
-
-        //RoomBooking?
-
-        public bool isAvailable(Booking booking)
+        }    
+        public bool isAvailable(Booking booking)           //Method that takes in a booking and checks if its arrival and departure dates are available withink the hotel.
         {
             bool flag = false;
             Collection<RoomBooking> matches;
             if(roomBookings == null)
             {
-                flag = true;
-                
+                flag = true;              
             }
             else
             {
@@ -453,7 +439,7 @@ namespace Phumla_Kamnandi_Hotel.Business
                     {
                         if (booking.getBookingID==match.getBookingObject.getBookingID)
                         {
-                            matches.Remove(match);
+                            matches.Remove(match);          //if the roombooking being chekced is inside the database already it gets removed to prevent it from disallowing any changes to the time periods.
                             break;
                         }
                         if (booking.getArrival.CompareTo(match.getBookingObject.getDeparture) > 0)
@@ -479,18 +465,16 @@ namespace Phumla_Kamnandi_Hotel.Business
                         break;
                     }
                 }
-            }
-            
+            }           
             return flag;       
         }
-        public bool isAvailable(DateTime arrival, DateTime departure)
+        public bool isAvailable(DateTime arrival, DateTime departure)             // overriden Method that checks if a room is available within the given arrival and departure dates
         {
             bool flag = false;
             Collection<RoomBooking> matches;
             if (roomBookings == null)
             {
                 flag = true;
-
             }
             else
             {
@@ -524,11 +508,10 @@ namespace Phumla_Kamnandi_Hotel.Business
                     }
                 }
             }
-
             return flag;
         }
-
-        public Collection<RoomBooking> FindByRoom(Collection<RoomBooking> rbs, Room room)
+        public Collection<RoomBooking> FindByRoom(Collection<RoomBooking> rbs, Room room)         //Method which takes in a collection of roombookings and a specifc room object
+                                                                                                  //and returns a new roombooking collection with all the roombooking objects that have the same room object value.
         {
             Collection<RoomBooking> matches = new Collection<RoomBooking>();
             foreach (RoomBooking rb in rbs)
@@ -541,7 +524,23 @@ namespace Phumla_Kamnandi_Hotel.Business
             return matches;
         }
 
-        public decimal GenerateAmountDue(DateTime arrival)
+        public static Collection<RoomBooking> FindByDate(Collection<RoomBooking> rbs, DateTime arrive, DateTime depart) //Method which takes in a collection of roombookings and two time periods
+                                                                                                                 //and returns a new roombooking collection with all the roombooking objects that are found within the inputed time interval.
+        {
+            Collection<RoomBooking> matches = new Collection<RoomBooking>();
+            foreach (RoomBooking rb in rbs)
+            {
+                if (rb.getBookingObject.getArrival.CompareTo(arrive)>0)
+                {
+                    if (rb.getBookingObject.getDeparture.CompareTo(depart)<0)
+                    {
+                        matches.Add(rb);
+                    }
+                }    
+            }
+            return matches;
+        }
+        public decimal GenerateAmountDue(DateTime arrival)  // method that sets the specifc room price to charge the customer based on the date of arrival inputed
         {
             decimal aDue = 0;
             if(arrival.Day.CompareTo(1) >= 0)
@@ -556,10 +555,8 @@ namespace Phumla_Kamnandi_Hotel.Business
             {
                 aDue = 995;
             }
-
             return aDue;
         }
-
         #endregion
     }
 }
