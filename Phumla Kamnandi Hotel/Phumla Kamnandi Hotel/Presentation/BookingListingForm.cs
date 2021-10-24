@@ -76,7 +76,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void ShowAll(bool value)
         {
 
-
             
             //If the form state is View, the Submit button and the Edit button should not be visible
             if (state == FormStates.Delete)
@@ -266,7 +265,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             try
             {
                 //Depending on which state the receptionist has entered (Edit or delete), the following code will run
-                if (state == FormStates.Edit)
+                if (IsValidData() && state == FormStates.Edit)
                 {
                     //first checks whether the user has entered new arrival and/or departure dates
                     if (arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
