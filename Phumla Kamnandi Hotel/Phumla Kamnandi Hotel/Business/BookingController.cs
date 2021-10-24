@@ -435,9 +435,10 @@ namespace Phumla_Kamnandi_Hotel.Business
                     matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
                     foreach (RoomBooking match in matches)
                     {
-                        if (match.getBookingObject.getBookingID==booking.getBookingID)
+                        if (booking.getBookingID==match.getBookingObject.getBookingID)
                         {
                             matches.Remove(match);
+                            break;
                         }
                         if (booking.getArrival.CompareTo(match.getBookingObject.getDeparture) > 0)
                         {
