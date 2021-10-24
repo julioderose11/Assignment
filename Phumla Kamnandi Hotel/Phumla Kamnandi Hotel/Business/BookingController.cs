@@ -541,6 +541,22 @@ namespace Phumla_Kamnandi_Hotel.Business
             return matches;
         }
 
+        public Collection<RoomBooking> FindByDate(Collection<RoomBooking> rbs, DateTime arrive, DateTime depart)
+        {
+            Collection<RoomBooking> matches = new Collection<RoomBooking>();
+            foreach (RoomBooking rb in rbs)
+            {
+                if (rb.getBookingObject.getArrival.CompareTo(arrive)>0)
+                {
+                    if (rb.getBookingObject.getDeparture.CompareTo(depart)<0)
+                    {
+                        matches.Add(rb);
+                    }
+                }
+            }
+            return matches;
+        }
+
         public decimal GenerateAmountDue(DateTime arrival)
         {
             decimal aDue = 0;
