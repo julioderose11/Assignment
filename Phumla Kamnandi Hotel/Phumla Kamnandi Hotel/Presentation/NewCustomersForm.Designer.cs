@@ -276,7 +276,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Controls.Add(this.lblFName);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "NewCustomersForm";
-            this.Text = "NewCustomersForm";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.NewCustomersForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

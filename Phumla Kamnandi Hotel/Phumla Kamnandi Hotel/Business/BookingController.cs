@@ -82,7 +82,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         }
         #endregion 
         
-        #region Database Communication.
+          #region Database Communication.
         //DataMaintenance method for customer table
         public void DataMaintenance(Customer aCust, DB.DBOperation operation)
         {
