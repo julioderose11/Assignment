@@ -63,6 +63,16 @@ namespace Phumla_Kamnandi_Hotel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Belmond_Hotel_Caruso_in_Ravello_Italy {
+            get {
+                object obj = ResourceManager.GetObject("Belmond-Hotel-Caruso-in-Ravello-Italy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Company_Vision {
             get {
                 object obj = ResourceManager.GetObject("Company Vision", resourceCulture);
@@ -76,6 +86,16 @@ namespace Phumla_Kamnandi_Hotel.Properties {
         internal static System.Drawing.Bitmap LoginImage {
             get {
                 object obj = ResourceManager.GetObject("LoginImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap maxresdefault {
+            get {
+                object obj = ResourceManager.GetObject("maxresdefault", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

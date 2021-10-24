@@ -23,7 +23,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Collection<RoomBooking> roomBookings;
         private Collection<Booking> bookings;
         private RoomBooking roomBook;
-        private RoomBooking roomBook;
+        
         private BookingController bookingController;
         public bool listFormClosed;//= true;
         #endregion
@@ -73,7 +73,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
            
             txtTotal.Text = "";
-            bookingListView
+            
             
 
         }
@@ -93,51 +93,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
 
 
-        public void setUpBookingListView()
-        {
-            ListViewItem bookingDetails;
-            roomBookings = null;
-            bookingListView.Clear();
-
-            bookingListView.Columns.Insert(0, "Reference Number", 150, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(2, "AccountNum", 120, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(1, "CustomerRequests", 240, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(4, "BookingDate", 120, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(2, "ArrivalDate", 150, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(3, "DepartureDate", 150, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(4, "numPeople", 120, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(5, "Amount Due", 120, HorizontalAlignment.Left);
-            bookingListView.Columns.Insert(6, "Deposit Amount", 120, HorizontalAlignment.Left);
-
-            roomBookings = bookingController.AllRoomBookings;
-            ro = bookingController.AllBookings;
-            accounts = bookingController.AllAccounts;
-            foreach (Booking booking in bookings)
-            {
-                foreach (RoomBooking roomBooking in roomBookings)
-                {
-                    if (booking.getAccountNum == account.AccountNum)
-                    {
-                        bookingDetails = new ListViewItem();
-                        bookingDetails.Text = booking.getBookingID.ToString();
-                        //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
-                        //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
-                        bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
-                        //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
-                        bookingDetails.SubItems.Add(booking.getArrival.ToShortDateString());
-                        bookingDetails.SubItems.Add(booking.getDeparture.ToShortDateString());
-                        bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
-                        bookingDetails.SubItems.Add(account.AmountDue.ToString());
-                        bookingDetails.SubItems.Add(account.DepositAmount.ToString());
-                        bookingListView.Items.Add(bookingDetails);
-                    }
-                }
-            }
-            bookingListView.Refresh();
-            bookingListView.GridLines = true;
-
-        }
+       
         #endregion
     }
 }

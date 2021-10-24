@@ -115,7 +115,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Phumla_Kamnandi_Hotel.Properties.Resources.Summary_Photo;
+            this.pictureBox1.Image = global::Phumla_Kamnandi_Hotel.Properties.Resources.Belmond_Hotel_Caruso_in_Ravello_Italy;
             this.pictureBox1.Location = new System.Drawing.Point(-22, -2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(763, 409);
