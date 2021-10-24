@@ -273,6 +273,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookings.Remove(book);
             RoomBooking rb = bookingController.FindRoomBooking(txtBookingID.Text);
             roomBookings.Remove(rb);
+            ClearAll();
             setUpBookingListView();
             MessageBox.Show("This record is about to be deleted");
 
