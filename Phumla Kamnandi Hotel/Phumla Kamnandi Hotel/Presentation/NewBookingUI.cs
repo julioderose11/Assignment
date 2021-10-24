@@ -152,7 +152,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
 
             //controller class enacts availability method to determine whether a room is available for specified dates
-            Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID));
+            Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID)); 
             if (bookingController.isAvailable(book) == true)
             {
                 DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
