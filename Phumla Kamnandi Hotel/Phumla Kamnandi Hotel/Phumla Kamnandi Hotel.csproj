@@ -140,6 +140,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Validator.cs" />
     <EmbeddedResource Include="Presentation\BookingListingForm.resx">
       <DependentUpon>BookingListingForm.cs</DependentUpon>
     </EmbeddedResource>
