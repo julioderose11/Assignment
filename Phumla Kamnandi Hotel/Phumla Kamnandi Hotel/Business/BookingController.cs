@@ -374,6 +374,22 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return bookings[index];  // this is the one!  
         }
+        public RoomBooking FindRoomBooking(string ID)
+        {
+            int index = 0;
+            bool found = (roomBookings[index].getBookingObject.getBookingID == ID);  //check if it is the first booking
+            int count = roomBookings.Count;
+            while (!(found) && (index < roomBookings.Count - 1))  //if not "this" booking and you are not at the end of the list 
+            {
+                index = index + 1;
+                found = (roomBookings[index].getBookingObject.getBookingID == ID);   // this will be TRUE if found
+            }
+            if (found == false)
+            {
+                return null;
+            }
+            return roomBookings[index];  // this is the one!  
+        }
         public int FindIndex(Booking aBook)
         {
             int counter = 0;
