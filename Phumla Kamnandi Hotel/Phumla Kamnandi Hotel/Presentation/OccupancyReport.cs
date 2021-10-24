@@ -86,15 +86,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtTotal.Enabled = value;
             
         }
-        private void PopulateTextBoxes(RoomBooking roombooking)
-        {
-
-
-        }
-
-
-
-        public void setUpBookingListView()
+            public void setUpOccupancyListView()
         {
             ListViewItem OccupancyReport;
             roomBookings = null;
@@ -139,5 +131,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtTotal.Text = Convert.ToString(rbs.Count);
         }
         #endregion
+
+        
     }
 }
