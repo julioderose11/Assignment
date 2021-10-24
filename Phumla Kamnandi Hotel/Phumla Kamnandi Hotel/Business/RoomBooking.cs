@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Phumla_Kamnandi_Hotel.Business
 {
-    public class RoomBooking
+    public class RoomBooking               //Helper class linking room and booking together into one entity.
     {
         #region: fields
         private Room room;

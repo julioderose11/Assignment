@@ -13,8 +13,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
     public partial class OccupancyReport : Form
     {
        
-
-
         public OccupancyReport()
         {
             InitializeComponent();
@@ -23,6 +21,16 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             //ignore 
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+            
+            //checks if a list item is selected
+
+
         }
     }
 }
