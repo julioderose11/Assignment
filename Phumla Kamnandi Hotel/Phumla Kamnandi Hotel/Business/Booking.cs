@@ -71,7 +71,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Constructors
         public Booking()
         {
-            bookingID = "" ;
+            bookingID =  IdGenerator();
             accountNum = "";
             customerID = "";
             customerRequests = "";
@@ -98,7 +98,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Methods
         public static string IdGenerator()    //method to create unique booking id.
         {
-            int length = 15;
+            int length = 7;
 
             // creating a StringBuilder object()
             StringBuilder str_build = new StringBuilder();
@@ -115,6 +115,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return str_build.ToString();
         }
+
         #endregion
 
     }

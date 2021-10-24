@@ -38,6 +38,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         private Collection<Booking> bookings;
         private Collection<Room> rooms;
         private Collection<Person> persons;
+        private Collection<Account> accounts;
 
         #endregion
 
@@ -80,6 +81,14 @@ namespace Phumla_Kamnandi_Hotel.Data
                 return persons;
             }
         }
+
+        public Collection<Account> AllAccounts
+        {
+            get
+            {
+                return accounts;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -90,7 +99,10 @@ namespace Phumla_Kamnandi_Hotel.Data
             bookings = new Collection<Booking>();
             roomBookings = new Collection<RoomBooking>();
             rooms = new Collection<Room>();
+            accounts = new Collection<Account>();
 
+            FillDataSet(sqlLocal6, table6);
+            Add2Collection(table6);
             FillDataSet(sqlLocal5, table5);
             Add2Collection(table5);
             FillDataSet(sqlLocal1, table1);
@@ -102,12 +114,6 @@ namespace Phumla_Kamnandi_Hotel.Data
             FillDataSet(sqlLocal4,table4);
             Add2Collection(table4);
                       
-            /*FillDataSet(sqlLocal6, table6);
-            Add2Collection(table6);
-            FillDataSet(sqlLocal7, table7);
-            Add2Collection(table7);
-            FillDataSet(sqlLocal8, table8);
-            Add2Collection(table8);*/
         }
         #endregion
         private void Add2Collection(string table)  
@@ -119,6 +125,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             Booking booking;
             Person person;
             Room room;
+            Account acc;
             foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
             {
                 myRow = myRow_loopVariable;
@@ -197,7 +204,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 {
                     if (!(myRow.RowState == DataRowState.Deleted))
                     {
-                        //Instantiate a new roomBooking object
+                        //Instantiate a new room object
                         room = new Room();
                         room.getRoomNo = Convert.ToInt32(myRow["RoomNumber"]);
                         switch (room.getRate)
@@ -216,6 +223,23 @@ namespace Phumla_Kamnandi_Hotel.Data
                         room.getRate = (Room.RateType)Convert.ToByte(myRow["Rate"]);
                        // room.getPrice = Convert.ToDecimal(myRow["Price"]);
                         rooms.Add(room);
+                    }
+                }
+                else if (table == table6)
+                {
+
+                    if (!(myRow.RowState == DataRowState.Deleted))
+                    {
+                        //Instantiate a new account object
+                        acc = new Account();
+                        //Obtain each Customer attribute from the specific field in the row in the table
+                        //MessageBox.Show(Convert.ToString(myRow["AccountNum"]).TrimEnd());
+                        acc.AccountNum = Convert.ToString(myRow["AccountNum"]).TrimEnd();
+                        acc.AmountDue = Convert.ToDecimal(myRow["AmountDue"]);
+                        acc.DepositAmount = Convert.ToDecimal(myRow["DepositAmount"]);
+
+                        accounts.Add(acc);
+
                     }
                 }
 
@@ -259,6 +283,8 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
             return rooms[index];  // this is the one!  
         }
+
+
         //FillRow method for Customer Table
         private void FillRow(DataRow aRow, Customer aCus, DB.DBOperation operation)
         {
@@ -309,7 +335,18 @@ namespace Phumla_Kamnandi_Hotel.Data
                 aRow["BookingID"] = rb.getBookingObject.getBookingID;            
             }
         }
-        
+
+        //FillRow method for account Table
+        private void FillRow(DataRow aRow, Account acc, DB.DBOperation operation)
+        {
+            if (operation == DB.DBOperation.Add)
+            {
+                aRow["AccountNum"] = acc.AccountNum;  //NOTE square brackets to indicate index of collections of fields in row.
+                aRow["AmountDue"] = acc.AmountDue;
+                aRow["DepositAmount"] = acc.DepositAmount;
+            }
+        }
+
 
         //FindRow method for customer table
         private int FindRow(Customer aCus, string table)
@@ -394,6 +431,29 @@ namespace Phumla_Kamnandi_Hotel.Data
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
                     if (person.getPersonID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["PersonID"]))
+                    {
+                        returnValue = rowIndex;
+                    }
+                }
+                rowIndex += 1;
+            }
+            return returnValue;
+        }
+
+        //FindRow method for account table
+        private int FindRow(Account acc, string table)
+        {
+            int rowIndex = 0;
+            DataRow myRow;
+            int returnValue = -1;
+            foreach (DataRow myRow_loopVariable in dsMain.Tables[table].Rows)
+            {
+                myRow = myRow_loopVariable;
+                //Ignore rows marked as deleted in dataset
+                if (!(myRow.RowState == DataRowState.Deleted))
+                {
+                    //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
+                    if (acc.AccountNum == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["AccountNum"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -504,6 +564,31 @@ namespace Phumla_Kamnandi_Hotel.Data
             }
         }
 
+        //Datasetchange method for account table
+        public void DataSetChange(Account acc, DB.DBOperation operation)
+        {
+            DataRow aRow = null;
+            string dataTable = table6;
+            switch (operation)
+            {
+                case DB.DBOperation.Add:
+                    aRow = dsMain.Tables[dataTable].NewRow();
+                    FillRow(aRow, acc, operation);
+                    dsMain.Tables[dataTable].Rows.Add(aRow);
+                    break;
+
+                case DB.DBOperation.Edit:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(acc, dataTable)];
+                    FillRow(aRow, acc, operation);
+                    break;
+
+                case DB.DBOperation.Delete:
+                    aRow = dsMain.Tables[dataTable].Rows[FindRow(acc, dataTable)];
+                    aRow.Delete();
+                    break;
+
+            }
+        }
         #endregion
 
         #region Build Parameters, Create Commands & Update database
@@ -595,6 +680,22 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.InsertCommand.Parameters.Add(param);
         }
 
+        ////Build_INSERT_Parameters for account
+        private void Build_INSERT_Parameters(Account acc)
+        {
+            //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
+            SqlParameter param = default(SqlParameter);
+            param = new SqlParameter("@AccountNum", SqlDbType.NVarChar, 15, "AccountNum");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
+            param = new SqlParameter("@DepositAmount", SqlDbType.Money, 15, "DepositAmount");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
+            param = new SqlParameter("@AmountDue", SqlDbType.Money, 15, "AmountDue");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
+
+        }
+
         //////////////////////////////////////////////////////////////////////////////////// Build_UPDATE_Parameter methods ///////////////////////////////////////////////////////////
 
         ////Build_UPDATE_Parameters for booking
@@ -642,6 +743,26 @@ namespace Phumla_Kamnandi_Hotel.Data
 
             param = new SqlParameter("@BookingID", SqlDbType.NVarChar, 15, "BookingID");
             param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+        }
+
+        private void Build_UPDATE_Parameters(Account acc)
+        {
+            //---Create Parameters to communicate with SQL UPDATE
+            SqlParameter param = default(SqlParameter);
+
+            param = new SqlParameter("@DepositAmount", SqlDbType.Money, 15, "DepositAmount");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            param = new SqlParameter("@AmountDue", SqlDbType.Money, 15, "AmountDue");
+            param.SourceVersion = DataRowVersion.Current;
+            daMain.UpdateCommand.Parameters.Add(param);
+
+            //testing the ID of record that needs to change with the original ID of the record
+            param = new SqlParameter("@Original_ID", SqlDbType.NVarChar, 15, "AccountNum");
+            param.SourceVersion = DataRowVersion.Original;
             daMain.UpdateCommand.Parameters.Add(param);
 
         }
@@ -702,14 +823,29 @@ namespace Phumla_Kamnandi_Hotel.Data
             Build_INSERT_Parameters(rb);
         }
 
+        private void Create_INSERT_Command(Account acc)
+        {
+            //Create the command that must be used to insert values into the customer table..
+            daMain.InsertCommand = new SqlCommand("INSERT into Account (AccountNum, AmountDue, DepositAmount ) VALUES (@AccountNum, @AmountDue, @DepositAmount)", cnMain);
+            Build_INSERT_Parameters(acc);
+        }
+
         //////////////////////////////////////////////////////////////////////////////////// Create_UPDATE_Parameter methods /////////////////////////////////////////////////////////// 
-        
+
         private void Create_UPDATE_Command(Booking book)
         {
             //Create the command that must be used to insert values into cutosmer table
             //Assumption is that the CustomerID and PersonID cannot be changed
             daMain.UpdateCommand = new SqlCommand("UPDATE Booking SET CustomerRequests =@CustomerRequests, BookingDate =@BookingDate, ArrivalDate =@ArrivalDate, DepartureDate = @DepartureDate, numPeople = @numPeople " + "WHERE BookingID = @Original_ID", cnMain);
             Build_UPDATE_Parameters(book);
+        }
+
+        private void Create_UPDATE_Command(Account acc)
+        {
+            //Create the command that must be used to insert values into cutosmer table
+            //Assumption is that the CustomerID and PersonID cannot be changed
+            daMain.UpdateCommand = new SqlCommand("UPDATE Account SET AmountDue =@AmountDue, DepositAmount =@DepositAmount " + "WHERE AccountNum = @Original_ID", cnMain);
+            Build_UPDATE_Parameters(acc);
         }
 
         //////////////////////////////////////////////////////////////////////////////////// Create_DELETE_Parameter methods ///////////////////////////////////////////////////////////
@@ -782,6 +918,15 @@ namespace Phumla_Kamnandi_Hotel.Data
             Create_INSERT_Command(rb);
             Create_DELETE_Command(rb);
             success = UpdateDataSource(sqlLocal2, table2);
+            return success;
+        }
+
+        public bool UpdateDataSource(Account acc)
+        {
+            bool success = true;
+            Create_INSERT_Command(acc);
+            Create_UPDATE_Command(acc);
+            success = UpdateDataSource(sqlLocal6, table6);
             return success;
         }
         #endregion

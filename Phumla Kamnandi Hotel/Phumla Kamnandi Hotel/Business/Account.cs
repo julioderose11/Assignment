@@ -38,14 +38,14 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Constructors
         public Account()
         {
-            accountNum = "";
+            accountNum = AccountNumGenerator();
             amountDue = 0;
             depositAmount = 0;
         }
 
-        public Account(int aDue, int dAmnt)
+        public Account(decimal aDue, decimal dAmnt)
         {
-            accountNum = AccountNumGenerator();
+            accountNum = AccountNumGenerator1();
             amountDue = aDue;
             depositAmount = dAmnt;
         }
@@ -53,9 +53,10 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         #region Methods
         //method to create unique Account Num
-        public string AccountNumGenerator()   
+        public string AccountNumGenerator1()   
         {
             int length = 5;
+            
 
             // creating a StringBuilder object()
             StringBuilder str_build = new StringBuilder();
@@ -71,6 +72,20 @@ namespace Phumla_Kamnandi_Hotel.Business
                 str_build.Append(letter);
             }
             return str_build.ToString();
+        }
+
+        public string AccountNumGenerator()
+        {
+            string src = "0123456789";
+            int length = 7;
+            StringBuilder sb = new StringBuilder();
+            Random rng = new Random();
+            for(var i = 0; i < length; i++)
+            {
+                var c = src[rng.Next(0, src.Length)];
+                sb.Append(c);
+            }
+            return sb.ToString();
         }
 
         //addBooking method needs to be included
