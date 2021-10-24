@@ -227,7 +227,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 if(arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
                 {
                     //checks whether there are any rooms available for the new dates
-                    if (bookingController.isAvailable(dtPArrivalDate.Value, dTPDepDate.Value) == true)
+                    Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID));
+                    if (bookingController.isAvailable(book) == true)
                     {
                         PopulateObject();
                         bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);

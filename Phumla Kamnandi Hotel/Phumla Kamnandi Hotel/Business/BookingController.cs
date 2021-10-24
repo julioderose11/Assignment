@@ -466,6 +466,50 @@ namespace Phumla_Kamnandi_Hotel.Business
             
             return flag;       
         }
+        public bool isAvailable(DateTime arrival, DateTime departure)
+        {
+            bool flag = false;
+            Collection<RoomBooking> matches;
+            if (roomBookings == null)
+            {
+                flag = true;
+
+            }
+            else
+            {
+                foreach (RoomBooking roomBooking in roomBookings)
+                {
+                    matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
+                    foreach (RoomBooking match in matches)
+                    {
+                        
+                        if (arrival.CompareTo(match.getBookingObject.getDeparture) > 0)
+                        {
+                            flag = true;
+                        }
+                        else if (arrival.CompareTo(match.getBookingObject.getDeparture) < 0)
+                        {
+                            if (departure.CompareTo(match.getBookingObject.getArrival) < 0)
+                            {
+                                flag = true;
+                            }
+                            else
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (flag == true)
+                    {
+                        availRoom = roomBooking.getRoomObject;
+                        break;
+                    }
+                }
+            }
+
+            return flag;
+        }
 
         public Collection<RoomBooking> FindByRoom(Collection<RoomBooking> rbs, Room room)
         {
