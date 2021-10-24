@@ -106,7 +106,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;
             booking.getCustomerRequests = richTxtSpecInstructions.Text;
             booking.getNumPeople = Convert.ToInt32(txtNoOfPeople.Text);
+            booking.getPrice = GenerateAmountDue(booking.getArrival);
+             
             storeBookigID = booking.getBookingID;
+            
 
         }
 

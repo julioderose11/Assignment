@@ -18,6 +18,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #region Variables
         public bool listFormClosed;//= true;
         private Collection<Booking> bookings;
+        private Collection<RoomBooking> roomBookings;
         private Collection<Account> accounts;
         private Booking booking;
         private Account account;
@@ -186,6 +187,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookingListView.Columns.Insert(5, "Amount Due", 120, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(6, "Deposit Amount", 120, HorizontalAlignment.Left);
 
+            roomBookings = bookingController.AllRoomBookings;
             bookings = bookingController.AllBookings;
             accounts = bookingController.AllAccounts;
             foreach (Booking booking in bookings)
@@ -291,7 +293,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //call the ShowAll method
             //ShowAll(false);
             EnableEntries(false);
+            Booking book = bookingController.FindBooking(txtBookingID.Text);
+            bookings.Remove(book);
+            RoomBooking rb = bookingController.FindRoomBooking(txtBookingID.Text);
+            roomBookings.Remove(rb);
+            setUpBookingListView();
             MessageBox.Show("This record is about to be deleted");
+
         }
 
         private void bookingListingForm_Activated_1(object sender, EventArgs e)

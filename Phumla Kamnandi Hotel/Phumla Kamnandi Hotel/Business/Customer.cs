@@ -9,12 +9,13 @@ namespace Phumla_Kamnandi_Hotel.Business
     public class Customer : Person 
     {
         #region Information 
-        //This calls
+        //This calls inherits all data members from the person class 
         #endregion
 
         #region Fields
         private string customerID;
         private Person person;
+        //defines the the person class 
  
         #endregion
 
@@ -33,6 +34,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region Construtor
+        //default constructor 
         public Customer(Person p)
         {
             person = p;
@@ -48,6 +50,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #endregion
 
         #region: Methods
+        //method to display the customer id 
         public override string ToString()
         {
             return base.ToString() + "customerID: " + customerID;
