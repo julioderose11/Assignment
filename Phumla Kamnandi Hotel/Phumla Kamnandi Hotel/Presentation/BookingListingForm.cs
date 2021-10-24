@@ -186,7 +186,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
 
                 //the below ensure that the the minimun number of people is 1 and the maxium number of people per room is 2
-                Validator.IsWithinRange(txtNumPeople, 1, 2);
+                Validator.IsWithinRange(txtNumPeople, 0, 2);
 
 
         }

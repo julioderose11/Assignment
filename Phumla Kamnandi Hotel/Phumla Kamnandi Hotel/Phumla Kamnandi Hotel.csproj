@@ -211,6 +211,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>HotelDatabase.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\Belmond-Hotel-Caruso-in-Ravello-Italy.jpg" />
+    <None Include="Resources\maxresdefault.jpg" />
     <None Include="Resources\Summary Photo.jpg" />
     <None Include="Resources\ocean-sunset-view-mykonos-article.jpg" />
     <None Include="Resources\Company Vision.jpg" />

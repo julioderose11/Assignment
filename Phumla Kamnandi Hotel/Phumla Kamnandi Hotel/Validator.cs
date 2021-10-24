@@ -17,10 +17,12 @@ namespace Phumla_Kamnandi_Hotel
         #endregion
 
         #region Fields
+        //this is the return header sayaing that the input entry was incorrect
         private static string title = "Entry Error";
         #endregion
 
         #region Properties
+        //this is used to recievd and set values;
         public static string Title
         {
             get
@@ -41,7 +43,7 @@ namespace Phumla_Kamnandi_Hotel
             if (textBox.Text == "")
             {
 
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + " is a required field.", Title);
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "Missing Information in Textbox.", Title);
                 textBox.Focus();
                 return false;
             }
@@ -53,7 +55,7 @@ namespace Phumla_Kamnandi_Hotel
             if (richTextBox.Text == "")
             {
 
-                System.Windows.Forms.MessageBox.Show(richTextBox.Tag + " is a required field.", Title);
+                System.Windows.Forms.MessageBox.Show(richTextBox.Tag + "Missing text in Special Request Textbox.", Title);
                 richTextBox.Focus();
                 return false;
             }
@@ -70,7 +72,7 @@ namespace Phumla_Kamnandi_Hotel
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + " must be an integer value.", Title);
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "Please ensure that the input is an integar.", Title);
                 textBox.Focus();
                 return false;
             }
@@ -84,7 +86,7 @@ namespace Phumla_Kamnandi_Hotel
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + " must be a numeric value.", Title);
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "Please ensure that the input is an decimal.", Title);
                 textBox.Focus();
                 return false;
             }
@@ -99,7 +101,7 @@ namespace Phumla_Kamnandi_Hotel
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show(dateTime.Tag + " must be a DateTime value.", Title);
+                System.Windows.Forms.MessageBox.Show(dateTime.Tag + "Please ensure that the input is an DateTime Integar Type.", Title);
                 dateTime.Focus();
                 return false;
             }
@@ -111,7 +113,7 @@ namespace Phumla_Kamnandi_Hotel
             decimal number = Convert.ToDecimal(textBox.Text);
             if (number < min || number > max)
             {
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + " must be between " + min
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "The input must be between " + min
                     + " and " + max + ".", Title);
                 textBox.Focus();
                 return false;
