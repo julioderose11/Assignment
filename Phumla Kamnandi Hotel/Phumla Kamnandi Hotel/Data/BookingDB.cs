@@ -224,7 +224,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 return null;
             }
-            return bookings[index];  // this is the one!  
+            return rooms[index];  // this is the one!  
         }
         //FillRow method for Customer Table
         private void FillRow(DataRow aRow, Customer aCus, DB.DBOperation operation)
