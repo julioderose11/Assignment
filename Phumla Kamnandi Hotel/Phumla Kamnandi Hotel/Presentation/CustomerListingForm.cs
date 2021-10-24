@@ -18,7 +18,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #region Variables
         public bool listFormClosed;//= true;
         private Collection<Customer> customers;
+        private Collection<Person> persons;
         private Customer customer;
+        private Person person;
         private BookingController bookingController;
         private FormStates state;
 
@@ -35,32 +37,33 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #endregion
 
         #region Constructor
-        public CustomerListingForm()
-        {
-            InitializeComponent();
-            this.Load += CustomerListingForm_Load;
-            //this.Activated += EmployeeListingForm_Activated;
-            state = FormStates.View;
-        }
 
         public CustomerListingForm(BookingController cusController)
         {
             InitializeComponent();
             bookingController = cusController;
-            //this.Load += EmployeeListingForm_Load;
-          //  this.Activated += EmployeeListingForm_Activated;
+            this.Load += CustomerListingForm_Load;
+            this.Activated += CustomerListingForm_Activated;
             state = FormStates.View;
         }
         #endregion
 
         #region Events
+        private void CustomerListingForm_Activated(object sender, EventArgs e)
+        {
+            customersListView.View = View.Details;
+            setUpCustomerListView();
+            ShowAll(false);
 
-        #endregion
+        }
 
         private void CustomerListingForm_Load(object sender, EventArgs e)
         {
             customersListView.View = View.Details;
         }
+        #endregion
+
+
         #region Utility Methods
         private void ShowAll(bool value)
         {
@@ -80,17 +83,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             cityNamelbl.Visible = value;
             postalCodelbl.Visible = value;
             PostalCodeTextBox.Visible = value;
-            //If the form state is View, the Submit button and the Edit button should not be visible
-            if (state == FormStates.Delete)
-            {
-                cancelButton.Visible = !value;
-                submitButton.Visible = !value;
-            }
-            else
-            {
-                cancelButton.Visible = value;
-                submitButton.Visible = value;
-            }
+         
+         
             
         }
         private void ClearAll()
@@ -123,37 +117,35 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             suburbTextBox.Enabled = value;
             cityTextBox.Enabled = value;
             PostalCodeTextBox.Enabled = value;
-            if (state == FormStates.Delete)
-            {
-                cancelButton.Visible = !value;
-                submitButton.Visible = !value;
-            }
-            else
-            {
-                cancelButton.Visible = value;
-                submitButton.Visible = value;
-            }
+
         }
-        private void PopulateTextBoxes(Customer customer)
+        private void PopulateTextBoxes(Customer customer, Person person)
         {
             
             idTextBox.Text = customer.getPersonID;
             cusIDTextBox.Text = customer.CustomerID;
-            nameTextBox.Text = customer.getFName;
-            emailTextBox.Text = customer.getEmail;
-            streetNameTextBox.Text = customer.getStreetName;
-            suburbTextBox.Text = customer.getSuburbName;
-            cityTextBox.Text = customer.getCityName;
-            PostalCodeTextBox.Text = customer.getPostalCode;
+            nameTextBox.Text = person.getFName;
+            emailTextBox.Text = person.getEmail;
+            streetNameTextBox.Text = person.getStreetName;
+            suburbTextBox.Text = person.getSuburbName;
+            cityTextBox.Text = person.getCityName;
+            PostalCodeTextBox.Text = person.getPostalCode;
             
         }
-        private void CustomerListingForm_Activated(object sender, EventArgs e)
+
+        private void PopulateObject()
         {
-            customersListView.View = View.Details;
-            setUpCustomerListView();
-            ShowAll(false);
-            
+            customer = new Customer();
+            customer.CustomerID = cusIDTextBox.Text;
+            customer.getPersonID = idTextBox.Text;
+            customer.getEmail = emailTextBox.Text;
+            customer.getStreetName = streetNameTextBox.Text;
+            customer.getSuburbName = suburbTextBox.Text;
+            customer.getCityName = cityTextBox.Text;
+            customer.getPostalCode = PostalCodeTextBox.Text;
+
         }
+       
 
         #endregion
         #region ListView set up
@@ -163,30 +155,44 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             customers = null;
             customersListView.Clear();
 
-            customersListView.Columns.Insert(0, "PersonID", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(2, "FirstName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(0, "PersonID", 160, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(1, "CustomerID", 160, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(2, "FirstName", 140, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(3, "SecondName", 140, HorizontalAlignment.Left);
+            //customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
+            //customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
+            //customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
+            //customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
+            //customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
+
             customers = bookingController.AllCustomers;
+            persons = bookingController.AllPersons;
+
             foreach (Customer customer in customers)
             {
-                customerDetails = new ListViewItem();
-                customerDetails.Text = customer.getPersonID.ToString();
-                customerDetails.SubItems.Add(customer.CustomerID.ToString());
-                customerDetails.SubItems.Add(customer.getFName.ToString());
-                customerDetails.SubItems.Add(customer.getEmail.ToString());
-                customerDetails.SubItems.Add(customer.getStreetName.ToString());
-                customerDetails.SubItems.Add(customer.getSuburbName.ToString());
-                customerDetails.SubItems.Add(customer.getCityName.ToString());
-                customerDetails.SubItems.Add(customer.getPostalCode.ToString());
+                foreach (Person person in persons)
+                {
+                    customerDetails = new ListViewItem();
+                    
+                    if (customer.getPersonID.Equals(person.getPersonID))
+                    {
+                        customerDetails.Text = customer.getPersonID.ToString();
+                        customerDetails.SubItems.Add(customer.CustomerID.ToString());
+                        customerDetails.SubItems.Add(person.getFName.ToString());
+                        customerDetails.SubItems.Add(person.getSName.ToString());
+                        //customerDetails.SubItems.Add(person.getEmail.ToString());
+                        //customerDetails.SubItems.Add(person.getStreetName.ToString());
+                        //customerDetails.SubItems.Add(person.getSuburbName.ToString());
+                        //customerDetails.SubItems.Add(person.getCityName.ToString());
+                        //customerDetails.SubItems.Add(person.getPostalCode.ToString());
 
-                customersListView.Items.Add(customerDetails);
+                        customersListView.Items.Add(customerDetails);
+                    }
+                        
+                }
 
             }
+           
             customersListView.Refresh();
             customersListView.GridLines = true;
         }
@@ -202,9 +208,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             EnableEntries(false);
             if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
             {
-                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
-                                                                                             // Show the details of the selected customer in the controls
-                PopulateTextBoxes(customer);
+                customer = bookingController.FindCustomer2(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                person = bookingController.FindPerson(customersListView.SelectedItems[0].Text);
+                PopulateTextBoxes(customer, person);
             }
         }
         #endregion
@@ -226,17 +232,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             ShowAll(false);
             setUpCustomerListView();
         }
-        private void PopulateObject()
+
+        private void HomeButton_Click(object sender, EventArgs e)
         {
-            customer = new Customer();
-            customer.CustomerID = cusIDTextBox.Text;
-            customer.getPersonID = idTextBox.Text;
-            customer.getEmail = emailTextBox.Text;
-            customer.getStreetName = streetNameTextBox.Text;
-            customer.getSuburbName = suburbTextBox.Text;
-            customer.getCityName = cityTextBox.Text;
-            customer.getPostalCode = PostalCodeTextBox.Text;
-            
+            //assigns the dialogresult variable the value of OK when pressed.
+            DialogResult = DialogResult.OK;
         }
     }
 }

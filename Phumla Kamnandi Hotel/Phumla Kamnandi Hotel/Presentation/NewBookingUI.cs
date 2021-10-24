@@ -18,6 +18,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
     {
         #region Data Members
         //declaring a reference to the Booking and the Controller class
+        public bool listFormClosed;
         private Booking booking;
         private RoomBooking roombooking;
         private Room room;
@@ -31,7 +32,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Collection<Person> persons;
         private Person person;
         private Account account;
-
+        public string customerID;
+        public string storeBookigID;
    
 
         #endregion
@@ -40,7 +42,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         public NewBookingUI(BookingController bController)
         {
             InitializeComponent();
-            lblDate.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
+            currentDatetxt.Text = DateTime.Now.ToLongDateString() + "" + DateTime.Now.ToLongTimeString(); //current date and time of booking
             bookingController = bController;
             this.Load += NewBookingUI_Load;
             this.Activated += NewBookingUI_Activated_1; 
@@ -77,20 +79,26 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         public void PopulateAccountObject()
         {
-            account = new Account();            
+  
+            account = new Account();
+            account.AmountDue = 0;
+            account.DepositAmount = 0;
+            //account.DepositAmount = account.AmountDue * 0.15;
+            MessageBox.Show(account.AccountNum);
         }
 
         public void PopulateBookingObject() //method to populate a booking object 
         {
             
             booking = new Booking();
-            booking.getAccountNum = "";
-            booking.getCustomerID = customer.CustomerID; 
+            booking.getAccountNum = account.AccountNum;
+            booking.getCustomerID = customerID; 
             booking.getBookingDate = currentDate;
             booking.getArrival = (DateTime) dTPArrivalDate.Value;
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;
             booking.getCustomerRequests = richTxtSpecInstructions.Text;
             booking.getNumPeople = Convert.ToInt32(txtNoOfPeople.Text);
+            storeBookigID = booking.getBookingID;
 
         }
 
@@ -118,15 +126,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         #region Form Events
         private void btnExit_Click(object sender, EventArgs e)
         {
-            newBookingFormClosed = true;
-            this.Close();
+            //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
+            DialogResult = DialogResult.OK;
         }
 
         private void NewBookingUI_Load(object sender, EventArgs e)
         {
             dTPArrivalDate.Format = DateTimePickerFormat.Short;
             dTPDepartureDate.Format = DateTimePickerFormat.Short;
-            //bookingController = new BookingController();
+            currentDatetxt.Enabled = false;
             ClearAll();
             ShowAll();
             EnableEntries(false);
@@ -150,16 +158,24 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
                 if (returnDialogResult == DialogResult.Yes)
                 {
-                    //but must first enter customer deatils and only then can we populate booking object
-                    //maybe make the method public static and then call it in the other forms?
+                    //populate account object first to obtain account number for booking object
+                    PopulateAccountObject();
+                    bookingController.DataMaintenance(account, DB.DBOperation.Add);
+                    bookingController.FinalizeChanges(account);
+
                     PopulateBookingObject();
                     bookingController.DataMaintenance(booking, DB.DBOperation.Add);
                     bookingController.FinalizeChanges(booking);
 
                     //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
-                    /*PopulateRoomBookingObject();
+                    PopulateRoomBookingObject();
                     bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(roombooking);*/
+                    bookingController.FinalizeChanges(roombooking);
+
+                    MessageBox.Show("Customer booking reference number is: " + storeBookigID, "Reference Number", MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+                    //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
+                    DialogResult = DialogResult.OK;
                 }
             }
             else
@@ -186,14 +202,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             persons = null;
             customersListView.Clear();
 
-            customersListView.Columns.Insert(0, "PersonID", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(2, "FirstName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(3, "StreetName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(4, "SuburbName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(5, "Cityname", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(6, "PostalCode", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(7, "Email", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(0, "CustomerID", 160, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(1, "PersonID", 160, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(2, "FirstName", 160, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(3, "SecondName", 160, HorizontalAlignment.Left);
+            /*customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);*/
 
             customers = bookingController.AllCustomers;
             persons = bookingController.AllPersons;
@@ -206,14 +223,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     customerDetails = new ListViewItem();
                     if (customer.getPersonID.Equals(person.getPersonID))
                     {
-                        customerDetails.Text = customer.getPersonID.ToString();
-                        customerDetails.SubItems.Add(customer.CustomerID);
+                        customerDetails.Text = customer.CustomerID.ToString();
+                        customerDetails.SubItems.Add(customer.getPersonID);
                         customerDetails.SubItems.Add(person.getFName.ToString());
-                        customerDetails.SubItems.Add(person.getEmail.ToString());
+                        customerDetails.SubItems.Add(person.getSName.ToString());
+                        /*customerDetails.SubItems.Add(person.getEmail.ToString());
                         customerDetails.SubItems.Add(person.getStreetName.ToString());
                         customerDetails.SubItems.Add(person.getSuburbName.ToString());
                         customerDetails.SubItems.Add(person.getCityName.ToString());
-                        customerDetails.SubItems.Add(person.getPostalCode.ToString());
+                        customerDetails.SubItems.Add(person.getPostalCode.ToString())*/;
                         customersListView.Items.Add(customerDetails);
                     }
                 }
@@ -230,8 +248,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             EnableEntries(true);
             if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
             {
-                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer                                                                                                     // Show the details of the selected customer in the controls
+                //person = bookingController.FindPerson(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);
+                customerID = customer.CustomerID;
             }
+            
         }
 
 

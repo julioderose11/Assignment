@@ -103,11 +103,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #region Form Events
 
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            newCustomerFormClosed = true; //return user to BookingMDI
-        }
-
         private void NewBookingUI_Activated(object sender, EventArgs e)
         {
             ShowAll();
@@ -116,6 +111,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void NewCustomersForm_Load(object sender, EventArgs e)
         {
             ShowAll();
+        }
+
+        private void btnHome_Click_1(object sender, EventArgs e)
+        {
+            //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
+            DialogResult = DialogResult.OK;
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -167,5 +168,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
             }
         }
+
+       
     }
 }

@@ -71,7 +71,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Constructors
         public Booking()
         {
-            bookingID = "" ;
+            bookingID =  IdGenerator();
             accountNum = "";
             customerID = "";
             customerRequests = "";
@@ -115,6 +115,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             }
             return str_build.ToString();
         }
+
         #endregion
 
     }
