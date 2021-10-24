@@ -232,7 +232,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 if(arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
                 {
                     //checks whether there are any rooms available for the new dates
-                    if (bookingController.isAvailable(dtPArrivalDate.Value, dTPDepDate.Value) == true)
+                    Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID));
+                    if (bookingController.isAvailable(book) == true)
                     {
                         MessageBox.Show("i");
                         PopulateObject();
@@ -299,6 +300,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
             DialogResult = DialogResult.OK;
+        }
+
+        private void BookingListingForm_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         private DateTime arrivalDate;
         private DateTime departureDate;
         private int numPeople;
+        private int price;
         #endregion
 
         #region Properties
