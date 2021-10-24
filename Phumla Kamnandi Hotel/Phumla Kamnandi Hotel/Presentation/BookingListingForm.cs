@@ -19,6 +19,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         public bool listFormClosed;//= true;
         private Collection<Booking> bookings;
         private Booking booking;
+        private RoomBooking roomBook;
         private BookingController bookingController;
         private FormStates state;
         private String arrivalDateTempVal;
@@ -157,7 +158,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             booking.getBookingDate =Convert.ToDateTime(txtBookingDate.Text); 
             booking.getArrival = Convert.ToDateTime(dtPArrivalDate.Text); 
             booking.getDeparture = Convert.ToDateTime(dTPDepDate.Text); 
-            booking.getNumPeople = Convert.ToInt32(txtNumPeople.Text);      
+            booking.getNumPeople = Convert.ToInt32(txtNumPeople.Text);
+
+            roomBook = new RoomBooking();
+            roomBook.getBookingObject = booking;
+
         }
         #endregion
 
@@ -229,8 +234,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     //checks whether there are any rooms available for the new dates
                     if (bookingController.isAvailable(dtPArrivalDate.Value, dTPDepDate.Value) == true)
                     {
+                        MessageBox.Show("i");
                         PopulateObject();
                         bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unavailable dates, please try again.", "New Dates Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dtPArrivalDate.Focus();
                     }
                 }
                 else //dont have to check room availability
@@ -238,13 +249,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     PopulateObject();
                     bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
                 } 
-                //PopulateObject();
+               // PopulateObject();
                // bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
             }
             else
             {
                 PopulateObject();
                 bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
+                bookingController.DataMaintenance(roomBook, Data.DB.DBOperation.Delete);
             }
             bookingController.FinalizeChanges(booking);
             ClearAll();
@@ -263,7 +275,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             //set the form state to Delete
             state = FormStates.Delete;
-            editButton.Visible = false;
             //call the ShowAll method
             //ShowAll(false);
             EnableEntries(false);
@@ -278,8 +289,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
-        {           
-            this.Close();
+        {
+            
+            ClearAll();
+
         }
 
         private void button1_Click(object sender, EventArgs e)

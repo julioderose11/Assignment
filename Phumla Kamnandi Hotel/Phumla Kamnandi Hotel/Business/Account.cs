@@ -38,7 +38,7 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Constructors
         public Account()
         {
-            accountNum = AccountNumGenerator();
+            accountNum = AccountNumGenerator1();
             amountDue = 0;
             depositAmount = 0;
         }

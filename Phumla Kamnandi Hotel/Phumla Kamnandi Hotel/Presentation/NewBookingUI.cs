@@ -175,7 +175,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     MessageBox.Show("Customer booking reference number is: " + storeBookigID, "Reference Number", MessageBoxButtons.OK,MessageBoxIcon.Information);
 
                     //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
-                    DialogResult = DialogResult.OK;
+                    //DialogResult = DialogResult.OK;
                 }
             }
             else

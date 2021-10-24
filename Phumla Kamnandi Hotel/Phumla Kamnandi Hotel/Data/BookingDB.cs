@@ -871,7 +871,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             string errorString = null;
             //Create the command that must be used to delete values from the roombooking table
-            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID AND RoomNumber = @RoomNumber", cnMain);
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID", cnMain);
 
             try
             {
