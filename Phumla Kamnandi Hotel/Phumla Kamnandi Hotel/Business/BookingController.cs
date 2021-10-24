@@ -419,7 +419,7 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         //RoomBooking?
 
-        public bool isAvailable(DateTime arrivalDate, DateTime departureDate)
+        public bool isAvailable(Booking booking)
         {
             bool flag = false;
             Collection<RoomBooking> matches;
@@ -435,13 +435,17 @@ namespace Phumla_Kamnandi_Hotel.Business
                     matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
                     foreach (RoomBooking match in matches)
                     {
-                        if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) > 0)
+                        if (match.getBookingObject.getBookingID==booking.getBookingID)
+                        {
+                            matches.Remove(match);
+                        }
+                        if (booking.getArrival.CompareTo(match.getBookingObject.getDeparture) > 0)
                         {
                             flag = true;
                         }
-                        else if (arrivalDate.CompareTo(match.getBookingObject.getDeparture) < 0)
+                        else if (booking.getArrival.CompareTo(match.getBookingObject.getDeparture) < 0)
                         {
-                            if (departureDate.CompareTo(match.getBookingObject.getArrival) < 0)
+                            if (booking.getDeparture.CompareTo(match.getBookingObject.getArrival) < 0)
                             {
                                 flag = true;
                             }

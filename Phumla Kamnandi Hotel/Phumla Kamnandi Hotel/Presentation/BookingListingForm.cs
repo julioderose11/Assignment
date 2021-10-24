@@ -287,5 +287,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
             DialogResult = DialogResult.OK;
         }
+
+        private void BookingListingForm_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

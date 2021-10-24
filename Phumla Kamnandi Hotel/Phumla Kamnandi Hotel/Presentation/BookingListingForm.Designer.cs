@@ -388,6 +388,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add/Edit/Delete Booking Form";
             this.Activated += new System.EventHandler(this.bookingListingForm_Activated_1);
+            this.Load += new System.EventHandler(this.BookingListingForm_Load_1);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
