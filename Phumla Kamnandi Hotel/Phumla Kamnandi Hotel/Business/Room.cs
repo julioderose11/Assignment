@@ -12,6 +12,8 @@ namespace Phumla_Kamnandi_Hotel.Business
         protected int roomNo;
         protected int floorNo;
         protected decimal roomPrice;
+
+
         public enum RateType
         {
             lowSeason = 0,
