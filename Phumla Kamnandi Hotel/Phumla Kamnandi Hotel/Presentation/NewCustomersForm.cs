@@ -116,7 +116,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
 
                 //The below ensures that the ID is only allowed to be 13 digits.
-                Validator.IsWithinRange(iDTxt, 13, 13);
+                Validator.IsWithinRange(iDTxt, 12, 14);
 
 
 
@@ -178,22 +178,26 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //By clicking the confirm button a customer object is created and added to the database 
             try
             {
-                DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                if (returnDialogResult == DialogResult.Yes)
+                if(IsValidData())
                 {
-                    PopulatePerson();
-                    bookingController.DataMaintenance(person, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(person);
-                    PopulateCustomer();
-                    bookingController.DataMaintenance(customer, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(customer);
+                    DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
-                    ClearAll();
-                    ShowAll();
-                    LinkToNewBookingUI();
+                    if (returnDialogResult == DialogResult.Yes)
+                    {
+                        PopulatePerson();
+                        bookingController.DataMaintenance(person, DB.DBOperation.Add);
+                        bookingController.FinalizeChanges(person);
+                        PopulateCustomer();
+                        bookingController.DataMaintenance(customer, DB.DBOperation.Add);
+                        bookingController.FinalizeChanges(customer);
 
+                        ClearAll();
+                        ShowAll();
+                        LinkToNewBookingUI();
+
+                    }
                 }
+               
 
             }
             catch (Exception ex) //catch any other expection that might occur

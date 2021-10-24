@@ -78,7 +78,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblSpecialInstructions.Size = new System.Drawing.Size(176, 18);
             this.lblSpecialInstructions.TabIndex = 20;
             this.lblSpecialInstructions.Text = "Special Instructions:";
-            this.lblSpecialInstructions.Click += new System.EventHandler(this.lblSpecialInstructions_Click);
             // 
             // lblNoOfPeople
             // 
