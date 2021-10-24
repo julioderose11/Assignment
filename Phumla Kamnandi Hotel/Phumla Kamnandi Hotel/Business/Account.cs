@@ -38,14 +38,14 @@ namespace Phumla_Kamnandi_Hotel.Business
         #region Constructors
         public Account()
         {
-            accountNum = AccountNumGenerator1();
+            accountNum = AccountNumGenerator();
             amountDue = 0;
             depositAmount = 0;
         }
 
         public Account(decimal aDue, decimal dAmnt)
         {
-            accountNum = AccountNumGenerator1();
+            accountNum = AccountNumGenerator();
             amountDue = aDue;
             depositAmount = dAmnt;
         }

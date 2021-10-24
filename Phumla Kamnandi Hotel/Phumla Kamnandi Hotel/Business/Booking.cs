@@ -85,7 +85,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             arrivalDate = default(DateTime);
             departureDate = default(DateTime);
             numPeople = 0;
-            price = 0;
+
         
         }
 
@@ -99,7 +99,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             arrivalDate = ArrivalDate;
             departureDate = DepartureDate;
             numPeople = nPeople;
-            price = 0;
+
         }
         #endregion
 

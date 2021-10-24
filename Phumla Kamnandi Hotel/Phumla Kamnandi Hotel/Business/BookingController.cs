@@ -541,6 +541,24 @@ namespace Phumla_Kamnandi_Hotel.Business
             return matches;
         }
 
+        public decimal GenerateAmountDue(DateTime arrival)
+        {
+            decimal aDue = 0;
+            if(arrival.Day.CompareTo(1) >= 0)
+            {
+                aDue = 550;
+            }
+            if(arrival.Day.CompareTo(8) >= 0)
+            {
+                aDue = 750;
+            }
+            if(arrival.Day.CompareTo(16) > 0)
+            {
+                aDue = 995;
+            }
+
+            return aDue;
+        }
 
         #endregion
     }

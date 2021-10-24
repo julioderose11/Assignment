@@ -79,20 +79,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         public void PopulateAccountObject()
         {
-  
-            account = new Account();
-            account.AmountDue = 0;
-            account.DepositAmount = 0;
-          
-        }
-
-        public void EditAccountObject()
-        {
             int daysOfStay = Convert.ToInt32((dTPDepartureDate.Value - dTPArrivalDate.Value).TotalDays);
             account = new Account();
-            account.AmountDue = bookingController.GenerateAmountDue(dTPArrivalDate.Value, dTPDepartureDate.Value) * daysOfStay;
+            account.AmountDue = bookingController.GenerateAmountDue(dTPArrivalDate.Value) * daysOfStay;
             account.DepositAmount = Convert.ToDecimal(account.AmountDue * 0.10m);
-            
+
         }
 
         public void PopulateBookingObject() //method to populate a booking object 
@@ -106,7 +97,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             booking.getDeparture = (DateTime)dTPDepartureDate.Value;
             booking.getCustomerRequests = richTxtSpecInstructions.Text;
             booking.getNumPeople = Convert.ToInt32(txtNoOfPeople.Text);
-            booking.getPrice = GenerateAmountDue(booking.getArrival);
              
             storeBookigID = booking.getBookingID;
             
@@ -184,11 +174,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     PopulateRoomBookingObject();
                     bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
                     bookingController.FinalizeChanges(roombooking);
-
-                    //Edits the newly created account object by populating it with amount due and deposit amount 
-                    EditAccountObject();
-                    bookingController.DataMaintenance(account, DB.DBOperation.Edit);
-                    bookingController.FinalizeChanges(account);
 
                     MessageBox.Show("Customer booking reference number is: " + storeBookigID + "\nCurrent Amount Due: R" + account.AmountDue + "\nDeposit Amount (To be paid within 14 days of arrival): R" + account.DepositAmount, "Important Booking Information For Guest", MessageBoxButtons.OK,MessageBoxIcon.Information);
 

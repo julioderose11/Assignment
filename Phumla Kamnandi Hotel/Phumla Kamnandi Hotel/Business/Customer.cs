@@ -58,7 +58,7 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         public static string IdGenerator()    //method to create unique customer id.
         {
-            int length = 15;
+            int length = 7;
 
             // creating a StringBuilder object()
             StringBuilder str_build = new StringBuilder();
