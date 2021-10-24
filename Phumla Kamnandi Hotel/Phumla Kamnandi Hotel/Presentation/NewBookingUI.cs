@@ -152,8 +152,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
 
             //controller class enacts availability method to determine whether a room is available for specified dates
-            Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID)); 
-            if (bookingController.isAvailable(book) == true)
+           
+            if (bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
             {
                 DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
@@ -176,7 +176,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     MessageBox.Show("Customer booking reference number is: " + storeBookigID, "Reference Number", MessageBoxButtons.OK,MessageBoxIcon.Information);
 
                     //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
-                    //DialogResult = DialogResult.OK;
+                    DialogResult = DialogResult.OK;
                 }
             }
             else
