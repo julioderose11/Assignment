@@ -23,7 +23,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private Collection<RoomBooking> roomBookings;
         private Collection<Booking> bookings;
         private RoomBooking roomBook;
-        private RoomBooking roomBook;
+        private Collection<Account> accounts;
+
         private BookingController bookingController;
         public bool listFormClosed;//= true;
         #endregion
@@ -73,7 +74,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
            
             txtTotal.Text = "";
-            bookingListView
+            
             
 
         }
@@ -95,7 +96,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         public void setUpBookingListView()
         {
-            ListViewItem bookingDetails;
+            ListViewItem OccupancyReport;
             roomBookings = null;
             bookingListView.Clear();
 
@@ -111,32 +112,31 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookingListView.Columns.Insert(6, "Deposit Amount", 120, HorizontalAlignment.Left);
 
             roomBookings = bookingController.AllRoomBookings;
-            ro = bookingController.AllBookings;
+            Collection<RoomBooking> rbs;
+            rbs = BookingController.FindByDate(roomBookings, dTPStartDate.Value, dTPEndDate.Value);
             accounts = bookingController.AllAccounts;
-            foreach (Booking booking in bookings)
-            {
-                foreach (RoomBooking roomBooking in roomBookings)
+            
+                foreach (RoomBooking rb in rbs)
                 {
-                    if (booking.getAccountNum == account.AccountNum)
+                foreach (Account account in accounts)
+                {
+                    if (rb.getBookingObject.getAccountNum == account.AccountNum)
                     {
-                        bookingDetails = new ListViewItem();
-                        bookingDetails.Text = booking.getBookingID.ToString();
-                        //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
-                        //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
-                        bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
-                        //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
-                        bookingDetails.SubItems.Add(booking.getArrival.ToShortDateString());
-                        bookingDetails.SubItems.Add(booking.getDeparture.ToShortDateString());
-                        bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
-                        bookingDetails.SubItems.Add(account.AmountDue.ToString());
-                        bookingDetails.SubItems.Add(account.DepositAmount.ToString());
-                        bookingListView.Items.Add(bookingDetails);
+                        OccupancyReport = new ListViewItem();
+                        OccupancyReport.Text = rb.getBookingObject.getBookingID.ToString();
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getCustomerRequests.ToString());
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getArrival.ToShortDateString());
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getDeparture.ToShortDateString());
+                        OccupancyReport.SubItems.Add(rb.getBookingObject.getNumPeople.ToString());
+                        OccupancyReport.SubItems.Add(account.AmountDue.ToString());
+                        OccupancyReport.SubItems.Add(account.DepositAmount.ToString());
+                        bookingListView.Items.Add(OccupancyReport);
                     }
-                }
-            }
+                }                    
+                }            
             bookingListView.Refresh();
             bookingListView.GridLines = true;
-
+            txtTotal.Text = Convert.ToString(rbs.Count);
         }
         #endregion
     }

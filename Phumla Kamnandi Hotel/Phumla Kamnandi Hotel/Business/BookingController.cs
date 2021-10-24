@@ -524,7 +524,7 @@ namespace Phumla_Kamnandi_Hotel.Business
             return matches;
         }
 
-        public Collection<RoomBooking> FindByDate(Collection<RoomBooking> rbs, DateTime arrive, DateTime depart) //Method which takes in a collection of roombookings and two time periods
+        public static Collection<RoomBooking> FindByDate(Collection<RoomBooking> rbs, DateTime arrive, DateTime depart) //Method which takes in a collection of roombookings and two time periods
                                                                                                                  //and returns a new roombooking collection with all the roombooking objects that are found within the inputed time interval.
         {
             Collection<RoomBooking> matches = new Collection<RoomBooking>();
