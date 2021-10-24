@@ -193,6 +193,26 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
+        private bool IsValidData()
+        {
+            return
+                // Validate all the items to ensure they all have the correct inputs
+                // This ensure that that the input texts (strings) are correctly inputed.
+                Validator.IsPresent(iDTxt) &&
+                Validator.IsPresent(txtFName) &&
+                Validator.IsPresent(txtLName) &&
+                Validator.IsPresent(txtEmail) &&
+                Validator.IsPresent(txtCity) &&
+                Validator.IsPresent(txtStreet) &&
+                Validator.IsPresent(txtSuburb) &&
+                Validator.IsPresent(txtPostal) &&
+
+
+                //The below ensures that the ID is only allowed to be 13 digits.
+                Validator.IsWithinRange1(txtNoOfPeople);
+
+        }
+
         #endregion
 
         #region ListView set up

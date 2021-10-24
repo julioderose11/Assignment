@@ -107,14 +107,26 @@ namespace Phumla_Kamnandi_Hotel
             }
         }
 
-        public static bool IsWithinRange(System.Windows.Forms.TextBox textBox, decimal min, decimal max) 
+        public static bool IsWithinRange1(System.Windows.Forms.TextBox textBox) 
         {
             //ensures the textbox is within range of a max and min number so there is a limit to the textbox
-            decimal number = Convert.ToDecimal(textBox.Text);
-            if (number < min || number > max)
+            int val = textBox.Text.Length;
+            if (val <= 0 || val >= 3)
             {
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + "The input must be between " + min
-                    + " and " + max + ".", Title);
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "There can be only be a maximum of 2 guests and minimum of 1", Title);
+                textBox.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        public static bool IsWithinRange2(System.Windows.Forms.TextBox textBox)
+        {
+            //ensures the textbox is within range of a max and min number so there is a limit to the textbox
+            int val = textBox.Text.Length;
+            if (val != 13)
+            {
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "The input must be 13 characters in length.", Title);
                 textBox.Focus();
                 return false;
             }
