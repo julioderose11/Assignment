@@ -98,6 +98,33 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             customer = new Customer();
             customer.getPersonID = iDTxt.Text;
         }
+
+
+        private bool IsValidData()
+        {
+            return
+                // Validate all the items to ensure they all have the correct inputs
+                // This ensure that that the input texts (strings) are correctly inputed.
+                Validator.IsPresent(iDTxt) &&
+                Validator.IsPresent(txtFName) &&
+                Validator.IsPresent(txtLName) &&
+                Validator.IsPresent(txtEmail) &&
+                Validator.IsPresent(txtCity) &&
+                Validator.IsPresent(txtStreet) &&
+                Validator.IsPresent(txtSuburb) &&
+                Validator.IsPresent(txtPostal) &&
+
+
+                //The below ensures that the ID is only allowed to be 13 digits.
+                Validator.IsWithinRange(iDTxt, 13, 13);
+
+
+
+
+
+
+
+        }
         #endregion
 
 
@@ -149,8 +176,34 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void btnConfirm_Click_1(object sender, EventArgs e)
         {
             //By clicking the confirm button a customer object is created and added to the database 
-           
+            try
+            {
+                DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
+                if (returnDialogResult == DialogResult.Yes)
+                {
+                    PopulatePerson();
+                    bookingController.DataMaintenance(person, DB.DBOperation.Add);
+                    bookingController.FinalizeChanges(person);
+                    PopulateCustomer();
+                    bookingController.DataMaintenance(customer, DB.DBOperation.Add);
+                    bookingController.FinalizeChanges(customer);
+
+                    ClearAll();
+                    ShowAll();
+                    LinkToNewBookingUI();
+
+                }
+
+            }
+            catch (Exception ex) //catch any other expection that might occur
+            {
+                MessageBox.Show(ex.Message + "\n\n" +
+                ex.GetType().ToString() + "\n" +
+                ex.StackTrace, "Exception");
+            }
+
+            /*
             DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (returnDialogResult == DialogResult.Yes)
@@ -167,6 +220,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 LinkToNewBookingUI();
 
             }
+            */
         }
 
        
