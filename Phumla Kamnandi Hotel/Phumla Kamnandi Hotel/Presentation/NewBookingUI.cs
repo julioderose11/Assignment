@@ -121,6 +121,30 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             richTxtSpecInstructions.Enabled = value;
             btnRoomAvailability.Enabled = value;
         }
+
+        private bool IsValidData()
+        {
+            return
+                // Validate all the items to ensure they all have the correct inputs
+                // This ensure that there is a a text input into the: no of people and current date text box as well as the specInstruction rich textbo
+                Validator.IsPresent(txtNoOfPeople) &&
+                Validator.IsPresent(currentDatetxt) &&
+                Validator.IsPresent(richTxtSpecInstructions) &&
+                
+
+                //The below ensures that the datetimepicker has input of DateTime
+                Validator.IsDateTime(dTPArrivalDate) &&
+                Validator.IsDateTime(dTPDepartureDate) &&
+
+                //The below ensure  that the number of people is an int variable type
+                Validator.IsInt32(txtNoOfPeople) &&
+                
+
+                //the below ensure that the the minimun number of people is 1 and the maxium number of people per room is 2
+                Validator.IsWithinRange(txtNoOfPeople, 1, 2);
+            
+
+        }
         #endregion
 
         #region Form Events
@@ -150,9 +174,59 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void btnRoomAvailability_Click(object sender, EventArgs e)
         {
+            try
+            {
+                //controller class enacts availability method to determine whether a room is available for specified dates
 
+                if (IsValidData() && bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
+                {
+                    DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                    if (returnDialogResult == DialogResult.Yes)
+                    {
+                        //populate account object first to obtain account number for booking object
+                        PopulateAccountObject();
+                        bookingController.DataMaintenance(account, DB.DBOperation.Add);
+                        bookingController.FinalizeChanges(account);
+
+                        PopulateBookingObject();
+                        bookingController.DataMaintenance(booking, DB.DBOperation.Add);
+                        bookingController.FinalizeChanges(booking);
+
+                        //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
+                        PopulateRoomBookingObject();
+                        bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
+                        bookingController.FinalizeChanges(roombooking);
+
+                        MessageBox.Show("Customer booking reference number is: " + storeBookigID, "Reference Number", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
+                        DialogResult = DialogResult.OK;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No available rooms between " + dTPArrivalDate.Value.Date + " and " + dTPDepartureDate.Value.Date
+                        + "\nPlease select another set of dates.", "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    dTPArrivalDate.Text = "";
+                    dTPDepartureDate.Text = "";
+                    dTPArrivalDate.Focus();
+
+                }
+
+
+            }
+            catch (Exception ex) //catch any other expection that might occur
+            {
+                MessageBox.Show(ex.Message + "\n\n" +
+                ex.GetType().ToString() + "\n" +
+                ex.StackTrace, "Exception");
+            }
+
+
+            /*
             //controller class enacts availability method to determine whether a room is available for specified dates
-           
+
             if (bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
             {
                 DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -188,6 +262,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 dTPArrivalDate.Focus();
 
             }
+            */
 
             
 
@@ -278,6 +353,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void btnCancel_Click(object sender, EventArgs e)
         {
             ClearAll();
+        }
+
+        private void lblSpecialInstructions_Click(object sender, EventArgs e)
+        {
+            //ignore
         }
     }
 }

@@ -159,6 +159,30 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             booking.getDeparture = Convert.ToDateTime(dTPDepDate.Text); 
             booking.getNumPeople = Convert.ToInt32(txtNumPeople.Text);      
         }
+
+        private bool IsValidData()
+        {
+            return
+                // Validate all the items to ensure they all have the correct inputs
+                // This ensure that there is a a text input into the: no of people and current date text box as well as the specInstruction rich textbo
+                Validator.IsPresent(txtNumPeople) &&
+                Validator.IsPresent(txtBookingDate) &&
+                Validator.IsPresent(rTxtCustRequests) &&
+
+
+                //The below ensures that the datetimepicker has input of DateTime
+                Validator.IsDateTime(dtPArrivalDate) &&
+                Validator.IsDateTime(dTPDepDate) &&
+
+                //The below ensure  that the number of people is an int variable type
+                Validator.IsInt32(txtNumPeople) &&
+
+
+                //the below ensure that the the minimun number of people is 1 and the maxium number of people per room is 2
+                Validator.IsWithinRange(txtNumPeople, 1, 2);
+
+
+        }
         #endregion
 
         #region ListView set up
@@ -220,6 +244,49 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                //Depending on which state the receptionist has entered (Edit or delete), the following code will run
+                if (state == FormStates.Edit)
+                {
+                    //first checks whether the user has entered new arrival and/or departure dates
+                    if (arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
+                    {
+                        //checks whether there are any rooms available for the new dates
+                        Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID));
+                        if (bookingController.isAvailable(book) == true)
+                        {
+                            PopulateObject();
+                            bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                        }
+                    }
+                    else //dont have to check room availability
+                    {
+                        PopulateObject();
+                        bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                    }
+                    //PopulateObject();
+                    // bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                }
+                else
+                {
+                    PopulateObject();
+                    bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
+                }
+                bookingController.FinalizeChanges(booking);
+                ClearAll();
+                state = FormStates.View;
+                ShowAll(false);
+                setUpBookingListView();
+            }
+            catch (Exception ex) //catch any other expection that might occur
+            {
+                MessageBox.Show(ex.Message + "\n\n" +
+                ex.GetType().ToString() + "\n" +
+                ex.StackTrace, "Exception");
+            }
+
+            /*
             //Depending on which state the receptionist has entered (Edit or delete), the following code will run
             if (state == FormStates.Edit)
             {
@@ -252,6 +319,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             state = FormStates.View;
             ShowAll(false);
             setUpBookingListView();
+            */
         }
 
         private void editButton_Click(object sender, EventArgs e)
