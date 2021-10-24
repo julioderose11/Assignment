@@ -16,16 +16,17 @@ namespace Phumla_Kamnandi_Hotel.Presentation
     public partial class CustomerListingForm : Form
     {
         #region Variables
-        public bool listFormClosed;//= true;
+        public bool listFormClosed;
         private Collection<Customer> customers;
         private Collection<Person> persons;
         private Customer customer;
         private Person person;
         private BookingController bookingController;
         private FormStates state;
+        private int numCustomer;
 
 
-        //Add form states 
+        //Add form states - Out of scope - can be use if project needed to be expanded to edit and delete customer records 
          public enum FormStates
          {
           View = 0,
@@ -53,8 +54,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             customersListView.View = View.Details;
             setUpCustomerListView();
-            ShowAll(false);
-
         }
 
         private void CustomerListingForm_Load(object sender, EventArgs e)
@@ -63,30 +62,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
         #endregion
 
-
         #region Utility Methods
-        private void ShowAll(bool value)
-        {
-            idLabel.Visible = value;
-            cusIDLabel.Visible = value;
-            nameLabel.Visible = value;
-            emailLabel.Visible = value;
-            streetNameLabel.Visible = value;
-            idTextBox.Visible = value;
-            cusIDTextBox.Visible = value;
-            nameTextBox.Visible = value;
-            emailTextBox.Visible = value;
-            streetNameTextBox.Visible = value;
-            suburbNameLabel.Visible = value;
-            suburbTextBox.Visible = value;
-            cityTextBox.Visible = value;
-            cityNamelbl.Visible = value;
-            postalCodelbl.Visible = value;
-            PostalCodeTextBox.Visible = value;
-         
-         
-            
-        }
+
+        //Clears all textbox information when called
         private void ClearAll()
         {
             idTextBox.Text = "";
@@ -98,27 +76,24 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             cityTextBox.Text = "";
             PostalCodeTextBox.Text = "";
         }
+        
+        //sets enabled property of all textbox controls to specified boolean value
         private void EnableEntries(bool value)
         {
-            if ((state == FormStates.Edit) && value)
-            {
-                idTextBox.Enabled = !value;
-                //do the same for all buttons & textboxes
-                cusIDTextBox.Enabled = !value;
-            }
-            else
-            {
-                idTextBox.Enabled = value;
-                cusIDTextBox.Enabled = value;
-            }
+         
+            idTextBox.Enabled = value;
+            cusIDTextBox.Enabled = value;
             nameTextBox.Enabled = value;
             emailTextBox.Enabled = value;
             streetNameTextBox.Enabled = value;
             suburbTextBox.Enabled = value;
             cityTextBox.Enabled = value;
             PostalCodeTextBox.Enabled = value;
+            txtNumCustomers.Enabled = value;
 
         }
+
+        //Populates textboxes with information from the provided attribute objects
         private void PopulateTextBoxes(Customer customer, Person person)
         {
             
@@ -133,6 +108,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             
         }
 
+        //Populates customer object with textbox information when called
         private void PopulateObject()
         {
             customer = new Customer();
@@ -148,26 +124,28 @@ namespace Phumla_Kamnandi_Hotel.Presentation
        
 
         #endregion
+
         #region ListView set up
+        //populates the list view with customer records from db
         public void setUpCustomerListView()
         {
             ListViewItem customerDetails;
             customers = null;
             customersListView.Clear();
 
+            //Inserts column names into the listview
             customersListView.Columns.Insert(0, "PersonID", 160, HorizontalAlignment.Left);
             customersListView.Columns.Insert(1, "CustomerID", 160, HorizontalAlignment.Left);
             customersListView.Columns.Insert(2, "FirstName", 140, HorizontalAlignment.Left);
             customersListView.Columns.Insert(3, "SecondName", 140, HorizontalAlignment.Left);
-            //customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
-            //customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
-            //customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
-            //customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
-            //customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);
+            customersListView.Columns.Insert(4, "Email", 140, HorizontalAlignment.Left);
 
+            //populates collections with all records from db
             customers = bookingController.AllCustomers;
             persons = bookingController.AllPersons;
 
+            //uses two foreach loops to find the corresponding customer and person records from the two separate tables using the foreign key PersonID to see if they correspond.
+            //if they correspond then the attributes from those corresponding records are used to populate the listview
             foreach (Customer customer in customers)
             {
                 foreach (Person person in persons)
@@ -176,40 +154,41 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     
                     if (customer.getPersonID.Equals(person.getPersonID))
                     {
+                        //listview column cells are populated with corresponding record information retrieved from collections
                         customerDetails.Text = customer.getPersonID.ToString();
                         customerDetails.SubItems.Add(customer.CustomerID.ToString());
                         customerDetails.SubItems.Add(person.getFName.ToString());
                         customerDetails.SubItems.Add(person.getSName.ToString());
-                        //customerDetails.SubItems.Add(person.getEmail.ToString());
-                        //customerDetails.SubItems.Add(person.getStreetName.ToString());
-                        //customerDetails.SubItems.Add(person.getSuburbName.ToString());
-                        //customerDetails.SubItems.Add(person.getCityName.ToString());
-                        //customerDetails.SubItems.Add(person.getPostalCode.ToString());
+                        customerDetails.SubItems.Add(person.getEmail.ToString());
 
                         customersListView.Items.Add(customerDetails);
+
+                        //increment customer record count
+                        numCustomer++;
+                        txtNumCustomers.Text = Convert.ToString(numCustomer);
                     }
                         
                 }
 
             }
-           
+            //List view is refreshed to show newly populated items
             customersListView.Refresh();
+            //gridlines are shown on listview
             customersListView.GridLines = true;
-        }
-            private void listLabel_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void bookingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ShowAll(true);
             state = FormStates.View;
             EnableEntries(false);
-            if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
+
+            //checks to see if item in listview is selected 
+            if (customersListView.SelectedItems.Count > 0)    
             {
-                customer = bookingController.FindCustomer2(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                //first cell of selected item is used as parameter for findcustomer and findperson methods to find the corresponding objects in the db
+                customer = bookingController.FindCustomer2(customersListView.SelectedItems[0].Text);  
                 person = bookingController.FindPerson(customersListView.SelectedItems[0].Text);
+                //the retrieved objects are used to populate the textboxes with their attribute information
                 PopulateTextBoxes(customer, person);
             }
         }
@@ -217,19 +196,25 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            //Populates the customer object
             PopulateObject();
             if (state == FormStates.Edit)
             {
+                //if receptionist chooses to edit customer, then the newly populated customer object is inserted into the place of the original customer record in the db 
+                //by calling the DataMaintenance method from bookingController
                 bookingController.DataMaintenance(customer, Data.DB.DBOperation.Edit);
             }
-            else
+            else if (state == FormStates.Delete)
             {
+                //else if the delete button is clicked then customer record will be deleted from db
                 bookingController.DataMaintenance(customer, Data.DB.DBOperation.Delete);
             }
             bookingController.FinalizeChanges(customer);
+
+            //Clear the populated textboxes
             ClearAll();
             state = FormStates.View;
-            ShowAll(false);
+            //reset listview i.e. refresh it
             setUpCustomerListView();
         }
 
@@ -238,5 +223,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //assigns the dialogresult variable the value of OK when pressed.
             DialogResult = DialogResult.OK;
         }
+
+
     }
 }

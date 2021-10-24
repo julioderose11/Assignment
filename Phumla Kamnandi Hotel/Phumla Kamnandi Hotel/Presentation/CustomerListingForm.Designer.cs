@@ -49,6 +49,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.cityNamelbl = new System.Windows.Forms.Label();
             this.customersListView = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtNumCustomers = new System.Windows.Forms.TextBox();
+            this.lblNumCustomers = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,16 +60,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.listLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listLabel.Location = new System.Drawing.Point(24, 8);
             this.listLabel.Name = "listLabel";
-            this.listLabel.Size = new System.Drawing.Size(150, 17);
+            this.listLabel.Size = new System.Drawing.Size(141, 17);
             this.listLabel.TabIndex = 2;
-            this.listLabel.Text = "Customer Database";
-            this.listLabel.Click += new System.EventHandler(this.listLabel_Click);
+            this.listLabel.Text = "Customer Records";
             // 
             // HomeBtn
             // 
             this.HomeBtn.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.HomeBtn.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HomeBtn.Location = new System.Drawing.Point(789, 575);
+            this.HomeBtn.Location = new System.Drawing.Point(789, 589);
             this.HomeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.HomeBtn.Name = "HomeBtn";
             this.HomeBtn.Size = new System.Drawing.Size(75, 34);
@@ -264,18 +265,40 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.groupBox1.Controls.Add(this.emailTextBox);
             this.groupBox1.Controls.Add(this.suburbTextBox);
             this.groupBox1.Controls.Add(this.streetNameTextBox);
-            this.groupBox1.Location = new System.Drawing.Point(27, 272);
+            this.groupBox1.Location = new System.Drawing.Point(27, 299);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(837, 285);
             this.groupBox1.TabIndex = 71;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Customer Information";
             // 
+            // txtNumCustomers
+            // 
+            this.txtNumCustomers.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNumCustomers.Location = new System.Drawing.Point(424, 271);
+            this.txtNumCustomers.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNumCustomers.Name = "txtNumCustomers";
+            this.txtNumCustomers.Size = new System.Drawing.Size(46, 23);
+            this.txtNumCustomers.TabIndex = 72;
+            // 
+            // lblNumCustomers
+            // 
+            this.lblNumCustomers.AutoSize = true;
+            this.lblNumCustomers.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumCustomers.Location = new System.Drawing.Point(240, 273);
+            this.lblNumCustomers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNumCustomers.Name = "lblNumCustomers";
+            this.lblNumCustomers.Size = new System.Drawing.Size(165, 17);
+            this.lblNumCustomers.TabIndex = 71;
+            this.lblNumCustomers.Text = "Number of Customer Records";
+            // 
             // CustomerListingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 618);
+            this.ClientSize = new System.Drawing.Size(911, 634);
+            this.Controls.Add(this.txtNumCustomers);
+            this.Controls.Add(this.lblNumCustomers);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.HomeBtn);
             this.Controls.Add(this.customersListView);
@@ -283,7 +306,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CustomerListingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ListingForm";
+            this.Text = "Customer Report";
             this.Load += new System.EventHandler(this.CustomerListingForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -313,5 +336,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private System.Windows.Forms.Label cityNamelbl;
         private System.Windows.Forms.ListView customersListView;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtNumCustomers;
+        private System.Windows.Forms.Label lblNumCustomers;
     }
 }

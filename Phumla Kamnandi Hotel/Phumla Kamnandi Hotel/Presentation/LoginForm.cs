@@ -12,6 +12,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 {
     public partial class LoginForm : Form
     {
+        #region: Variables
+        private const string username = "Admin";
+        private const string password = "Admin";       
+
+        #endregion
         public LoginForm()
         {
             InitializeComponent();
@@ -24,7 +29,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
               //as this is a bonus feature.
 
 
-            if (employeeIDTxt.Text != "" && passwordTxt.Text != "")//The Employee must enter both his/her ID and Password 
+            if (employeeIDTxt.Text == username && passwordTxt.Text == password)//The Employee must enter both his/her ID and Password 
             {
                 BookingMDIParent bookingMDI = new BookingMDIParent();
                 bookingMDI.Show();
@@ -32,26 +37,28 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
 
             }
-            else if (employeeIDTxt.Text == "" && passwordTxt.Text != "")//Logical operator that states if the employee doesn't enter their Employee ID
+            else if(employeeIDTxt.Text != username && passwordTxt.Text != password)//Messagebox if both the ID and password isn't entered
             {
-                MessageBox.Show("Please enter your Employee ID ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You did not enter both your Staff ID and Password", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                employeeIDTxt.SelectAll();
+                employeeIDTxt.Focus();
+            }
+            else if (employeeIDTxt.Text == username && passwordTxt.Text != password)//Logical operator that states if the employee doesn't enter their Employee ID
+            {
+                MessageBox.Show("Please enter your Password ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 employeeIDTxt.SelectAll(); //NB throughout my code i have added in Selectall and Focus to ensure it indicates where the employee must type in the missing data
                 employeeIDTxt.Focus();
 
             }
-            else if (passwordTxt.Text == "" && employeeIDTxt.Text != "")//Logical operator that states if the employee doesn't enter their password
+            else if (employeeIDTxt.Text != username && passwordTxt.Text == password)//Logical operator that states if the employee doesn't enter their password
             {
-                MessageBox.Show("Please enter your Password ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter your Staff ID ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 passwordTxt.SelectAll();
                 passwordTxt.Focus();
             }
-            else //Messagebox if both the ID and password isn't entered
-            {
-                MessageBox.Show("You did not enter both your Employee ID or Password", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                employeeIDTxt.SelectAll();
-                employeeIDTxt.Focus();
-            }
+            
 
         }
+
     }
 }

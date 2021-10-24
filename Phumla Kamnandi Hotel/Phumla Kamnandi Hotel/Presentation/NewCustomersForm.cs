@@ -118,12 +118,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 //The below ensures that the ID is only allowed to be 13 digits.
                 Validator.IsWithinRange(iDTxt, 12, 14);
 
-
-
-
-
-
-
         }
         #endregion
 
