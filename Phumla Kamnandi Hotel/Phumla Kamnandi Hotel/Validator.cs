@@ -8,10 +8,13 @@ namespace Phumla_Kamnandi_Hotel
 {
     public class Validator
     {
+
+        #region Information
         /*This class is used for data validation to ensure that the user of the system inputS the correct data and information
         This makes sure the inputs are valid and correcting formatted to ensure there is no bugs and are correctly inputte into 
         the Boooking database.
          */
+        #endregion
 
         #region Fields
         private static string title = "Entry Error";
@@ -45,6 +48,18 @@ namespace Phumla_Kamnandi_Hotel
             return true;
         }
 
+        public static bool IsPresent(System.Windows.Forms.RichTextBox richTextBox) //ensures that something is written textbox 
+        {
+            if (richTextBox.Text == "")
+            {
+
+                System.Windows.Forms.MessageBox.Show(richTextBox.Tag + " is a required field.", Title);
+                richTextBox.Focus();
+                return false;
+            }
+            return true;
+        }
+
 
         public static bool IsInt32(System.Windows.Forms.TextBox textBox) //ensures that the textbox is an integar
         {
@@ -71,6 +86,21 @@ namespace Phumla_Kamnandi_Hotel
             {
                 System.Windows.Forms.MessageBox.Show(textBox.Tag + " must be a numeric value.", Title);
                 textBox.Focus();
+                return false;
+            }
+        }
+
+        public static bool IsDateTime(System.Windows.Forms.DateTimePicker dateTime) //ensures that the textbox is a dateTime
+        {
+            DateTime date = default(DateTime);
+            if (DateTime.TryParse(dateTime.Text, out date))
+            {
+                return true;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show(dateTime.Tag + " must be a DateTime value.", Title);
+                dateTime.Focus();
                 return false;
             }
         }
