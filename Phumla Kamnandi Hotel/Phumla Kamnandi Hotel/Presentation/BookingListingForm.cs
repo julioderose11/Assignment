@@ -19,7 +19,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         public bool listFormClosed;//= true;
         private Collection<Booking> bookings;
         private Collection<RoomBooking> roomBookings;
+        private Collection<Account> accounts;
         private Booking booking;
+        private Account account;
+        private RoomBooking roomBook;
         private BookingController bookingController;
         private FormStates state;
         private String arrivalDateTempVal;
@@ -158,7 +161,11 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             booking.getBookingDate =Convert.ToDateTime(txtBookingDate.Text); 
             booking.getArrival = Convert.ToDateTime(dtPArrivalDate.Text); 
             booking.getDeparture = Convert.ToDateTime(dTPDepDate.Text); 
-            booking.getNumPeople = Convert.ToInt32(txtNumPeople.Text);      
+            booking.getNumPeople = Convert.ToInt32(txtNumPeople.Text);
+
+            roomBook = new RoomBooking();
+            roomBook.getBookingObject = booking;
+
         }
 
         private bool IsValidData()
@@ -201,21 +208,32 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookingListView.Columns.Insert(2, "ArrivalDate", 150, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(3, "DepartureDate", 150, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(4, "numPeople", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(5, "Amount Due", 120, HorizontalAlignment.Left);
+            bookingListView.Columns.Insert(6, "Deposit Amount", 120, HorizontalAlignment.Left);
+
             roomBookings = bookingController.AllRoomBookings;
             bookings = bookingController.AllBookings;
+            accounts = bookingController.AllAccounts;
             foreach (Booking booking in bookings)
             {
-                bookingDetails = new ListViewItem();
-                bookingDetails.Text = booking.getBookingID.ToString();
-                //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
-                //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
-                bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
-                //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
-                bookingDetails.SubItems.Add(booking.getArrival.ToShortDateString());
-                bookingDetails.SubItems.Add(booking.getDeparture.ToShortDateString());
-                bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
-
-                bookingListView.Items.Add(bookingDetails); 
+               foreach(Account account in accounts)
+                {
+                    if(booking.getAccountNum == account.AccountNum)
+                    {
+                        bookingDetails = new ListViewItem();
+                        bookingDetails.Text = booking.getBookingID.ToString();
+                        //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
+                        //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
+                        bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
+                        //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
+                        bookingDetails.SubItems.Add(booking.getArrival.ToShortDateString());
+                        bookingDetails.SubItems.Add(booking.getDeparture.ToShortDateString());
+                        bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
+                        bookingDetails.SubItems.Add(account.AmountDue.ToString());
+                        bookingDetails.SubItems.Add(account.DepositAmount.ToString());
+                        bookingListView.Items.Add(bookingDetails);
+                    }
+                }
             }
             bookingListView.Refresh();
             bookingListView.GridLines = true;
@@ -295,11 +313,17 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 if(arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
                 {
                     //checks whether there are any rooms available for the new dates
-                    Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID));
+                    Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID.Text));
                     if (bookingController.isAvailable(book) == true)
                     {
+                        MessageBox.Show("i");
                         PopulateObject();
                         bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unavailable dates, please try again.", "New Dates Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dtPArrivalDate.Focus();
                     }
                 }
                 else //dont have to check room availability
@@ -307,13 +331,14 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     PopulateObject();
                     bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
                 } 
-                //PopulateObject();
+               // PopulateObject();
                // bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
             }
             else
             {
                 PopulateObject();
                 bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
+                bookingController.DataMaintenance(roomBook, Data.DB.DBOperation.Delete);
             }
             bookingController.FinalizeChanges(booking);
             ClearAll();
@@ -333,7 +358,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             //set the form state to Delete
             state = FormStates.Delete;
-            editButton.Visible = false;
             //call the ShowAll method
             //ShowAll(false);
             EnableEntries(false);
@@ -341,6 +365,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookings.Remove(book);
             RoomBooking rb = bookingController.FindRoomBooking(txtBookingID.Text);
             roomBookings.Remove(rb);
+            ClearAll();
             setUpBookingListView();
             MessageBox.Show("This record is about to be deleted");
 
@@ -354,8 +379,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
-        {           
-            this.Close();
+        {
+            
+            ClearAll();
+
         }
 
         private void button1_Click(object sender, EventArgs e)

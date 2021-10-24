@@ -45,7 +45,7 @@ namespace Phumla_Kamnandi_Hotel.Business
 
         public Account(decimal aDue, decimal dAmnt)
         {
-            accountNum = AccountNumGenerator1();
+            accountNum = AccountNumGenerator();
             amountDue = aDue;
             depositAmount = dAmnt;
         }
