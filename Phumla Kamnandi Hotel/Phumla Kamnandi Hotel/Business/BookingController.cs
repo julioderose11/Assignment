@@ -435,9 +435,10 @@ namespace Phumla_Kamnandi_Hotel.Business
                     matches = FindByRoom(roomBookings, roomBooking.getRoomObject);
                     foreach (RoomBooking match in matches)
                     {
-                        if (match.getBookingObject.getBookingID==booking.getBookingID)
+                        if (match.getBookingObject.getBookingID==booking.getBookingID) 
                         {
                             matches.Remove(match);
+                            break;
                         }
                         if (booking.getArrival.CompareTo(match.getBookingObject.getDeparture) > 0)
                         {
@@ -524,6 +525,31 @@ namespace Phumla_Kamnandi_Hotel.Business
             return matches;
         }
 
+        //Method returns the amount due by determining which season the given dates fall within. 
+        //It is assumed that the given seasonal rates pass over to every month of the year. So there will be 3 different room rates per month.
+        //Low season is from the 1st to the 7th of every month
+        //Mid season is from the 8th to the 15th of every month
+        //High season is from the 16th to the 28th/30th/31st of every month
+        public decimal GenerateAmountDue(DateTime arrivalDate, DateTime depDate)
+        {
+            decimal aDue = 0;
+            if(arrivalDate.Day.CompareTo(1) >= 0)
+            {
+                aDue = 550;
+            }
+
+            if(arrivalDate.Day.CompareTo(8) >= 0)
+            {
+                aDue = 750;
+            }
+
+            if(arrivalDate.Day.CompareTo(16) >= 0)
+            {
+                aDue = 950;
+            }
+
+            return aDue;
+        }
 
         #endregion
     }

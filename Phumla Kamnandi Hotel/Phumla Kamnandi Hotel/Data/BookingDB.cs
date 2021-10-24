@@ -686,12 +686,12 @@ namespace Phumla_Kamnandi_Hotel.Data
             //Create Parameters to communicate with SQL INSERT...add the input parameter and set its properties.
             SqlParameter param = default(SqlParameter);
             param = new SqlParameter("@AccountNum", SqlDbType.NVarChar, 15, "AccountNum");
+            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.          
+
+            param = new SqlParameter("@AmountDue", SqlDbType.Money, 15, "AmountDue");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
             param = new SqlParameter("@DepositAmount", SqlDbType.Money, 15, "DepositAmount");
-            daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
-
-            param = new SqlParameter("@AmountDue", SqlDbType.Money, 15, "AmountDue");
             daMain.InsertCommand.Parameters.Add(param);//Add the parameter to the Parameters collection.
 
         }
@@ -747,6 +747,7 @@ namespace Phumla_Kamnandi_Hotel.Data
 
         }
 
+        ////Build_UPDATE_Parameters for account
         private void Build_UPDATE_Parameters(Account acc)
         {
             //---Create Parameters to communicate with SQL UPDATE
