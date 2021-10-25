@@ -72,10 +72,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.lblSpecialInstructions.AutoSize = true;
             this.lblSpecialInstructions.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSpecialInstructions.Location = new System.Drawing.Point(11, 474);
+            this.lblSpecialInstructions.Location = new System.Drawing.Point(55, 474);
             this.lblSpecialInstructions.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSpecialInstructions.Name = "lblSpecialInstructions";
-            this.lblSpecialInstructions.Size = new System.Drawing.Size(176, 18);
+            this.lblSpecialInstructions.Size = new System.Drawing.Size(154, 14);
             this.lblSpecialInstructions.TabIndex = 20;
             this.lblSpecialInstructions.Text = "Special Instructions:";
             // 
@@ -86,9 +86,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblNoOfPeople.Location = new System.Drawing.Point(56, 415);
             this.lblNoOfPeople.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNoOfPeople.Name = "lblNoOfPeople";
-            this.lblNoOfPeople.Size = new System.Drawing.Size(112, 18);
+            this.lblNoOfPeople.Size = new System.Drawing.Size(105, 14);
             this.lblNoOfPeople.TabIndex = 19;
-            this.lblNoOfPeople.Text = "No of People:";
+            this.lblNoOfPeople.Text = "No of People*:";
             // 
             // txtNoOfPeople
             // 
@@ -96,9 +96,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.txtNoOfPeople.Location = new System.Drawing.Point(214, 415);
             this.txtNoOfPeople.Margin = new System.Windows.Forms.Padding(2);
             this.txtNoOfPeople.Name = "txtNoOfPeople";
-            this.txtNoOfPeople.Size = new System.Drawing.Size(101, 25);
+            this.txtNoOfPeople.Size = new System.Drawing.Size(101, 22);
             this.txtNoOfPeople.TabIndex = 18;
-            this.txtNoOfPeople.TextChanged += new System.EventHandler(this.txtNoOfPeople_TextChanged);
             // 
             // lblDepartureDate
             // 
@@ -107,9 +106,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblDepartureDate.Location = new System.Drawing.Point(55, 360);
             this.lblDepartureDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDepartureDate.Name = "lblDepartureDate";
-            this.lblDepartureDate.Size = new System.Drawing.Size(128, 18);
+            this.lblDepartureDate.Size = new System.Drawing.Size(119, 14);
             this.lblDepartureDate.TabIndex = 15;
-            this.lblDepartureDate.Text = "Departure Date:";
+            this.lblDepartureDate.Text = "Departure Date*:";
             // 
             // lblArrivalDate
             // 
@@ -118,9 +117,9 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblArrivalDate.Location = new System.Drawing.Point(56, 310);
             this.lblArrivalDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblArrivalDate.Name = "lblArrivalDate";
-            this.lblArrivalDate.Size = new System.Drawing.Size(112, 18);
+            this.lblArrivalDate.Size = new System.Drawing.Size(105, 14);
             this.lblArrivalDate.TabIndex = 14;
-            this.lblArrivalDate.Text = "Arrival Date:";
+            this.lblArrivalDate.Text = "Arrival Date*:";
             // 
             // btnCancel
             // 
@@ -153,17 +152,16 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblDate.Location = new System.Drawing.Point(56, 266);
             this.lblDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(104, 18);
+            this.lblDate.Size = new System.Drawing.Size(91, 14);
             this.lblDate.TabIndex = 30;
             this.lblDate.Text = "Current Date";
-            this.lblDate.Click += new System.EventHandler(this.lblDate_Click);
             // 
             // dTPArrivalDate
             // 
             this.dTPArrivalDate.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dTPArrivalDate.Location = new System.Drawing.Point(214, 310);
             this.dTPArrivalDate.Name = "dTPArrivalDate";
-            this.dTPArrivalDate.Size = new System.Drawing.Size(292, 25);
+            this.dTPArrivalDate.Size = new System.Drawing.Size(292, 22);
             this.dTPArrivalDate.TabIndex = 31;
             // 
             // dTPDepartureDate
@@ -171,7 +169,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.dTPDepartureDate.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dTPDepartureDate.Location = new System.Drawing.Point(214, 352);
             this.dTPDepartureDate.Name = "dTPDepartureDate";
-            this.dTPDepartureDate.Size = new System.Drawing.Size(292, 25);
+            this.dTPDepartureDate.Size = new System.Drawing.Size(292, 22);
             this.dTPDepartureDate.TabIndex = 32;
             // 
             // customersListView
@@ -193,7 +191,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.lblMessage.Location = new System.Drawing.Point(52, 8);
             this.lblMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(230, 22);
+            this.lblMessage.Size = new System.Drawing.Size(184, 18);
             this.lblMessage.TabIndex = 34;
             this.lblMessage.Text = "Please select Customer";
             // 
@@ -203,13 +201,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.currentDatetxt.Location = new System.Drawing.Point(214, 263);
             this.currentDatetxt.Margin = new System.Windows.Forms.Padding(2);
             this.currentDatetxt.Name = "currentDatetxt";
-            this.currentDatetxt.Size = new System.Drawing.Size(179, 25);
+            this.currentDatetxt.Size = new System.Drawing.Size(179, 22);
             this.currentDatetxt.TabIndex = 35;
             this.currentDatetxt.TextChanged += new System.EventHandler(this.currentDatetxt_TextChanged);
             // 
             // NewBookingUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(927, 698);
@@ -232,7 +230,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewBookingUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NewBookingUI";
+            this.Text = "New Booking Form";
             this.Activated += new System.EventHandler(this.NewBookingUI_Activated_1);
             this.Load += new System.EventHandler(this.NewBookingUI_Load);
             this.ResumeLayout(false);

@@ -70,7 +70,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void PopulatePerson() //method to populate a booking object 
         {
-            /*person = new Person();
+            person = new Person();
             person.getPersonID = iDTxt.Text;
             person.getFName = txtFName.Text;
             person.getSName = txtLName.Text;
@@ -78,18 +78,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             person.getStreetName = txtStreet.Text;
             person.getSuburbName = txtSuburb.Text;
             person.getCityName = txtCity.Text;
-            person.getPostalCode = txtPostal.Text;*/
-
-            string pID = iDTxt.Text;
-            string fname = txtFName.Text;
-            string sname = txtLName.Text;
-            string mail = txtEmail.Text;
-            string streetname = txtStreet.Text;
-            string suburbname = txtSuburb.Text;
-            string cityname = txtCity.Text;
-            string postalcode = txtPostal.Text;
-
-            person = new Person(pID, fname, sname, mail, streetname, suburbname, cityname, postalcode);
+            person.getPostalCode = txtPostal.Text;
 
         }
 
@@ -132,6 +121,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void NewCustomersForm_Load(object sender, EventArgs e)
         {
             ShowAll();
+            iDTxt.Focus();
         }
 
         private void btnHome_Click_1(object sender, EventArgs e)
@@ -160,13 +150,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         #endregion
 
-        private void LinkToNewBookingUI()
-        {
-            NewBookingUI newBookingForm = new NewBookingUI(bookingController);
-            newBookingForm.ShowDialog();
-            this.Close();
-        }
-
         private void btnConfirm_Click_1(object sender, EventArgs e)
         {
             //By clicking the confirm button a customer object is created and added to the database 
@@ -174,10 +157,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             {
                 if(IsValidData())
                 {
-                    DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                    DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                     if (returnDialogResult == DialogResult.Yes)
                     {
+                        
                         PopulatePerson();
                         bookingController.DataMaintenance(person, DB.DBOperation.Add);
                         bookingController.FinalizeChanges(person);
@@ -185,9 +170,12 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                         bookingController.DataMaintenance(customer, DB.DBOperation.Add);
                         bookingController.FinalizeChanges(customer);
 
+
                         ClearAll();
                         ShowAll();
-                        LinkToNewBookingUI();
+
+                        //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes this form, and shows itself
+                        DialogResult = DialogResult.OK;
 
                     }
                 }
@@ -201,24 +189,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 ex.StackTrace, "Exception");
             }
 
-            /*
-            DialogResult returnDialogResult = MessageBox.Show("Confirm Customer to be submitted to Database?", "Customer Information", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-            if (returnDialogResult == DialogResult.Yes)
-            {
-                PopulatePerson();
-                bookingController.DataMaintenance(person, DB.DBOperation.Add);
-                bookingController.FinalizeChanges(person);
-                PopulateCustomer();
-                bookingController.DataMaintenance(customer, DB.DBOperation.Add);
-                bookingController.FinalizeChanges(customer);
-                
-                ClearAll();
-                ShowAll();
-                LinkToNewBookingUI();
-
-            }
-            */
         }
 
        

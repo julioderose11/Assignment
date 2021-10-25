@@ -69,7 +69,6 @@ namespace Phumla_Kamnandi_Hotel
             this.updateBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newCustomerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewCustomerListToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.reportsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -84,6 +83,8 @@ namespace Phumla_Kamnandi_Hotel
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.occupancyReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customerRecordsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -385,7 +386,6 @@ namespace Phumla_Kamnandi_Hotel
             this.bookingsToolStripMenuItem.Name = "bookingsToolStripMenuItem";
             this.bookingsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.bookingsToolStripMenuItem.Text = "Bookings";
-            this.bookingsToolStripMenuItem.Click += new System.EventHandler(this.bookingsToolStripMenuItem_Click);
             // 
             // addBookingToolStripMenuItem
             // 
@@ -404,8 +404,7 @@ namespace Phumla_Kamnandi_Hotel
             // newCustomerToolStripMenuItem
             // 
             this.newCustomerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newCustomerToolStripMenuItem2,
-            this.viewCustomerListToolStripMenuItem1});
+            this.newCustomerToolStripMenuItem2});
             this.newCustomerToolStripMenuItem.Name = "newCustomerToolStripMenuItem";
             this.newCustomerToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.newCustomerToolStripMenuItem.Text = "Customer";
@@ -413,19 +412,15 @@ namespace Phumla_Kamnandi_Hotel
             // newCustomerToolStripMenuItem2
             // 
             this.newCustomerToolStripMenuItem2.Name = "newCustomerToolStripMenuItem2";
-            this.newCustomerToolStripMenuItem2.Size = new System.Drawing.Size(175, 22);
+            this.newCustomerToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.newCustomerToolStripMenuItem2.Text = "New Customer";
             this.newCustomerToolStripMenuItem2.Click += new System.EventHandler(this.newCustomerToolStripMenuItem2_Click);
             // 
-            // viewCustomerListToolStripMenuItem1
-            // 
-            this.viewCustomerListToolStripMenuItem1.Name = "viewCustomerListToolStripMenuItem1";
-            this.viewCustomerListToolStripMenuItem1.Size = new System.Drawing.Size(175, 22);
-            this.viewCustomerListToolStripMenuItem1.Text = "View Customer List";
-            this.viewCustomerListToolStripMenuItem1.Click += new System.EventHandler(this.viewCustomerListToolStripMenuItem1_Click);
-            // 
             // reportsToolStripMenuItem1
             // 
+            this.reportsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.occupancyReportToolStripMenuItem,
+            this.customerRecordsReportToolStripMenuItem});
             this.reportsToolStripMenuItem1.Name = "reportsToolStripMenuItem1";
             this.reportsToolStripMenuItem1.Size = new System.Drawing.Size(59, 20);
             this.reportsToolStripMenuItem1.Text = "Reports";
@@ -543,6 +538,20 @@ namespace Phumla_Kamnandi_Hotel
             this.label1.TabIndex = 5;
             this.label1.Text = "Welcome to Phumla Kamnandi Hotels Group";
             // 
+            // occupancyReportToolStripMenuItem
+            // 
+            this.occupancyReportToolStripMenuItem.Name = "occupancyReportToolStripMenuItem";
+            this.occupancyReportToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.occupancyReportToolStripMenuItem.Text = "Occupancy Report";
+            this.occupancyReportToolStripMenuItem.Click += new System.EventHandler(this.occupancyReportToolStripMenuItem_Click);
+            // 
+            // customerRecordsReportToolStripMenuItem
+            // 
+            this.customerRecordsReportToolStripMenuItem.Name = "customerRecordsReportToolStripMenuItem";
+            this.customerRecordsReportToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.customerRecordsReportToolStripMenuItem.Text = "Customer Records Report";
+            this.customerRecordsReportToolStripMenuItem.Click += new System.EventHandler(this.customerRecordsReportToolStripMenuItem_Click);
+            // 
             // BookingMDIParent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 12F);
@@ -561,7 +570,6 @@ namespace Phumla_Kamnandi_Hotel
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BookingMDIParent";
             this.Text = "HomeScreen";
-            this.Load += new System.EventHandler(this.BookingMDIParent_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -626,8 +634,9 @@ namespace Phumla_Kamnandi_Hotel
         private System.Windows.Forms.ToolStripMenuItem updateBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newCustomerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newCustomerToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem viewCustomerListToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem occupancyReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customerRecordsReportToolStripMenuItem;
     }
 }
 

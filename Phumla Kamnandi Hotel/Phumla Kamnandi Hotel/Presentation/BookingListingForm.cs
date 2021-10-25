@@ -61,6 +61,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         private void BookingListingForm_Load(object sender, EventArgs e)
         {
             bookingListView.View = View.Details;
+            txtBookingDate.Enabled = false;
+            dtPArrivalDate.Enabled = false;
         }
 
         private void BookingListingForm_Activated(object sender, EventArgs e)
@@ -100,7 +102,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             txtBookingDate.Text = " ";
             dtPArrivalDate.CustomFormat = "";
             dTPDepDate.CustomFormat = "";
-            txtNumPeople.Text = "";
+            txtNumPeople.Text = "";         
             
         }
 
@@ -122,8 +124,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             }
             
             rTxtCustRequests.Enabled = value;
-            txtBookingDate.Enabled = value;
-            dtPArrivalDate.Enabled = value;
             dTPDepDate.Enabled = value;
             txtNumPeople.Enabled = value;
             
@@ -174,19 +174,18 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 // This ensure that there is a a text input into the: no of people and current date text box as well as the specInstruction rich textbo
                 Validator.IsPresent(txtNumPeople) &&
                 Validator.IsPresent(txtBookingDate) &&
-                Validator.IsPresent(rTxtCustRequests) &&
-
 
                 //The below ensures that the datetimepicker has input of DateTime
                 Validator.IsDateTime(dtPArrivalDate) &&
                 Validator.IsDateTime(dTPDepDate) &&
+                Validator.IsFutureDateTime(dtPArrivalDate) &&
+                Validator.IsFutureDateTime(dTPDepDate) &&
 
                 //The below ensure  that the number of people is an int variable type
                 Validator.IsInt32(txtNumPeople) &&
 
-
                 //the below ensure that the the minimun number of people is 1 and the maxium number of people per room is 2
-                Validator.IsWithinRange(txtNumPeople, 0, 2);
+                Validator.IsWithinRange1(txtNumPeople);
 
 
         }
@@ -200,10 +199,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             bookingListView.Clear();
 
             bookingListView.Columns.Insert(0, "Reference Number", 150, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(1, "CustomerID", 120, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(2, "AccountNum", 120, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(1, "CustomerRequests", 240, HorizontalAlignment.Left);
-            //bookingListView.Columns.Insert(4, "BookingDate", 120, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(2, "ArrivalDate", 150, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(3, "DepartureDate", 150, HorizontalAlignment.Left);
             bookingListView.Columns.Insert(4, "numPeople", 120, HorizontalAlignment.Left);
@@ -221,10 +217,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     {
                         bookingDetails = new ListViewItem();
                         bookingDetails.Text = booking.getBookingID.ToString();
-                        //bookingDetails.SubItems.Add(booking.getCustomerID.ToString());
-                        //bookingDetails.SubItems.Add(booking.getAccountNum.ToString());
                         bookingDetails.SubItems.Add(booking.getCustomerRequests.ToString());
-                        //bookingDetails.SubItems.Add(booking.getBookingDate.ToString());
                         bookingDetails.SubItems.Add(booking.getArrival.ToShortDateString());
                         bookingDetails.SubItems.Add(booking.getDeparture.ToShortDateString());
                         bookingDetails.SubItems.Add(booking.getNumPeople.ToString());
@@ -262,49 +255,6 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //Depending on which state the receptionist has entered (Edit or delete), the following code will run
-                if (IsValidData() && state == FormStates.Edit)
-                {
-                    //first checks whether the user has entered new arrival and/or departure dates
-                    if (arrivalDateTempVal != dtPArrivalDate.Text || departureDateTempVal != dTPDepDate.Text)
-                    {
-                        //checks whether there are any rooms available for the new dates
-                        Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID));
-                        if (bookingController.isAvailable(book) == true)
-                        {
-                            PopulateObject();
-                            bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
-                        }
-                    }
-                    else //dont have to check room availability
-                    {
-                        PopulateObject();
-                        bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
-                    }
-                    //PopulateObject();
-                    // bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
-                }
-                else
-                {
-                    PopulateObject();
-                    bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
-                }
-                bookingController.FinalizeChanges(booking);
-                ClearAll();
-                state = FormStates.View;
-                ShowAll(false);
-                setUpBookingListView();
-            }
-            catch (Exception ex) //catch any other expection that might occur
-            {
-                MessageBox.Show(ex.Message + "\n\n" +
-                ex.GetType().ToString() + "\n" +
-                ex.StackTrace, "Exception");
-            }
-
-            /*
             //Depending on which state the receptionist has entered (Edit or delete), the following code will run
             if (state == FormStates.Edit)
             {
@@ -315,9 +265,10 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                     Booking book = bookingController.FindBooking(Convert.ToString(txtBookingID.Text));
                     if (bookingController.isAvailable(book) == true)
                     {
-                        MessageBox.Show("i");
+                   
                         PopulateObject();
                         bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                        bookingController.FinalizeChanges(booking);
                     }
                     else
                     {
@@ -329,22 +280,25 @@ namespace Phumla_Kamnandi_Hotel.Presentation
                 {
                     PopulateObject();
                     bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
+                    bookingController.FinalizeChanges(booking);
                 } 
                // PopulateObject();
                // bookingController.DataMaintenance(booking, Data.DB.DBOperation.Edit);
             }
-            else
+            else if(state == FormStates.Delete)
             {
                 PopulateObject();
                 bookingController.DataMaintenance(booking, Data.DB.DBOperation.Delete);
                 bookingController.DataMaintenance(roomBook, Data.DB.DBOperation.Delete);
+                bookingController.FinalizeChanges(booking);
+                bookingController.FinalizeChanges(roomBook);
             }
-            bookingController.FinalizeChanges(booking);
+            
             ClearAll();
             state = FormStates.View;
             ShowAll(false);
             setUpBookingListView();
-            */
+            
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -357,16 +311,15 @@ namespace Phumla_Kamnandi_Hotel.Presentation
         {
             //set the form state to Delete
             state = FormStates.Delete;
-            //call the ShowAll method
-            //ShowAll(false);
             EnableEntries(false);
+            MessageBox.Show("This record is about to be deleted");
             Booking book = bookingController.FindBooking(txtBookingID.Text);
             bookings.Remove(book);
             RoomBooking rb = bookingController.FindRoomBooking(txtBookingID.Text);
             roomBookings.Remove(rb);
             ClearAll();
             setUpBookingListView();
-            MessageBox.Show("This record is about to be deleted");
+            
 
         }
 

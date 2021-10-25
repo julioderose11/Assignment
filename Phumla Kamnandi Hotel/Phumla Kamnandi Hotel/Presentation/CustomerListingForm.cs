@@ -144,7 +144,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             customers = bookingController.AllCustomers;
             persons = bookingController.AllPersons;
 
-            //uses two foreach loops to find the corresponding customer and person records from the two separate tables using the foreign key PersonID to see if they correspond.
+            //uses two foreach loops to find the corresponding customer and person records from the two separate tables using the
+            //foreign key PersonID to see if they correspond.
             //if they correspond then the attributes from those corresponding records are used to populate the listview
             foreach (Customer customer in customers)
             {
@@ -185,7 +186,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             //checks to see if item in listview is selected 
             if (customersListView.SelectedItems.Count > 0)    
             {
-                //first cell of selected item is used as parameter for findcustomer and findperson methods to find the corresponding objects in the db
+                //first cell of selected item is used as parameter for findcustomer and findperson methods to find the corresponding
+                //objects in the collection populated from the db
                 customer = bookingController.FindCustomer2(customersListView.SelectedItems[0].Text);  
                 person = bookingController.FindPerson(customersListView.SelectedItems[0].Text);
                 //the retrieved objects are used to populate the textboxes with their attribute information
@@ -200,7 +202,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             PopulateObject();
             if (state == FormStates.Edit)
             {
-                //if receptionist chooses to edit customer, then the newly populated customer object is inserted into the place of the original customer record in the db 
+                //if receptionist chooses to edit customer, then the newly populated customer object is inserted into the
+                //place of the original customer record in the db 
                 //by calling the DataMaintenance method from bookingController
                 bookingController.DataMaintenance(customer, Data.DB.DBOperation.Edit);
             }

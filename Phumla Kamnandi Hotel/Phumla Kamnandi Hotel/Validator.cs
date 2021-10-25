@@ -43,7 +43,7 @@ namespace Phumla_Kamnandi_Hotel
             if (textBox.Text == "")
             {
 
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + "Missing Information in Textbox.", Title);
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "Missing Information.", Title);
                 textBox.Focus();
                 return false;
             }
@@ -77,6 +77,7 @@ namespace Phumla_Kamnandi_Hotel
                 return false;
             }
         }
+
         public static bool IsDecimal(System.Windows.Forms.TextBox textBox) //ensures that the textbox is a deciaml 
         {
             decimal number = 0m;
@@ -92,6 +93,7 @@ namespace Phumla_Kamnandi_Hotel
             }
         }
 
+       
         public static bool IsDateTime(System.Windows.Forms.DateTimePicker dateTime) //ensures that the textbox is a dateTime
         {
             DateTime date = default(DateTime);
@@ -107,17 +109,34 @@ namespace Phumla_Kamnandi_Hotel
             }
         }
 
+        //checks whether inputted date is not in the past
+        public static bool IsFutureDateTime(System.Windows.Forms.DateTimePicker dateTime) 
+        {
+            if (dateTime.Value > DateTime.Now)
+            {
+                return true;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show(dateTime.Tag + "You cannot make a booking for a past date", Title);
+                dateTime.Focus();
+                return false;
+            }
+        }
+
+        //checks whether number inputted is within the specified range
         public static bool IsWithinRange1(System.Windows.Forms.TextBox textBox) 
         {
             //ensures the textbox is within range of a max and min number so there is a limit to the textbox
-            int val = textBox.Text.Length;
-            if (val <= 0 || val >= 3)
+            int val = Convert.ToInt32(textBox.Text);
+            if (val > 0 && val < 3)
             {
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + "There can be only be a maximum of 2 guests and minimum of 1", Title);
-                textBox.Focus();
-                return false;
+                
+                return true;
             }
-            return true;
+            System.Windows.Forms.MessageBox.Show(textBox.Tag + "Minimum of 1 guest, Maximum of 2 guests", Title);
+            textBox.Focus();
+            return false;
         }
 
         public static bool IsWithinRange2(System.Windows.Forms.TextBox textBox)
@@ -126,7 +145,7 @@ namespace Phumla_Kamnandi_Hotel
             int val = textBox.Text.Length;
             if (val != 13)
             {
-                System.Windows.Forms.MessageBox.Show(textBox.Tag + "The input must be 13 characters in length.", Title);
+                System.Windows.Forms.MessageBox.Show(textBox.Tag + "The ID must be 13 characters in length.", Title);
                 textBox.Focus();
                 return false;
             }

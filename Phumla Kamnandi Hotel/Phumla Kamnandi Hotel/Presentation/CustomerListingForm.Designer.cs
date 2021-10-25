@@ -296,7 +296,8 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 634);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(903, 634);
             this.Controls.Add(this.txtNumCustomers);
             this.Controls.Add(this.lblNumCustomers);
             this.Controls.Add(this.groupBox1);

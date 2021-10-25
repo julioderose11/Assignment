@@ -302,12 +302,12 @@ namespace Phumla_Kamnandi_Hotel.Data
             {
                 aRow["BookingID"] = book.getBookingID;  //NOTE square brackets to indicate index of collections of fields in row.
                 aRow["CustomerID"] = book.getCustomerID;
-                //aRow["AccountNum"] = book.getAccountNum;
+                aRow["AccountNum"] = book.getAccountNum;
                 aRow["CustomerRequests"] = book.getCustomerRequests;
                 aRow["BookingDate"] = book.getBookingDate;
                 aRow["ArrivalDate"] = book.getArrival;
                 aRow["DepartureDate"] = book.getDeparture;
-                aRow["numPeople"] = book.getNumPeople;
+                aRow["NumPeople"] = book.getNumPeople;
             }
         }
         //FillRow method for person table
@@ -384,7 +384,7 @@ namespace Phumla_Kamnandi_Hotel.Data
                 if (!(myRow.RowState == DataRowState.Deleted))
                 {
                     //In c# there is no item property (but we use the 2-dim array) it is automatically known to the compiler when used as below
-                    if ( book.getBookingID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
+                    if (book.getBookingID == Convert.ToString(dsMain.Tables[table].Rows[rowIndex]["BookingID"]))
                     {
                         returnValue = rowIndex;
                     }
@@ -504,7 +504,7 @@ namespace Phumla_Kamnandi_Hotel.Data
 
                 case DB.DBOperation.Edit:
                     aRow = dsMain.Tables[dataTable].Rows[FindRow(book, dataTable)];
-                    FillRow(aRow, book, operation);
+                    FillRow(aRow, book, DB.DBOperation.Add);
                     break;
 
                 case DB.DBOperation.Delete:
@@ -708,7 +708,6 @@ namespace Phumla_Kamnandi_Hotel.Data
             param.SourceVersion = DataRowVersion.Current;
             daMain.UpdateCommand.Parameters.Add(param);
 
-            //Do for all fields other than ID and EMPID as for Insert 
             param = new SqlParameter("@BookingDate", SqlDbType.DateTime, 50, "BookingDate");
             param.SourceVersion = DataRowVersion.Current;
             daMain.UpdateCommand.Parameters.Add(param);
@@ -726,7 +725,7 @@ namespace Phumla_Kamnandi_Hotel.Data
             daMain.UpdateCommand.Parameters.Add(param);
 
             //testing the ID of record that needs to change with the original ID of the record
-            param = new SqlParameter("@Original_ID", SqlDbType.NVarChar, 15, "BookingID");
+            param = new SqlParameter("@Original_IDd", SqlDbType.NVarChar, 15, "BookingID");
             param.SourceVersion = DataRowVersion.Original;
             daMain.UpdateCommand.Parameters.Add(param);
         }
@@ -771,7 +770,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         //////////////////////////////////////////////////////////////////////////////////// Build_DELETE_Parameter methods ///////////////////////////////////////////////////////////
 
         //Build_DELETE_Parameters for Booking
-        private void Build_DELETE_Parameters(Booking book)
+        private void Build_DELETE_Parameters()
         {
             //--Create Parameters to communicate with SQL DELETE
             SqlParameter param;
@@ -837,7 +836,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             //Create the command that must be used to insert values into cutosmer table
             //Assumption is that the CustomerID and PersonID cannot be changed
-            daMain.UpdateCommand = new SqlCommand("UPDATE Booking SET CustomerRequests =@CustomerRequests, BookingDate =@BookingDate, ArrivalDate =@ArrivalDate, DepartureDate = @DepartureDate, numPeople = @numPeople " + "WHERE BookingID = @Original_ID", cnMain);
+            daMain.UpdateCommand = new SqlCommand("UPDATE Booking SET CustomerRequests =@CustomerRequests, BookingDate =@BookingDate, ArrivalDate =@ArrivalDate, DepartureDate = @DepartureDate, numPeople = @numPeople " + "WHERE BookingID = @Original_IDd", cnMain);
             Build_UPDATE_Parameters(book);
         }
 
@@ -859,7 +858,7 @@ namespace Phumla_Kamnandi_Hotel.Data
 
             try
             {
-                Build_DELETE_Parameters(book);
+                Build_DELETE_Parameters();
             }
             catch (Exception errObj)
             {
@@ -872,7 +871,7 @@ namespace Phumla_Kamnandi_Hotel.Data
         {
             string errorString = null;
             //Create the command that must be used to delete values from the roombooking table
-            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID", cnMain);
+            daMain.DeleteCommand = new SqlCommand("DELETE FROM RoomBooking WHERE BookingID = @BookingID AND RoomNumber = @RoomNumber", cnMain);
 
             try
             {

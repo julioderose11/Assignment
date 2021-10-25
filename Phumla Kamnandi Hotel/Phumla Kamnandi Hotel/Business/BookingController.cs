@@ -131,12 +131,12 @@ namespace Phumla_Kamnandi_Hotel.Business
                     //*** Add the customer to the Collection
                     bookings.Add(book);
                     break;
-
-                    
+                 
                     case DB.DBOperation.Edit:
                         index = FindIndex(book);
                         bookings[index] = book;  // replace booking at this index with the updated booking
                         break;
+
                     case DB.DBOperation.Delete:
                         index = FindIndex(book);  // find the index of the specific booking in collection
                         bookings.RemoveAt(index);  // remove that booking from the collection
@@ -158,7 +158,12 @@ namespace Phumla_Kamnandi_Hotel.Business
                     roomBookings.Add(roombook);
                     break;
 
-                    
+                case DB.DBOperation.Delete:
+                    index = FindIndex(roombook);  // find the index of the specific booking in collection
+                    roomBookings.RemoveAt(index);  // remove that booking from the collection
+                    break;
+
+
             }
         }
 
@@ -406,14 +411,14 @@ namespace Phumla_Kamnandi_Hotel.Business
             bool found1 = false;
             bool found2 = false;
             found1 = (rBook.getBookingObject.getBookingID == roomBookings[counter].getBookingObject.getBookingID);   //using a Boolean Expression to initialise found
-            found2 = (rBook.getRoomObject.getRoomNo == roomBookings[counter].getRoomObject.getRoomNo);
-            while (!(found1 && found2) & counter < roomBookings.Count - 1)
+            //found2 = (rBook.getRoomObject.getRoomNo == roomBookings[counter].getRoomObject.getRoomNo);
+            while (!(found1 ) & counter < roomBookings.Count - 1)
             {
                 counter += 1;
                 found1 = (rBook.getBookingObject.getBookingID == roomBookings[counter].getBookingObject.getBookingID);
-                found2 = (rBook.getRoomObject.getRoomNo == roomBookings[counter].getRoomObject.getRoomNo);
+               // found2 = (rBook.getRoomObject.getRoomNo == roomBookings[counter].getRoomObject.getRoomNo);
             }
-            if (found1 && found2)
+            if (found1 )
             {
                 return counter;
             }
@@ -422,7 +427,7 @@ namespace Phumla_Kamnandi_Hotel.Business
                 return -1;
             }
         }    
-        public bool isAvailable(Booking booking)           //Method that takes in a booking and checks if its arrival and departure dates are available withink the hotel.
+        public bool isAvailable(Booking booking)           //Method that takes in a booking and checks if its arrival and departure dates are available within the hotel.
         {
             bool flag = false;
             Collection<RoomBooking> matches;

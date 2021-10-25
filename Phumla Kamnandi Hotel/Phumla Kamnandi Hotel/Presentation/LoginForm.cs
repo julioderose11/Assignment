@@ -39,22 +39,23 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             }
             else if(employeeIDTxt.Text != username && passwordTxt.Text != password)//Messagebox if both the ID and password isn't entered
             {
-                MessageBox.Show("You did not enter both your Staff ID and Password", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter valid credentials", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 employeeIDTxt.SelectAll();
                 employeeIDTxt.Focus();
             }
             else if (employeeIDTxt.Text == username && passwordTxt.Text != password)//Logical operator that states if the employee doesn't enter their Employee ID
             {
-                MessageBox.Show("Please enter your Password ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                employeeIDTxt.SelectAll(); //NB throughout my code i have added in Selectall and Focus to ensure it indicates where the employee must type in the missing data
-                employeeIDTxt.Focus();
+                MessageBox.Show("Password incorrect ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 //NB throughout my code i have added in Selectall and Focus to ensure it indicates where the employee must type in the missing data
+                passwordTxt.Clear();
+                passwordTxt.Focus();
 
             }
             else if (employeeIDTxt.Text != username && passwordTxt.Text == password)//Logical operator that states if the employee doesn't enter their password
             {
-                MessageBox.Show("Please enter your Staff ID ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                passwordTxt.SelectAll();
-                passwordTxt.Focus();
+                MessageBox.Show("Staff ID incorrect ", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                employeeIDTxt.Clear();
+                employeeIDTxt.Focus();
             }
             
 

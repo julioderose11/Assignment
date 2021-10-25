@@ -77,7 +77,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        public void PopulateAccountObject()
+        public void PopulateAccountObject() //method to populate an account object
         {
             int daysOfStay = Convert.ToInt32((dTPDepartureDate.Value - dTPArrivalDate.Value).TotalDays);
             account = new Account();
@@ -114,6 +114,7 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             roombooking.getRoomObject = room;
         }
 
+        //determines the enabled properties of the input controls when called
         private void EnableEntries(bool value)
         {
             dTPArrivalDate.Enabled = value;
@@ -149,109 +150,115 @@ namespace Phumla_Kamnandi_Hotel.Presentation
 
         }
 
-        private void btnRoomAvailability_Click(object sender, EventArgs e)
-        {
-
-            //controller class enacts availability method to determine whether a room is available for specified dates
-           
-            if (bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
-            {
-                DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                if (returnDialogResult == DialogResult.Yes)
-                {
-                    //populate account object first to obtain account number for booking object
-                    PopulateAccountObject();
-                    bookingController.DataMaintenance(account, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(account);
-
-                    //populate booking object
-                    PopulateBookingObject();
-                    bookingController.DataMaintenance(booking, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(booking);
-
-                    //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
-                    PopulateRoomBookingObject();
-                    bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
-                    bookingController.FinalizeChanges(roombooking);
-
-                    MessageBox.Show("Customer booking reference number is: " + storeBookigID + "\nCurrent Amount Due: R" + account.AmountDue + "\nDeposit Amount (To be paid within 14 days of arrival): R" + account.DepositAmount, "Important Booking Information For Guest", MessageBoxButtons.OK,MessageBoxIcon.Information);
-
-                    //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
-                    DialogResult = DialogResult.OK;
-                }
-            }
-            else
-            {
-                MessageBox.Show("No available rooms between " + dTPArrivalDate.Value.Date + " and " + dTPDepartureDate.Value.Date
-                    + "\nPlease select another set of dates.", "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                dTPArrivalDate.Text = "";
-                dTPDepartureDate.Text = "";
-                dTPArrivalDate.Focus();
-
-            }            
-
-        }
-
         private bool IsValidData()
         {
             return
                 // Validate all the items to ensure they all have the correct inputs
-                // This ensure that that the input texts (strings) are correctly inputed.
-                Validator.IsPresent(iDTxt) &&
-                Validator.IsPresent(txtFName) &&
-                Validator.IsPresent(txtLName) &&
-                Validator.IsPresent(txtEmail) &&
-                Validator.IsPresent(txtCity) &&
-                Validator.IsPresent(txtStreet) &&
-                Validator.IsPresent(txtSuburb) &&
-                Validator.IsPresent(txtPostal) &&
-
+                Validator.IsDateTime(dTPArrivalDate) &&
+                Validator.IsDateTime(dTPDepartureDate)&&
+                Validator.IsFutureDateTime(dTPArrivalDate) &&
+                Validator.IsFutureDateTime(dTPDepartureDate) &&
+                Validator.IsInt32(txtNoOfPeople) &&
 
                 //The below ensures that the ID is only allowed to be 13 digits.
                 Validator.IsWithinRange1(txtNoOfPeople);
 
         }
 
+        private void btnRoomAvailability_Click(object sender, EventArgs e)
+        {
+            //try catch block to catch any errors
+            try
+            {
+                if (IsValidData())
+                {
+                    //controller class enacts availability method to determine whether a room is available for specified dates
+                    if (bookingController.isAvailable(dTPArrivalDate.Value, dTPDepartureDate.Value) == true)
+                    {
+                        DialogResult returnDialogResult = MessageBox.Show("Confirm Booking", "Booking Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                        if (returnDialogResult == DialogResult.Yes)
+                        {
+                            //populate account object first to obtain account number for booking object
+                            PopulateAccountObject();
+                            bookingController.DataMaintenance(account, DB.DBOperation.Add);
+                            bookingController.FinalizeChanges(account);
+
+                            //populate booking object
+                            PopulateBookingObject();
+                            bookingController.DataMaintenance(booking, DB.DBOperation.Add);
+                            bookingController.FinalizeChanges(booking);
+
+                            //Must also populate roomBooking class - so give it the newly populated booking object and the associated room
+                            PopulateRoomBookingObject();
+                            bookingController.DataMaintenance(roombooking, DB.DBOperation.Add);
+                            bookingController.FinalizeChanges(roombooking);
+
+                            MessageBox.Show("Customer booking reference number is: " + storeBookigID + "\nCurrent Amount Due: R" + account.AmountDue + "\nDeposit Amount (To be paid within 14 days of arrival): R" + account.DepositAmount, "Important Booking Information For Guest", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            //assigns the dialogresult variable the value of OK when pressed. MDIParent reads this, closes the form, and shows itself
+                            DialogResult = DialogResult.OK;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No available rooms between " + dTPArrivalDate.Value.Date + " and " + dTPDepartureDate.Value.Date
+                            + "\nPlease select another set of dates.", "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        dTPArrivalDate.Text = "";
+                        dTPDepartureDate.Text = "";
+                        dTPArrivalDate.Focus();
+
+                    }
+                }
+
+
+            }
+            catch (Exception ex) //catch any other expection that might occur
+            {
+                MessageBox.Show(ex.Message + "\n\n" +
+                ex.GetType().ToString() + "\n" +
+                ex.StackTrace, "Exception");
+            }
+
+            
+
+        }      
+
         #endregion
 
         #region ListView set up
+        //populates the list view with booking records from db
         public void setUpCustomerListView()
         {
             ListViewItem customerDetails;
             persons = null;
             customersListView.Clear();
 
+            //Inserts column names into the listview
             customersListView.Columns.Insert(0, "CustomerID", 160, HorizontalAlignment.Left);
             customersListView.Columns.Insert(1, "PersonID", 160, HorizontalAlignment.Left);
             customersListView.Columns.Insert(2, "FirstName", 160, HorizontalAlignment.Left);
             customersListView.Columns.Insert(3, "SecondName", 160, HorizontalAlignment.Left);
-            /*customersListView.Columns.Insert(4, "StreetName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(5, "SuburbName", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(6, "Cityname", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(7, "PostalCode", 120, HorizontalAlignment.Left);
-            customersListView.Columns.Insert(8, "Email", 120, HorizontalAlignment.Left);*/
 
+            //populates collections with all records from db
             customers = bookingController.AllCustomers;
             persons = bookingController.AllPersons;
+
+            //uses two foreach loops to find the corresponding customer and person records from the two separate tables using the foreign key PersonID to see if they correspond.
+            //if they correspond then the attributes from those corresponding objects are used to populate the listview
             foreach (Customer customer in customers)
             {               
                 foreach(Person person in persons)
-                {
-                    
-                    
+                {                                   
                     customerDetails = new ListViewItem();
                     if (customer.getPersonID.Equals(person.getPersonID))
                     {
+                        //listview column cells are populated with corresponding record information retrieved from collections
                         customerDetails.Text = customer.CustomerID.ToString();
                         customerDetails.SubItems.Add(customer.getPersonID);
                         customerDetails.SubItems.Add(person.getFName.ToString());
                         customerDetails.SubItems.Add(person.getSName.ToString());
-                        /*customerDetails.SubItems.Add(person.getEmail.ToString());
-                        customerDetails.SubItems.Add(person.getStreetName.ToString());
-                        customerDetails.SubItems.Add(person.getSuburbName.ToString());
-                        customerDetails.SubItems.Add(person.getCityName.ToString());
-                        customerDetails.SubItems.Add(person.getPostalCode.ToString())*/;
+
                         customersListView.Items.Add(customerDetails);
                     }
                 }
@@ -268,26 +275,13 @@ namespace Phumla_Kamnandi_Hotel.Presentation
             EnableEntries(true);
             if (customersListView.SelectedItems.Count > 0)   // if you selected an item 
             {
-                //person = bookingController.FindPerson(customersListView.SelectedItems[0].Text);  //selected customer becomes current customer
+                //first cell of selected item is used as parameter for findcustomer method to find the corresponding object in the collection populated from the db 
                 customer = bookingController.FindCustomer(customersListView.SelectedItems[0].Text);
                 customerID = customer.CustomerID;
             }
             
         }
-
-
-
         #endregion
-
-        private void txtNoOfPeople_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDate_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void currentDatetxt_TextChanged(object sender, EventArgs e)
         {
